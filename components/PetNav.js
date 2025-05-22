@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export default function PetNav() {
   return (
-    <StyledSection>
+    <StyledNav>
       <StyledButtonActive>Interaction</StyledButtonActive>
       <StyledButtonInactive>Details</StyledButtonInactive>
-    </StyledSection>
+    </StyledNav>
   );
 }
 
-const StyledSection = styled.section`
+const StyledNav = styled.nav`
   position: fixed;
   width: 100%;
   bottom: 0;
