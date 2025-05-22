@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function InteractionPage() {
   return (
-    <StyledSection>
+    <StyledMain>
       <StyledHeader>Pet Name</StyledHeader>
       <StyledImageSetion />
       <StyledButtonContainer>
@@ -10,11 +10,11 @@ export default function InteractionPage() {
         <StyledButton>Interact</StyledButton>
         <StyledButton>Interact</StyledButton>
       </StyledButtonContainer>
-    </StyledSection>
+    </StyledMain>
   );
 }
 
-const StyledSection = styled.section`
+const StyledMain = styled.main`
   display: grid;
   place-items: center;
 `;
