@@ -33,8 +33,9 @@ export default function PetDetails() {
         there is always a spark of adventure in her eyes - ready to chase after
         every feather that flies by.
       </p>
-      <StyledLabel>Character:</StyledLabel>
-      <StyledCharacterTag>playful</StyledCharacterTag>
+      <StyledLabel>
+        Character: <StyledCharacterTag>playful</StyledCharacterTag>
+      </StyledLabel>
       <StyledWrapperButtons>
         <StyledButtonModify>Modify</StyledButtonModify>
         <StyledButtonDelete>Set free</StyledButtonDelete>
@@ -55,36 +56,35 @@ const StyledHeading = styled.h1`
   width: 100px;
   margin: 0 auto 1em;
   padding-bottom: 0.4rem;
-  border-bottom: 3px solid #5885DA;
+  border-bottom: 3px solid #5885da;
 `;
 
 const StyledWrapperFirstDetails = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1rem;
 `;
 
 const StyledDetailsList = styled.ul`
   padding: 0;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 `;
 
-const StyledRow = styled.div`
+const StyledRow = styled.li`
   display: flex;
   gap: 0.5rem;
   align-items: flex-start;
+  margin: 0.5em 0;
 `;
 
-const StyledLabel = styled.span`
+const StyledLabel = styled.p`
   font-weight: 800;
+  margin: 0;
 `;
 
-const StyledValue = styled.span`
-  flex: 1;
+const StyledValue = styled.p`
+  margin: 0;
 `;
 
 const StyledImage = styled.section`
@@ -93,17 +93,17 @@ const StyledImage = styled.section`
   height: auto;
 `;
 
-const StyledCharacterTag = styled.p`
+const StyledCharacterTag = styled.span`
   display: inline-block;
   padding: 0.15rem 0.75rem;
-  border: 1px solid #EA738D;
+  border: 1px solid #ea738d;
   border-radius: 4px;
   color: #333;
   margin-left: 0.7rem;
 `;
 
 const StyledButtonModify = styled.button`
-  border: 3px #5885DA solid;
+  border: 3px #5885da solid;
   background-color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
@@ -111,12 +111,12 @@ const StyledButtonModify = styled.button`
 `;
 
 const StyledButtonDelete = styled(StyledButtonModify)`
-  border: 3px #FF3021 solid;
+  border: 3px #ff3021 solid;
 `;
 
 const StyledWrapperButtons = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 2em;
-  margin-top: 1em;
+  margin-top: 2em;
 `;
