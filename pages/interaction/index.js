@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PetNav from "@/components/PetNav";
 
 export default function InteractionPage() {
   return (
@@ -11,6 +12,7 @@ export default function InteractionPage() {
         <StyledButton>Interact</StyledButton>
       </StyledButtonContainer>
     </StyledMain>
+    <PetNav />
   );
 }
 
