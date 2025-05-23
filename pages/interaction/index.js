@@ -3,16 +3,18 @@ import PetNav from "@/components/PetNav";
 
 export default function InteractionPage() {
   return (
-    <StyledMain>
-      <StyledHeader>Pet Name</StyledHeader>
-      <StyledImageSetion />
-      <StyledButtonContainer>
-        <StyledButton>Interact</StyledButton>
-        <StyledButton>Interact</StyledButton>
-        <StyledButton>Interact</StyledButton>
-      </StyledButtonContainer>
-    </StyledMain>
-    <PetNav />
+    <>
+      <StyledMain>
+        <StyledHeader>Pet Name</StyledHeader>
+        <StyledImageSetion />
+        <StyledButtonContainer>
+          <StyledButton>Interact</StyledButton>
+          <StyledButton>Interact</StyledButton>
+          <StyledButton>Interact</StyledButton>
+        </StyledButtonContainer>
+      </StyledMain>
+      <PetNav />
+    </>
   );
 }
 
