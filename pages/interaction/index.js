@@ -3,22 +3,20 @@ import PetNav from "@/components/PetNav";
 
 export default function InteractionPage() {
   return (
-    <>
-      <StyledSection>
-        <StyledHeader>Pet Name</StyledHeader>
-        <StyledImageSetion />
-        <StyledButtonContainer>
-          <StyledButton>Interact</StyledButton>
-          <StyledButton>Interact</StyledButton>
-          <StyledButton>Interact</StyledButton>
-        </StyledButtonContainer>
-      </StyledSection>
-      <PetNav />
-    </>
+    <StyledMain>
+      <StyledHeader>Pet Name</StyledHeader>
+      <StyledImageSetion />
+      <StyledButtonContainer>
+        <StyledButton>Interact</StyledButton>
+        <StyledButton>Interact</StyledButton>
+        <StyledButton>Interact</StyledButton>
+      </StyledButtonContainer>
+    </StyledMain>
+    <PetNav />
   );
 }
 
-const StyledSection = styled.section`
+const StyledMain = styled.main`
   display: grid;
   place-items: center;
 `;
