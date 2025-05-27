@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PetForm from "@/components/PetForm";
 
 const Container = styled.div`
   padding: 24px;
@@ -147,6 +148,8 @@ export default function HomePage() {
         <Button variant="blue">Deine Pets</Button>
         <Button variant="pink">Neues Pet</Button>
       </ButtonGroup>
+
+      <PetForm />
 
       <CardGrid>
         {mockPets.map((pet) => (
