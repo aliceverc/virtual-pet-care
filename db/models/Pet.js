@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const petSchema = new Schema({
-  id: Number,
-  appearance: Object,
-  details: Object,
-  needs: Object,
+  id: { type: Number, required: true },
+  appearance: { type: Object },
+  details: { type: Object },
+  needs: { type: Object },
 });
 
 const Pet = mongoose.models.Pet || mongoose.model("Pet", petSchema);
