@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const petSchema = new Schema({
-  id: { type: Number, required: true },
+  id: { type: String, required: true },
   appearance: {
     colors: [String, String, String],
     height: Number,

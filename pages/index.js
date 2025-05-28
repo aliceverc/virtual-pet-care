@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import PetForm from "@/components/PetForm";
+import useSWR from "swr";
+import { uid } from "uid";
 
 const Container = styled.div`
   padding: 24px;
@@ -123,6 +125,48 @@ export default function HomePage() {
     { id: 3, name: "Drache", needs: ["green", "orange"] },
   ];
 
+  const { mutate } = useSWR("/api/pets");
+
+  async function handleAddPet(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const petData = Object.fromEntries(formData);
+    const formattedPetData = {
+      id: uid(),
+      appearance: {
+        colors: [
+          petData.firstColor,
+          petData.secondColor,
+          petData.thirdColor,
+        ].filter(Boolean),
+        height: parseInt(petData.height),
+        width: parseInt(petData.width),
+        shape: parseInt(petData.shape),
+        borderColor: petData.borderColor,
+        borderStrength: parseInt(petData.borderStrength),
+        borderStyle: petData.borderStyle,
+      },
+      details: {
+        name: petData.name,
+        age: 0,
+        character: petData.character,
+        description: petData.description,
+      },
+      needs: {
+        hunger: 100,
+        energy: 100,
+        entertainment: 100,
+      },
+    };
+
+    const response = await fetch("/api/pets", {
+      method: "POST",
+      body: JSON.stringify(formattedPetData),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.ok) mutate();
+  }
+
   return (
     <Container>
       <Logo>LOGO</Logo>
@@ -149,7 +193,7 @@ export default function HomePage() {
         <Button variant="pink">Neues Pet</Button>
       </ButtonGroup>
 
-      <PetForm />
+      <PetForm onSubmit={handleAddPet} />
 
       <CardGrid>
         {mockPets.map((pet) => (

@@ -20,9 +20,9 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
             type="radio"
             name="colorsAmount"
             id="singleColor"
-            value="1"
             onChange={() => setColorAmount(1)}
             defaultChecked
+            value="1"
           />
           <label htmlFor="singleColor">Single Color</label>
         </div>
@@ -31,8 +31,8 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
             type="radio"
             name="colorsAmount"
             id="duoColor"
-            value="2"
             onChange={() => setColorAmount(2)}
+            value="2"
           />
           <label htmlFor="duoColor">Duo Color</label>
         </div>
@@ -41,8 +41,8 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
             type="radio"
             name="colorsAmount"
             id="tripleColor"
-            value="3"
             onChange={() => setColorAmount(3)}
+            value="3"
           />
           <label htmlFor="tripleColor">Triple Color</label>
         </div>
@@ -110,6 +110,7 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
       <StyledLabel htmlFor="description">Description:</StyledLabel>
       <StyledTextArea
         id="description"
+        name="description"
         rows="4"
         maxLength="255"
       ></StyledTextArea>
