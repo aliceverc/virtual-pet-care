@@ -197,7 +197,6 @@ export default function HomePage() {
       </GreetingSection>
 
       <ButtonGroup>
-        {/*<Button variant="blue">Deine Pets</Button>*/}
         {isFormActive ? (
           <Button variant="pink" onClick={() => setIsFormActive(false)}>
             Close Form
