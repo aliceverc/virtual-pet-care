@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PetForm from "@/components/PetForm";
 import useSWR from "swr";
 import { uid } from "uid";
+import { useState } from "react";
 
 const Container = styled.div`
   padding: 24px;
@@ -165,6 +166,13 @@ export default function HomePage() {
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) mutate();
+    handleCloseForm();
+  }
+
+  const [isFormActive, setIsFormActive] = useState(false);
+
+  function handleCloseForm() {
+    setIsFormActive(false);
   }
 
   return (
@@ -189,11 +197,21 @@ export default function HomePage() {
       </GreetingSection>
 
       <ButtonGroup>
-        <Button variant="blue">Deine Pets</Button>
-        <Button variant="pink">Neues Pet</Button>
+        {/*<Button variant="blue">Deine Pets</Button>*/}
+        {isFormActive ? (
+          <Button variant="pink" onClick={() => setIsFormActive(false)}>
+            Close Form
+          </Button>
+        ) : (
+          <Button variant="blue" onClick={() => setIsFormActive(true)}>
+            New Pet
+          </Button>
+        )}
       </ButtonGroup>
 
-      <PetForm onSubmit={handleAddPet} />
+      {isFormActive && (
+        <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
+      )}
 
       <CardGrid>
         {mockPets.map((pet) => (
