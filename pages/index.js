@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PetList from "@/components/PetList";
 
 const Container = styled.div`
   padding: 24px;
@@ -148,19 +149,7 @@ export default function HomePage() {
         <Button variant="pink">Neues Pet</Button>
       </ButtonGroup>
 
-      <CardGrid>
-        {mockPets.map((pet) => (
-          <Card key={pet.id}>
-            <Avatar />
-            <PetName>{pet.name}</PetName>
-            <div>
-              {pet.needs.map((color, idx) => (
-                <NeedBar key={idx} color={color} />
-              ))}
-            </div>
-          </Card>
-        ))}
-      </CardGrid>
+      <PetList></PetList>
     </Container>
   );
 }
