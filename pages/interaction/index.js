@@ -4,11 +4,11 @@ import PetDisplay from "@/components/PetDisplay";
 
 const hannelore = {
   appearance: {
-    colors: ["#ffffff", "#002aa8"],
-    height: 80,
-    width: 50,
-    shape: 5,
-    borderColor: "#ea738d",
+    colors: ["#eee", "#afa", "#199"],
+    height: 120,
+    width: 100,
+    shape: 10,
+    borderColor: "#abc",
     borderStrength: 2,
     borderStyle: "solid",
   },

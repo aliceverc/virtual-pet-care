@@ -1,10 +1,20 @@
 import { keyframes } from "styled-components";
 import styled from "styled-components";
 
+const defaultAppearance = {
+  colors: ["#5885DA"],
+  height: 80,
+  width: 80,
+  shape: 3,
+  borderColor: "#000",
+  borderStrength: 0,
+  borderStyle: "solid",
+};
+
 export default function PetDisplay({ appearance }) {
   return (
     <PetContainer>
-      <Pet $appearance={appearance}>
+      <Pet $appearance={appearance ? appearance : defaultAppearance}>
         <Eye />
         <Eye />
       </Pet>
@@ -36,9 +46,28 @@ const idle = keyframes`
 const Pet = styled.div`
   width: ${(props) => props.$appearance.width + "px"};
   height: ${(props) => props.$appearance.height + "px"};
-  background-color: ${(props) => props.$appearance.colors[1]};
+  background: linear-gradient(
+    180deg,
+    ${(props) =>
+        props.$appearance.colors.length == 1 &&
+        props.$appearance.colors[0] + " 0%"}
+      ${(props) =>
+        props.$appearance.colors.length == 2 &&
+        props.$appearance.colors[0] +
+          " 0%, " +
+          props.$appearance.colors[1] +
+          " 100%"}
+      ${(props) =>
+        props.$appearance.colors.length == 3 &&
+        props.$appearance.colors[0] +
+          " 0%, " +
+          props.$appearance.colors[1] +
+          " 50%, " +
+          props.$appearance.colors[2] +
+          " 100%"}
+  );
+
   border-radius: ${(props) => props.$appearance.shape + "%"};
-  //border funktioniert noch nicht
   border: ${(props) => `
     ${props.$appearance.borderStrength}px 
     ${props.$appearance.borderStyle} 
