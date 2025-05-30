@@ -1,12 +1,38 @@
 import styled from "styled-components";
 import PetNav from "@/components/PetNav";
+import PetDisplay from "@/components/PetDisplay";
+
+const hannelore = {
+  appearance: {
+    colors: ["#eee", "#afa", "#199"],
+    height: 120,
+    width: 100,
+    shape: 10,
+    borderColor: "#abc",
+    borderStrength: 2,
+    borderStyle: "solid",
+  },
+  details: {
+    name: "Hannelore",
+    age: 0,
+    character: "relaxed",
+    description: "Likes to go hiking even when it's cloudy outside",
+  },
+  needs: {
+    hunger: 100,
+    energy: 100,
+    entertainment: 100,
+  },
+  _id: "68382456fed4bef789127f59",
+  __v: 0,
+};
 
 export default function InteractionPage() {
   return (
     <>
       <StyledMain>
         <StyledHeader>Pet Name</StyledHeader>
-        <StyledImageSetion />
+        <PetDisplay appearance={hannelore.appearance} />
         <StyledButtonContainer>
           <StyledButton>Interact</StyledButton>
           <StyledButton>Interact</StyledButton>
@@ -28,14 +54,6 @@ const StyledHeader = styled.h2`
   width: 200px;
   text-align: center;
   border-bottom: 3px solid #5885da;
-`;
-
-const StyledImageSetion = styled.section`
-  margin-top: 20px;
-  width: 150px;
-  height: 150px;
-  border: 2px solid #333;
-  border-radius: 3px;
 `;
 
 const StyledButtonContainer = styled.section`
