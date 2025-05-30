@@ -57,6 +57,7 @@ const ImagePlaceholder = styled.div`
 
 const Button = styled.button`
   padding: 10px 20px;
+  margin-bottom: 15px;
   font-size: 16px;
   border: 2px solid;
   border-radius: 6px;
