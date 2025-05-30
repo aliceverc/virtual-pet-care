@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import PetCard from "@/components/PetCard";
 import styled from "styled-components";
+import PetList from "@/components/PetList";
 
 const fetcher = (url) => fetch(url).then(res => res.json());
 
@@ -40,6 +41,7 @@ export default function HomePage() {
           <PetCard key={pet._id} pet={pet} />
         ))}
       </CardGrid>
+      <PetList/>
     </Container>
   );
 }
@@ -124,3 +126,32 @@ const CardGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
 `;
+
+const Card = styled.div`
+  background: white;
+  border: 2px solid #4a90e2;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+`;
+
+const Avatar = styled.div`
+  width: 80px;
+  height: 80px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+`;
+
+const PetName = styled.div`
+  font-weight: bold;
+  margin-bottom: 12px;
+`;
+
+const NeedBar = styled.div`
+  height: 8px;
+  border-radius: 4px;
+  margin: 3px 0;
+  background-color: ${(props) => props.color};
+`;
+
