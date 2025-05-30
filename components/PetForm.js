@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
+export default function PetForm({ onSubmit, onClose }) {
   const [colorAmount, setColorAmount] = useState(1);
 
   return (
