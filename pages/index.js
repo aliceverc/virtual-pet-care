@@ -3,6 +3,7 @@ import PetForm from "@/components/PetForm";
 import useSWR from "swr";
 import { uid } from "uid";
 import { useState } from "react";
+import PetList from "@/components/PetList";
 
 const Container = styled.div`
   padding: 24px;
@@ -203,19 +204,7 @@ export default function HomePage() {
         <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
       )}
 
-      <CardGrid>
-        {mockPets.map((pet) => (
-          <Card key={pet.id}>
-            <Avatar />
-            <PetName>{pet.name}</PetName>
-            <div>
-              {pet.needs.map((color, idx) => (
-                <NeedBar key={idx} color={color} />
-              ))}
-            </div>
-          </Card>
-        ))}
-      </CardGrid>
+      <PetList></PetList>
     </Container>
   );
 }
