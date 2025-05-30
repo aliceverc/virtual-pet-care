@@ -1,4 +1,48 @@
+import useSWR from "swr";
+import PetCard from "@/components/PetCard";
 import styled from "styled-components";
+
+const fetcher = (url) => fetch(url).then(res => res.json());
+
+export default function HomePage() {
+  const { data: pets, error } = useSWR("/api/pets", fetcher);
+
+  if (!pets && !error) return <p>Lade Haustiere...</p>;
+  if (error) return <p>Fehler beim Laden der Haustiere</p>;
+  if (!pets || pets.length === 0) return <p>Keine Haustiere gefunden.</p>;
+
+  return (
+    <Container>
+      <Logo>LOGO</Logo>
+
+      <NewsBanner>Tier Bär hat Hunger | Tier Hund will spielen | Tier Drache hat Tier Essen bekommen</NewsBanner>
+
+      <GreetingSection>
+        <TextContent>
+          <Greeting>Hallo!</Greeting>
+          <p>
+            Schön, dass du wieder da bist!
+            <br />
+            Deine Pets warten schon auf dich
+            <br />
+          </p>
+        </TextContent>
+        <ImagePlaceholder>Bild</ImagePlaceholder>
+      </GreetingSection>
+
+      <ButtonGroup>
+        <Button variant="blue">Deine Pets</Button>
+        <Button variant="pink">Neues Pet</Button>
+      </ButtonGroup>
+
+      <CardGrid>
+        {pets.map((pet) => (
+          <PetCard key={pet._id} pet={pet} />
+        ))}
+      </CardGrid>
+    </Container>
+  );
+}
 
 const Container = styled.div`
   padding: 24px;
@@ -80,87 +124,3 @@ const CardGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
 `;
-
-const Card = styled.div`
-  background: white;
-  border: 2px solid #4a90e2;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-`;
-
-const Avatar = styled.div`
-  width: 80px;
-  height: 80px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin: 0 auto 12px;
-`;
-
-const PetName = styled.div`
-  font-weight: bold;
-  margin-bottom: 12px;
-`;
-
-const NeedBar = styled.div`
-  height: 8px;
-  border-radius: 4px;
-  margin: 3px 0;
-  background-color: ${(props) => props.color};
-`;
-
-export default function HomePage() {
-  const mockNews = [
-    "Tier Bär hat Hunger",
-    "Tier Hund will spielen",
-    "Tier Drache hat Tier Essen bekommen",
-  ];
-
-  const mockPets = [
-    { id: 1, name: "Bär", needs: ["red", "green", "orange"] },
-    { id: 2, name: "Hund", needs: ["red", "orange"] },
-    { id: 3, name: "Drache", needs: ["green", "orange"] },
-  ];
-
-  return (
-    <Container>
-      <Logo>LOGO</Logo>
-
-      <NewsBanner>{mockNews.join(" | ")}</NewsBanner>
-
-      <GreetingSection>
-        <TextContent>
-          <Greeting>Hallo ***</Greeting>
-          <p>
-            Schön, dass du wieder da bist!
-            <br />
-            Deine Pets warten schon auf dich
-            <br />
-            <br />
-            Was willst du heute machen?
-          </p>
-        </TextContent>
-        <ImagePlaceholder>Bild</ImagePlaceholder>
-      </GreetingSection>
-
-      <ButtonGroup>
-        <Button variant="blue">Deine Pets</Button>
-        <Button variant="pink">Neues Pet</Button>
-      </ButtonGroup>
-
-      <CardGrid>
-        {mockPets.map((pet) => (
-          <Card key={pet.id}>
-            <Avatar />
-            <PetName>{pet.name}</PetName>
-            <div>
-              {pet.needs.map((color, idx) => (
-                <NeedBar key={idx} color={color} />
-              ))}
-            </div>
-          </Card>
-        ))}
-      </CardGrid>
-    </Container>
-  );
-}
