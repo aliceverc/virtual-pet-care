@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import PetForm from "@/components/PetForm";
+import useSWR from "swr";
+import { uid } from "uid";
+import { useState } from "react";
 import PetList from "@/components/PetList";
 
 const Container = styled.div`
@@ -52,15 +56,9 @@ const ImagePlaceholder = styled.div`
   color: #666;
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 32px;
-`;
-
 const Button = styled.button`
   padding: 10px 20px;
+  margin-bottom: 15px;
   font-size: 16px;
   border: 2px solid;
   border-radius: 6px;
@@ -123,6 +121,55 @@ export default function HomePage() {
     { id: 3, name: "Drache", needs: ["green", "orange"] },
   ];
 
+  const { mutate } = useSWR("/api/pets");
+
+  async function handleAddPet(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const petData = Object.fromEntries(formData);
+    const formattedPetData = {
+      id: uid(),
+      appearance: {
+        colors: [
+          petData.firstColor,
+          petData.secondColor,
+          petData.thirdColor,
+        ].filter(Boolean),
+        height: parseInt(petData.height),
+        width: parseInt(petData.width),
+        shape: parseInt(petData.shape),
+        borderColor: petData.borderColor,
+        borderStrength: parseInt(petData.borderStrength),
+        borderStyle: petData.borderStyle,
+      },
+      details: {
+        name: petData.name,
+        age: 0,
+        character: petData.character,
+        description: petData.description,
+      },
+      needs: {
+        hunger: 100,
+        energy: 100,
+        entertainment: 100,
+      },
+    };
+
+    const response = await fetch("/api/pets", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formattedPetData),
+    });
+    if (response.ok) mutate();
+    handleCloseForm();
+  }
+
+  const [isFormActive, setIsFormActive] = useState(false);
+
+  function handleCloseForm() {
+    setIsFormActive(false);
+  }
+
   return (
     <Container>
       <Logo>LOGO</Logo>
@@ -144,10 +191,19 @@ export default function HomePage() {
         <ImagePlaceholder>Bild</ImagePlaceholder>
       </GreetingSection>
 
-      <ButtonGroup>
-        <Button variant="blue">Deine Pets</Button>
-        <Button variant="pink">Neues Pet</Button>
-      </ButtonGroup>
+      {isFormActive ? (
+        <Button variant="pink" onClick={() => setIsFormActive(false)}>
+          Close Form
+        </Button>
+      ) : (
+        <Button variant="blue" onClick={() => setIsFormActive(true)}>
+          New Pet
+        </Button>
+      )}
+
+      {isFormActive && (
+        <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
+      )}
 
       <PetList></PetList>
     </Container>
