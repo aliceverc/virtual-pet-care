@@ -7,69 +7,57 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
   return (
     <StyledForm onSubmit={onSubmit}>
       <h2>Create your Pet:</h2>
-      <SingleLineCentered>
-        <label htmlFor="name">Name: </label>
-        <input id="name" name="name" required></input>
-      </SingleLineCentered>
+      <label htmlFor="name">Name: </label>
+      <input id="name" name="name" required></input>
       <PreviewPlaceholder />
       <button type="button">Update Preview</button>
       <h3>Appearance</h3>
-      <SingleLine>
-        <div>
-          <input
-            type="radio"
-            name="colorsAmount"
-            id="singleColor"
-            onChange={() => setColorAmount(1)}
-            defaultChecked
-            value="1"
-          />
-          <label htmlFor="singleColor">Single Color</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="colorsAmount"
-            id="duoColor"
-            onChange={() => setColorAmount(2)}
-            value="2"
-          />
-          <label htmlFor="duoColor">Duo Color</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="colorsAmount"
-            id="tripleColor"
-            onChange={() => setColorAmount(3)}
-            value="3"
-          />
-          <label htmlFor="tripleColor">Triple Color</label>
-        </div>
-      </SingleLine>
-      <SingleLineCentered>
-        <input type="color" name="firstColor" defaultValue="#EA738D" />
-        {colorAmount > 1 && (
-          <input type="color" name="secondColor" defaultValue="#EA738D" />
-        )}
-        {colorAmount > 2 && (
-          <input type="color" name="thirdColor" defaultValue="#EA738D" />
-        )}
-      </SingleLineCentered>
+      <div>
+        <input
+          type="radio"
+          name="colorsAmount"
+          id="singleColor"
+          onChange={() => setColorAmount(1)}
+          defaultChecked
+          value="1"
+        />
+        <label htmlFor="singleColor">Single Color</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="colorsAmount"
+          id="duoColor"
+          onChange={() => setColorAmount(2)}
+          value="2"
+        />
+        <label htmlFor="duoColor">Duo Color</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="colorsAmount"
+          id="tripleColor"
+          onChange={() => setColorAmount(3)}
+          value="3"
+        />
+        <label htmlFor="tripleColor">Triple Color</label>
+      </div>
+      <input type="color" name="firstColor" defaultValue="#EA738D" />
+      {colorAmount > 1 && (
+        <input type="color" name="secondColor" defaultValue="#EA738D" />
+      )}
+      {colorAmount > 2 && (
+        <input type="color" name="thirdColor" defaultValue="#EA738D" />
+      )}
       <br />
-      <SingleLine>
+      <StyledGrid>
         <label htmlFor="width">Width:</label>
         <input id="width" name="width" type="range" min="50" max="200" />
-      </SingleLine>
-      <SingleLine>
         <label htmlFor="height">Height:</label>
         <input id="height" name="height" type="range" min="50" max="200" />
-      </SingleLine>
-      <SingleLine>
         <label htmlFor="shape">Shape:</label>
         <input id="shape" name="shape" type="range" min="0" max="50" />
-      </SingleLine>
-      <SingleLine>
         <label htmlFor="borderColor">Border Color:</label>
         <input
           id="borderColor"
@@ -77,8 +65,6 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
           type="color"
           defaultValue="#EA738D"
         />
-      </SingleLine>
-      <SingleLine>
         <label htmlFor="borderStrength">Border Strength:</label>
         <input
           id="borderStrength"
@@ -87,8 +73,6 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
           min="0"
           max="6"
         />
-      </SingleLine>
-      <SingleLine>
         <label htmlFor="borderStyle">Border Style:</label>
         <select id="borderStyle" name="borderStyle">
           <option value="solid">Solid</option>
@@ -96,9 +80,7 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
           <option value="dotted">Dotted</option>
           <option value="double">Double</option>
         </select>
-      </SingleLine>
-      <h3>Details</h3>
-      <SingleLine>
+        <StyledHeader>Details</StyledHeader>
         <label htmlFor="character">Character:</label>
         <select id="character" name="character">
           <option value="balanced">Balanced</option>
@@ -106,7 +88,7 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
           <option value="relaxed">Relaxed</option>
           <option value="gourmet">Gourmet</option>
         </select>
-      </SingleLine>
+      </StyledGrid>
       <StyledLabel htmlFor="description">Description:</StyledLabel>
       <StyledTextArea
         id="description"
@@ -114,29 +96,27 @@ export default function PetForm({ onSubmit, onClose, onUpdatePreview }) {
         rows="4"
         maxLength="255"
       ></StyledTextArea>
-      <SingleLineCentered>
-        <button onClick={onClose}>Cancel</button>
-        <button type="submit">Add Pet</button>
-      </SingleLineCentered>
+      <button onClick={onClose}>Cancel</button>
+      <button type="submit">Add Pet</button>
     </StyledForm>
   );
 }
 
-const StyledForm = styled.form`
+const StyledGrid = styled.div`
   display: grid;
-  place-items: center;
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+`;
+
+const StyledHeader = styled.h3`
+  grid-column: 1/-1;
+`;
+
+const StyledForm = styled.form`
+  //place-items: center;
   margin-bottom: 20px;
-`;
-
-const SingleLine = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const SingleLineCentered = styled(SingleLine)`
-  justify-content: space-around;
 `;
 
 const PreviewPlaceholder = styled.div`

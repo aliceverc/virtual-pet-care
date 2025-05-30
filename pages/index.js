@@ -55,13 +55,6 @@ const ImagePlaceholder = styled.div`
   color: #666;
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 32px;
-`;
-
 const Button = styled.button`
   padding: 10px 20px;
   font-size: 16px;
@@ -162,8 +155,8 @@ export default function HomePage() {
 
     const response = await fetch("/api/pets", {
       method: "POST",
-      body: JSON.stringify(formattedPetData),
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formattedPetData),
     });
     if (response.ok) mutate();
     handleCloseForm();
@@ -196,17 +189,15 @@ export default function HomePage() {
         <ImagePlaceholder>Bild</ImagePlaceholder>
       </GreetingSection>
 
-      <ButtonGroup>
-        {isFormActive ? (
-          <Button variant="pink" onClick={() => setIsFormActive(false)}>
-            Close Form
-          </Button>
-        ) : (
-          <Button variant="blue" onClick={() => setIsFormActive(true)}>
-            New Pet
-          </Button>
-        )}
-      </ButtonGroup>
+      {isFormActive ? (
+        <Button variant="pink" onClick={() => setIsFormActive(false)}>
+          Close Form
+        </Button>
+      ) : (
+        <Button variant="blue" onClick={() => setIsFormActive(true)}>
+          New Pet
+        </Button>
+      )}
 
       {isFormActive && (
         <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
