@@ -10,6 +10,7 @@ const fetcher = (url) => fetch(url).then(res => res.json());
   
 export default function HomePage() {
 
+  const [isFormActive, setIsFormActive] = useState(false);
   const { data: pets, error, mutate } = useSWR("/api/pets", fetcher);
 
   if (!pets && !error) return <p>Loading Pets...</p>;
@@ -58,7 +59,7 @@ export default function HomePage() {
     handleCloseForm();
   }
 
-  const [isFormActive, setIsFormActive] = useState(false);
+
 
   function handleCloseForm() {
     setIsFormActive(false);
