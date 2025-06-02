@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import PetCard from "@/components/PetCard";
 import styled from "styled-components";
 import PetForm from "@/components/PetForm";
