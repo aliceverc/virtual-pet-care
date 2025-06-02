@@ -25,7 +25,7 @@ function getColor(value) {
   return "#2ecc71"; 
 }
 
-const Card = styled.div`
+const Card = styled.article`
   background: white;
   border: 2px solid #4a90e2;
   border-radius: 12px;
@@ -34,19 +34,19 @@ const Card = styled.div`
   cursor: pointer;
 `;
 
-const PetName = styled.div`
+const PetName = styled.h4`
   font-weight: bold;
   margin-top: 12px;
   margin-bottom: 12px;
 `;
 
-const NeedsWrapper = styled.div`
+const NeedsWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 4px;
 `;
 
-const NeedBar = styled.div`
+const NeedBar = styled.li`
   height: 8px;
   border-radius: 4px;
   background-color: ${(props) => props.color};

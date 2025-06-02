@@ -1,6 +1,6 @@
 export default function PetHappiness({ needs }) {
-  const averageNeed =
-    (needs.hunger + needs.energy + needs.entertainment) / 3;
+  const values = Object.values(needs);
+  const averageNeed = values.reduce((sum, val) => sum + val, 0) / values.length;
 
   let mood = "😐";
   if (averageNeed > 70) mood = "😄";

@@ -56,8 +56,8 @@ export default function PetDetails() {
       </div>
 
       <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
-        <StyledButtonModify>Edit Pet</StyledButtonModify>
-        <StyledButtonDelete>Release Pet</StyledButtonDelete>
+        <StyledButton variant="modify">Edit Pet</StyledButton>
+        <StyledButton variant="delete">Release Pet</StyledButton>
       </div>
 
       <PetNav />
@@ -74,34 +74,31 @@ const StyledHeading = styled.h1`
   border-bottom: 3px solid #5885da;
 `;
 
-const StyledWrapperFirstDetails = styled.div`
+const StyledWrapperFirstDetails = styled.section`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 `;
 
-const StyledWrapperSecondDetails = styled.div`
+const StyledWrapperSecondDetails = styled.section`
   margin-top: 2rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
 `;
 
-const StyledNeedsWrapper = styled.div`
+const StyledNeedsWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 2rem;
 `;
-
-const StyledButtonModify = styled.button`
-  border: 3px #5885da solid;
+const StyledButton = styled.button`
+  border: 3px solid
+    ${({ variant }) => (variant === 'delete' ? '#ff3021' : '#5885da')};
   background-color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
   font-weight: 600;
 `;
 
-const StyledButtonDelete = styled(StyledButtonModify)`
-  border: 3px #ff3021 solid;
-`;
