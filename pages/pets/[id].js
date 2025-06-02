@@ -32,15 +32,15 @@ export default function PetDetails() {
       </StyledWrapperFirstDetails>
 
       <StyledWrapperSecondDetails>
-        <p>
-          <strong>Age:</strong> {pet.age}
-        </p>
-        <p>
-          <strong>Character:</strong> {pet.character}
-        </p>
-        <p>
-          <strong>Description:</strong> {pet.description}
-        </p>
+        <DetailText>
+          <strong>Age:</strong> {pet.details.age} {pet.details.age == 1 ? "year" : "years" }
+        </DetailText>
+        <DetailText>
+          <strong>Character:</strong> {pet.details.character}
+        </DetailText>
+        <DetailText>
+          <strong>Description:</strong> {pet.details.description}
+        </DetailText>
       </StyledWrapperSecondDetails>
 
       <StyledNeedsWrapper>
@@ -64,6 +64,13 @@ export default function PetDetails() {
     </>
   );
 }
+
+const DetailText = styled.p`
+  margin: 0.5rem 0;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  color: #333;
+`;
 
 const StyledHeading = styled.h1`
   text-align: center;

@@ -9,20 +9,14 @@ export default function PetCard({ pet }) {
       <Card>
         <PetDisplay appearance={pet.appearance} />
         <PetName>{pet.name}</PetName>
-          <NeedsWrapper>
-            {Object.entries(pet.needs).map(([need, value]) => (
-              <NeedsBar key={need} need={need} value={value} />
-            ))}
-          </NeedsWrapper>
+        <NeedsWrapper>
+          {Object.entries(pet.needs).map(([need, value]) => (
+            <NeedsBar key={need} need={need} value={value} />
+          ))}
+        </NeedsWrapper>
       </Card>
     </Link>
   );
-}
-
-function getColor(value) {
-  if (value < 30) return "#e74c3c"; 
-  if (value < 70) return "#f39c12"; 
-  return "#2ecc71"; 
 }
 
 const Card = styled.article`
@@ -44,10 +38,4 @@ const NeedsWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 4px;
-`;
-
-const NeedBar = styled.li`
-  height: 8px;
-  border-radius: 4px;
-  background-color: ${(props) => props.color};
 `;
