@@ -69,8 +69,6 @@ export default function HomePage() {
     <Container>
       <Logo>LOGO</Logo>
 
-      <NewsBanner>{mockNews.join(" | ")}</NewsBanner>
-
       <GreetingSection>
         <TextContent>
           <Greeting>Welcome!</Greeting>
@@ -115,16 +113,6 @@ const Logo = styled.h1`
   font-size: 36px;
   color: #4a90e2;
   margin-bottom: 20px;
-`;
-
-const NewsBanner = styled.div`
-  background-color: #e1ecf9;
-  color: #2c3e50;
-  padding: 8px;
-  text-align: center;
-  font-size: 14px;
-  border-radius: 5px;
-  margin-bottom: 30px;
 `;
 
 const GreetingSection = styled.div`
