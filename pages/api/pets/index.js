@@ -13,6 +13,11 @@ export default async function handler(req, res) {
     }
     return;
   }
-
-  res.status(405).json({ message: "Method not allowed" });
+  if (request.method === "POST") {
+    const petData = request.body;
+    await Pet.create(petData);
+    response.status(201).json({ status: "Pet created" });
+    return;
+  }
+  response.status(405).json({ status: "Method not found" });
 }

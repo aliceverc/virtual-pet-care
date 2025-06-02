@@ -1,50 +1,110 @@
 import useSWR from "swr";
 import PetCard from "@/components/PetCard";
 import styled from "styled-components";
+import PetForm from "@/components/PetForm";
+import useSWR from "swr";
+import { uid } from "uid";
+import { useState } from "react";
 import PetList from "@/components/PetList";
 
 const fetcher = (url) => fetch(url).then(res => res.json());
-
+  
 export default function HomePage() {
-  const { data: pets, error } = useSWR("/api/pets", fetcher);
 
-  if (!pets && !error) return <p>Lade Haustiere...</p>;
-  if (error) return <p>Fehler beim Laden der Haustiere</p>;
-  if (!pets || pets.length === 0) return <p>Keine Haustiere gefunden.</p>;
+  const { data: pets, error, mutate } = useSWR("/api/pets", fetcher);
+
+  if (!pets && !error) return <p>Loading Pets...</p>;
+  if (error) return <p>Error while loading</p>;
+  if (!pets || pets.length === 0) return <p>No Pets found</p>;
+
+  
+  async function handleAddPet(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const petData = Object.fromEntries(formData);
+    const formattedPetData = {
+      id: uid(),
+      appearance: {
+        colors: [
+          petData.firstColor,
+          petData.secondColor,
+          petData.thirdColor,
+        ].filter(Boolean),
+        height: parseInt(petData.height),
+        width: parseInt(petData.width),
+        shape: parseInt(petData.shape),
+        borderColor: petData.borderColor,
+        borderStrength: parseInt(petData.borderStrength),
+        borderStyle: petData.borderStyle,
+      },
+      details: {
+        name: petData.name,
+        age: 0,
+        character: petData.character,
+        description: petData.description,
+      },
+      needs: {
+        hunger: 100,
+        energy: 100,
+        entertainment: 100,
+      },
+    };
+
+    const response = await fetch("/api/pets", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formattedPetData),
+    });
+    if (response.ok) mutate();
+    handleCloseForm();
+  }
+
+  const [isFormActive, setIsFormActive] = useState(false);
+
+  function handleCloseForm() {
+    setIsFormActive(false);
+  }
 
   return (
     <Container>
       <Logo>LOGO</Logo>
 
-      <NewsBanner>Tier Bär hat Hunger | Tier Hund will spielen | Tier Drache hat Tier Essen bekommen</NewsBanner>
+      <NewsBanner>{mockNews.join(" | ")}</NewsBanner>
 
       <GreetingSection>
         <TextContent>
-          <Greeting>Hallo!</Greeting>
+          <Greeting>Welcome!</Greeting>
           <p>
             Schön, dass du wieder da bist!
             <br />
             Deine Pets warten schon auf dich
             <br />
+            <br />
+            Was willst du heute machen?
           </p>
         </TextContent>
         <ImagePlaceholder>Bild</ImagePlaceholder>
       </GreetingSection>
 
-      <ButtonGroup>
-        <Button variant="blue">Deine Pets</Button>
-        <Button variant="pink">Neues Pet</Button>
-      </ButtonGroup>
+      {isFormActive ? (
+        <Button variant="pink" onClick={() => setIsFormActive(false)}>
+          Close Form
+        </Button>
+      ) : (
+        <Button variant="blue" onClick={() => setIsFormActive(true)}>
+          New Pet
+        </Button>
+      )}
 
-      <CardGrid>
-        {pets.map((pet) => (
-          <PetCard key={pet._id} pet={pet} />
-        ))}
-      </CardGrid>
+      {isFormActive && (
+        <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
+      )}
+
       <PetList/>
     </Container>
   );
 }
+
 
 const Container = styled.div`
   padding: 24px;
@@ -97,15 +157,9 @@ const ImagePlaceholder = styled.div`
   color: #666;
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 32px;
-`;
-
 const Button = styled.button`
   padding: 10px 20px;
+  margin-bottom: 15px;
   font-size: 16px;
   border: 2px solid;
   border-radius: 6px;
@@ -154,4 +208,6 @@ const NeedBar = styled.div`
   margin: 3px 0;
   background-color: ${(props) => props.color};
 `;
+
+
 
