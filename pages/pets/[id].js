@@ -33,7 +33,7 @@ export default function PetDetails() {
       <StyledWrapperSecondDetails>
         <DetailText>
           <strong>Age:</strong> {pet.details.age}{" "}
-          {pet.details.age == 1 ? "year" : "years"}
+          {pet.details.age === 1 ? "year" : "years"}
         </DetailText>
         <DetailText>
           <strong>Character:</strong> {pet.details.character}
