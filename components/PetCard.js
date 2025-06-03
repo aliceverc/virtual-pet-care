@@ -8,7 +8,7 @@ export default function PetCard({ pet }) {
     <Link href={`/pets/${pet._id}`} passHref>
       <Card>
         <PetDisplay appearance={pet.appearance} />
-        <PetName>{pet.name}</PetName>
+        <PetName>{pet.details.name}</PetName>
         <NeedsWrapper>
           {Object.entries(pet.needs).map(([need, value]) => (
             <NeedsBar key={need} need={need} value={value} />
@@ -29,6 +29,8 @@ const Card = styled.article`
 `;
 
 const PetName = styled.h4`
+  display: flex;
+  justify-content: center;
   font-weight: bold;
   margin-top: 12px;
   margin-bottom: 12px;

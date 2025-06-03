@@ -104,7 +104,7 @@ export default function HomePage() {
 }
 
 
-const Container = styled.div`
+const Container = styled.section`
   padding: 24px;
 `;
 

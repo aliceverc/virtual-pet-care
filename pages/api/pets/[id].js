@@ -11,13 +11,13 @@ export default async function handler(req, res) {
     try {
       const pet = await Pet.findById(id);
       if (!pet) {
-        return res.status(404).json({ message: "Pet nicht gefunden" });
+        return res.status(404).json({ message: "Pet not found" });
       }
       return res.status(200).json(pet);
     } catch (error) {
-      return res.status(500).json({ message: "Fehler beim Laden des Pets", error });
+      return res.status(500).json({ message: "Error Loading Pets", error });
     }
   }
 
-  res.status(405).json({ message: "Methode nicht erlaubt" });
+  res.status(405).json({ message: "Methode not allowed" });
 }

@@ -5,6 +5,7 @@ import PetHappiness from "@/components/PetHappiness";
 import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
 import styled from "styled-components";
+import { findByLabelText } from "@testing-library/react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -24,7 +25,7 @@ export default function PetDetails() {
   return (
     <>
       <StyledHeading>Details</StyledHeading>
-      <h2>{pet.name}</h2>
+      <StyledHeadingName>{pet.details.name}</StyledHeadingName>
 
       <StyledWrapperFirstDetails>
         <PetDisplay appearance={pet.appearance} />
@@ -49,16 +50,16 @@ export default function PetDetails() {
         <NeedsBar need="entertainment" value={pet.needs.entertainment} />
       </StyledNeedsWrapper>
 
-      <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+      <InteractionButtons>
         <button>Eat</button>
         <button>Sleep</button>
         <button>Play</button>
-      </div>
+      </InteractionButtons>
 
-      <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
+      <ButtonWrapper>
         <StyledButton variant="modify">Edit Pet</StyledButton>
         <StyledButton variant="delete">Release Pet</StyledButton>
-      </div>
+      </ButtonWrapper>
 
       <PetNav />
     </>
@@ -81,10 +82,17 @@ const StyledHeading = styled.h1`
   border-bottom: 3px solid #5885da;
 `;
 
+const StyledHeadingName = styled.h2`
+  text-align: center;
+  font-size: 1.25rem;
+  justify-content: center;
+  width: auto;
+`;
+
 const StyledWrapperFirstDetails = styled.section`
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  margin-right: 5%;
 `;
 
 const StyledWrapperSecondDetails = styled.section`
@@ -107,5 +115,18 @@ const StyledButton = styled.button`
   border-radius: 5px;
   padding: 10px 20px;
   font-weight: 600;
+  margin-bottom: 5%;
 `;
 
+const InteractionButtons = styled.button`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const ButtonWrapper = styled.section`
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  background-color: transparent;
+`;
