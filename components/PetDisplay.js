@@ -3,30 +3,37 @@ import styled from "styled-components";
 
 const defaultAppearance = {
   colors: ["#5885DA"],
-  height: 80,
-  width: 80,
-  shape: 3,
+  height: 100,
+  width: 100,
+  shape: 10,
   borderColor: "#000",
   borderStrength: 0,
   borderStyle: "solid",
 };
 
-export default function PetDisplay({ appearance }) {
+export default function PetDisplay({ appearance, dimensions, hasBorder }) {
   return (
-    <PetContainer>
-      <Pet $appearance={appearance ? appearance : defaultAppearance}>
-        <Eye />
-        <Eye />
+    <PetContainer $hasBorder={hasBorder} $dimensions={dimensions}>
+      <Pet
+        $appearance={appearance ? appearance : defaultAppearance}
+        $dimensions={dimensions}
+      >
+        <Eye $dimensions={dimensions}>
+          <Pupil />
+        </Eye>
+        <Eye $dimensions={dimensions}>
+          <Pupil />
+        </Eye>
       </Pet>
     </PetContainer>
   );
 }
 
 const PetContainer = styled.figure`
-  border: 3px solid #333;
+  border: ${(props) => (props.$hasBorder ? "2px" : "0px")} solid #333;
   border-radius: 10px;
-  width: 250px;
-  height: 250px;
+  width: ${(props) => props.$dimensions + "px"};
+  height: ${(props) => props.$dimensions + "px"};
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -44,8 +51,8 @@ const idle = keyframes`
   }`;
 
 const Pet = styled.div`
-  width: ${(props) => props.$appearance.width + "px"};
-  height: ${(props) => props.$appearance.height + "px"};
+  width: ${(props) => props.$appearance.width / 2.5 + "%"};
+  height: ${(props) => props.$appearance.height / 2.5 + "%"};
   background: linear-gradient(
     180deg,
     ${(props) =>
@@ -66,8 +73,8 @@ const Pet = styled.div`
           props.$appearance.colors[2] +
           " 100%"}
   );
-
-  border-radius: ${(props) => props.$appearance.shape + "%"};
+  border-radius: ${(props) =>
+    (props.$dimensions / 100) * props.$appearance.shape + "px"};
   border: ${(props) => `
     ${props.$appearance.borderStrength}px 
     ${props.$appearance.borderStyle} 
@@ -79,10 +86,18 @@ const Pet = styled.div`
 `;
 
 const Eye = styled.div`
-  margin-top: 10px;
-  height: 10px;
-  width: 10px;
-  border-radius: 50px;
-  border: 4px solid white;
+  margin-top: 10%;
+  height: ${(props) => props.$dimensions / 12 + "px"};
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: #eee;
+  display: grid;
+  place-items: center;
+`;
+
+const Pupil = styled.div`
+  border-radius: 50%;
   background-color: black;
+  height: 50%;
+  width: 50%;
 `;

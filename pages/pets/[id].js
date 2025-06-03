@@ -5,18 +5,12 @@ import PetHappiness from "@/components/PetHappiness";
 import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
 import styled from "styled-components";
-import { findByLabelText } from "@testing-library/react";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function PetDetails() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: pet, error, isLoading } = useSWR(
-    id ? `/api/pets/${id}` : null,
-    fetcher
-  );
+  const { data: pet, error, isLoading } = useSWR(id ? `/api/pets/${id}` : null);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load pet data</p>;
@@ -28,13 +22,18 @@ export default function PetDetails() {
       <StyledHeadingName>{pet.details.name}</StyledHeadingName>
 
       <StyledWrapperFirstDetails>
-        <PetDisplay appearance={pet.appearance} />
+        <PetDisplay
+          appearance={pet.appearance}
+          dimensions={250}
+          hasBorder={true}
+        />
         <PetHappiness needs={pet.needs} />
       </StyledWrapperFirstDetails>
 
       <StyledWrapperSecondDetails>
         <DetailText>
-          <strong>Age:</strong> {pet.details.age} {pet.details.age == 1 ? "year" : "years" }
+          <strong>Age:</strong> {pet.details.age}{" "}
+          {pet.details.age === 1 ? "year" : "years"}
         </DetailText>
         <DetailText>
           <strong>Character:</strong> {pet.details.character}
@@ -110,7 +109,7 @@ const StyledNeedsWrapper = styled.section`
 `;
 const StyledButton = styled.button`
   border: 3px solid
-    ${({ variant }) => (variant === 'delete' ? '#ff3021' : '#5885da')};
+    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
