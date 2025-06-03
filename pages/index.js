@@ -1,4 +1,3 @@
-import PetCard from "@/components/PetCard";
 import styled from "styled-components";
 import PetForm from "@/components/PetForm";
 import useSWR from "swr";
@@ -6,18 +5,14 @@ import { uid } from "uid";
 import { useState } from "react";
 import PetList from "@/components/PetList";
 
-const fetcher = (url) => fetch(url).then(res => res.json());
-  
 export default function HomePage() {
-
   const [isFormActive, setIsFormActive] = useState(false);
-  const { data: pets, error, mutate } = useSWR("/api/pets", fetcher);
+  const { data: pets, error, mutate } = useSWR("/api/pets");
 
   if (!pets && !error) return <p>Loading Pets...</p>;
   if (error) return <p>Error while loading</p>;
   if (!pets || pets.length === 0) return <p>No Pets found</p>;
 
-  
   async function handleAddPet(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -59,8 +54,6 @@ export default function HomePage() {
     handleCloseForm();
   }
 
-
-
   function handleCloseForm() {
     setIsFormActive(false);
   }
@@ -98,11 +91,10 @@ export default function HomePage() {
         <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
       )}
 
-      <PetList/>
+      <PetList />
     </Container>
   );
 }
-
 
 const Container = styled.section`
   padding: 24px;
@@ -196,6 +188,3 @@ const NeedBar = styled.div`
   margin: 3px 0;
   background-color: ${(props) => props.color};
 `;
-
-
-
