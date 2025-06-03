@@ -2,10 +2,8 @@ import useSWR from "swr";
 import PetCard from "./PetCard";
 import styled from "styled-components";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 export default function PetList() {
-  const { data: pets, error, isLoading } = useSWR("/api/pets", fetcher);
+  const { data: pets, error, isLoading } = useSWR("/api/pets");
 
   console.log(pets, error, isLoading);
 
