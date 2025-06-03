@@ -1,4 +1,48 @@
+import styled from "styled-components";
 import Link from "next/link";
+
+export default function PetCard({ pet }) {
+  const { details, appearance } = pet;
+  const name = details.name;
+  return (
+    <StyledLink href={`/pets/${pet._id}`} passHref>
+      <StyledCard>
+        <CardDisplay
+          style={{
+            backgroundColor: appearance.colors[0],
+            width: appearance.width,
+            height: appearance.height,
+            border: `${appearance.borderStrength}px ${appearance.borderStyle} ${appearance.borderColor}`,
+          }}
+        />
+        <Name>{name}</Name>
+        <div>❤️</div>
+      </StyledCard>
+    </StyledLink>
+  );
+}
+const StyledCard = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.8em;
+  border: 2px solid #5885da;
+  border-radius: 8px;
+  background: white;
+`;
+const CardDisplay = styled.div`
+  border-radius: 50%;
+  margin-bottom: 0.5em;
+`;
+const Name = styled.p`
+  font-weight: 600;
+  margin: 0.5em 0;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+/*import Link from "next/link";
 import styled from "styled-components";
 import PetDisplay from "@/components/PetDisplay";
 import NeedsBar from "./NeedsBar";
@@ -41,3 +85,4 @@ const NeedsWrapper = styled.ul`
   flex-direction: column;
   gap: 4px;
 `;
+*/
