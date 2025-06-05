@@ -5,20 +5,11 @@ import PetHappiness from "@/components/PetHappiness";
 import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
 import styled from "styled-components";
-import { useEffect } from "react";
 
 export default function PetDetails() {
   const router = useRouter();
   const { id } = router.query;
   const { data: pet, error, isLoading } = useSWR(id ? `/api/pets/${id}` : null);
-
-  useEffect(() => {
-    if (id) console.log("ID ist vorhanden:", id);
-  }, [id]);
-
-  useEffect(() => {
-    if (pet) console.log("Geladenes Pet:", pet);
-  }, [pet]);
 
   if (!id) return <p>Warte auf ID...</p>;
   if (isLoading) return <p>Loading...</p>;

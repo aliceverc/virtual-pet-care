@@ -3,8 +3,6 @@ import PetNav from "@/components/PetNav";
 import PetDisplay from "@/components/PetDisplay";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { useEffect } from "react";
-
 
 export default function InteractionPage() {
 
@@ -12,14 +10,6 @@ export default function InteractionPage() {
   const { id } = router.query;
 
   const { data: pet, error, isLoading } = useSWR(id ? `/api/pets/${id}` : null);
-
-    useEffect(() => {
-    if (id) console.log("ID ist vorhanden:", id);
-  }, [id]);
-
-    useEffect(() => {
-    if (pet) console.log("Geladenes Pet:", pet);
-  }, [pet]);
 
   if (!id) return <p>Warte auf ID...</p>;
   if (isLoading) return <p>Loading...</p>;
