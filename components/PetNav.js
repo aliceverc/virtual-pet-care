@@ -47,14 +47,13 @@ const StyledButton = styled.button`
   width: 160px;
   border-radius: 3px;
   border: 3px solid #aaa;
-  background-color: white;
   color: black;
-  
-  ${(props) => props.$active && css`
+
+  ${(props) => props.$active && `
     border: none;
     background-color: #5885aa;
     color: white;
-  
   `}
-  transition: background-color 0.2 ease, color 0.2 ease;
-  `
+
+  transition: background-color 0.2s ease, color 0.2s ease;
+`;
