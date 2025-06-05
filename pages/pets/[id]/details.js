@@ -5,13 +5,22 @@ import PetHappiness from "@/components/PetHappiness";
 import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 export default function PetDetails() {
   const router = useRouter();
   const { id } = router.query;
-
   const { data: pet, error, isLoading } = useSWR(id ? `/api/pets/${id}` : null);
 
+  useEffect(() => {
+    if (id) console.log("ID ist vorhanden:", id);
+  }, [id]);
+
+  useEffect(() => {
+    if (pet) console.log("Geladenes Pet:", pet);
+  }, [pet]);
+
+  if (!id) return <p>Warte auf ID...</p>;
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load pet data</p>;
   if (!pet) return <p>No pet found.</p>;
@@ -31,16 +40,9 @@ export default function PetDetails() {
       </StyledWrapperFirstDetails>
 
       <StyledWrapperSecondDetails>
-        <DetailText>
-          <strong>Age:</strong> {pet.details.age}{" "}
-          {pet.details.age === 1 ? "year" : "years"}
-        </DetailText>
-        <DetailText>
-          <strong>Character:</strong> {pet.details.character}
-        </DetailText>
-        <DetailText>
-          <strong>Description:</strong> {pet.details.description}
-        </DetailText>
+        <DetailText><strong>Age:</strong> {pet.details.age} {pet.details.age === 1 ? "year" : "years"}</DetailText>
+        <DetailText><strong>Character:</strong> {pet.details.character}</DetailText>
+        <DetailText><strong>Description:</strong> {pet.details.description}</DetailText>
       </StyledWrapperSecondDetails>
 
       <StyledNeedsWrapper>
@@ -71,7 +73,6 @@ const DetailText = styled.p`
   font-size: 0.95rem;
   color: #333;
 `;
-
 const StyledHeading = styled.h1`
   text-align: center;
   font-size: 1.75rem;
@@ -80,27 +81,21 @@ const StyledHeading = styled.h1`
   padding-bottom: 0.4rem;
   border-bottom: 3px solid #5885da;
 `;
-
 const StyledHeadingName = styled.h2`
   text-align: center;
   font-size: 1.25rem;
-  justify-content: center;
-  width: auto;
 `;
-
 const StyledWrapperFirstDetails = styled.section`
   display: flex;
   justify-content: center;
   margin-right: 5%;
 `;
-
 const StyledWrapperSecondDetails = styled.section`
   margin-top: 2rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
 `;
-
 const StyledNeedsWrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -108,21 +103,18 @@ const StyledNeedsWrapper = styled.section`
   margin-top: 2rem;
 `;
 const StyledButton = styled.button`
-  border: 3px solid
-    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
+  border: 3px solid ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
 `;
-
-const InteractionButtons = styled.button`
+const InteractionButtons = styled.div`
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
 `;
-
 const ButtonWrapper = styled.section`
   display: flex;
   gap: 1rem;

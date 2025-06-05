@@ -5,7 +5,7 @@ export default function PetCard({ pet }) {
   const { details, appearance } = pet;
   const name = details.name;
   return (
-    <StyledLink href={`/pets/${pet._id}`} passHref>
+    <StyledLink href={`/pets/${pet._id}/interaction` }>  
       <StyledCard>
         <CardDisplay
           style={{
