@@ -1,10 +1,26 @@
+import Link from "next/link";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 export default function PetNav() {
+
+  const router = useRouter();
+  const {id} = router.query
+
+  if (!id) return null;
+
   return (
     <StyledNav>
-      <StyledButtonActive>Interaction</StyledButtonActive>
-      <StyledButtonInactive>Details</StyledButtonInactive>
+      <StyledLink href={`/pets/${id}/interaction`} >
+      <StyledButton $active={router.asPath.includes("/interaction")}>
+        Interaction
+      </StyledButton>
+      </StyledLink>
+      <StyledLink href={`/pets/${id}/details`} >
+      <StyledButton $active={router.asPath.includes("/details")}>
+        Details
+      </StyledButton>
+      </StyledLink>
     </StyledNav>
   );
 }
@@ -18,7 +34,11 @@ const StyledNav = styled.nav`
   justify-content: space-evenly;
 `;
 
-const StyledButtonInactive = styled.button`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const StyledButton = styled.button`
   margin: 15px;
   font-family: inherit;
   font-size: 1rem;
@@ -27,10 +47,13 @@ const StyledButtonInactive = styled.button`
   width: 160px;
   border-radius: 3px;
   border: 3px solid #aaa;
-`;
+  color: black;
 
-const StyledButtonActive = styled(StyledButtonInactive)`
-  border: none;
-  background-color: #5885da;
-  color: white;
+  ${(props) => props.$active && `
+    border: none;
+    background-color: #5885aa;
+    color: white;
+  `}
+
+  transition: background-color 0.2s ease, color 0.2s ease;
 `;

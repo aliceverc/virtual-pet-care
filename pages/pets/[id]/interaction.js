@@ -1,38 +1,26 @@
 import styled from "styled-components";
 import PetNav from "@/components/PetNav";
 import PetDisplay from "@/components/PetDisplay";
-
-const hannelore = {
-  appearance: {
-    colors: ["#eee", "#afa", "#199"],
-    height: 120,
-    width: 100,
-    shape: 10,
-    borderColor: "#abc",
-    borderStrength: 2,
-    borderStyle: "solid",
-  },
-  details: {
-    name: "Hannelore",
-    age: 0,
-    character: "relaxed",
-    description: "Likes to go hiking even when it's cloudy outside",
-  },
-  needs: {
-    hunger: 100,
-    energy: 100,
-    entertainment: 100,
-  },
-  _id: "68382456fed4bef789127f59",
-  __v: 0,
-};
+import { useRouter } from "next/router";
+import useSWR from "swr";
 
 export default function InteractionPage() {
+
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data: pet, error, isLoading } = useSWR(id ? `/api/pets/${id}` : null);
+
+  if (!id) return <p>Warte auf ID...</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Failed to load pet data</p>;
+  if (!pet) return <p>No pet found.</p>;
+
   return (
     <>
       <StyledMain>
-        <StyledHeader>Pet Name</StyledHeader>
-        <PetDisplay appearance={hannelore.appearance} />
+        <StyledHeader>{pet.details.name}</StyledHeader>
+        <PetDisplay appearance={pet.appearance} dimensions={250} hasBorder="true" />
         <StyledButtonContainer>
           <StyledButton>Interact</StyledButton>
           <StyledButton>Interact</StyledButton>

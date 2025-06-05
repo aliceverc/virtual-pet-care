@@ -14,11 +14,9 @@ export default async function handler(request, response) {
       }
       return response.status(200).json(pet);
     } catch (error) {
-      return response
-        .status(500)
-        .json({ message: "Error Loading Pets", error });
+      return response.status(500).json({ message: "Error Loading Pets", error });
     }
   }
 
-  response.status(405).json({ message: "Methode not allowed" });
+  response.status(405).json({ message: "Method not allowed" });
 }
