@@ -46,8 +46,15 @@ const StyledButton = styled.button`
   padding: 5px 20px;
   width: 160px;
   border-radius: 3px;
-  border: ${(props) => (props.$active ? "none" : "3px solid #aaa")};
-  background-color: ${(props) => (props.$active ? "#5885aa" : "white")};
-  color: ${(props) => (props.$active ? "white" : "black")};
+  border: 3px solid #aaa;
+  background-color: white;
+  color: black;
+  
+  ${(props) => props.$active && css`
+    border: none;
+    background-color: #5885aa;
+    color: white;
+  
+  `}
   transition: background-color 0.2 ease, color 0.2 ease;
   `
