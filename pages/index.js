@@ -7,11 +7,7 @@ import PetList from "@/components/PetList";
 
 export default function HomePage() {
   const [isFormActive, setIsFormActive] = useState(false);
-  const { data: pets, error, mutate } = useSWR("/api/pets");
-
-  if (!pets && !error) return <p>Loading Pets...</p>;
-  if (error) return <p>Error while loading</p>;
-  if (!pets || pets.length === 0) return <p>No Pets found</p>;
+  const { mutate } = useSWR("/api/pets");
 
   async function handleAddPet(event) {
     event.preventDefault();
