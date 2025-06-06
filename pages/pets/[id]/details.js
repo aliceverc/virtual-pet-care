@@ -5,16 +5,29 @@ import PetHappiness from "@/components/PetHappiness";
 import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function PetDetails() {
   const router = useRouter();
   const { id } = router.query;
   const { data: pet, error, isLoading } = useSWR(id ? `/api/pets/${id}` : null);
+  const [showDeleteBox, setShowDeleteBox] = useState(false);
 
   if (!id) return <p>Warte auf ID...</p>;
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load pet data</p>;
   if (!pet) return <p>No pet found.</p>;
+
+  async function handleConfirm() {
+    const response = await fetch(`/api/pets/${pet._id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      console.error("Delete failed");
+      return;
+    }
+    router.push("/");
+  }
 
   return (
     <>
@@ -31,9 +44,16 @@ export default function PetDetails() {
       </StyledWrapperFirstDetails>
 
       <StyledWrapperSecondDetails>
-        <DetailText><strong>Age:</strong> {pet.details.age} {pet.details.age === 1 ? "year" : "years"}</DetailText>
-        <DetailText><strong>Character:</strong> {pet.details.character}</DetailText>
-        <DetailText><strong>Description:</strong> {pet.details.description}</DetailText>
+        <DetailText>
+          <strong>Age:</strong> {pet.details.age}{" "}
+          {pet.details.age === 1 ? "year" : "years"}
+        </DetailText>
+        <DetailText>
+          <strong>Character:</strong> {pet.details.character}
+        </DetailText>
+        <DetailText>
+          <strong>Description:</strong> {pet.details.description}
+        </DetailText>
       </StyledWrapperSecondDetails>
 
       <StyledNeedsWrapper>
@@ -50,9 +70,29 @@ export default function PetDetails() {
 
       <ButtonWrapper>
         <StyledButton variant="modify">Edit Pet</StyledButton>
-        <StyledButton variant="delete">Release Pet</StyledButton>
+        <StyledButton variant="delete" onClick={() => setShowDeleteBox(true)}>
+          Release Pet
+        </StyledButton>
       </ButtonWrapper>
-
+      {showDeleteBox && (
+        <StyledDeleteBox>
+          <p>Do you really want to release your pet?</p>
+          <StyledButton variant="delete" onClick={handleConfirm}>
+            YES
+          </StyledButton>
+          <StyledButtonQuit
+            variante="no"
+            onClick={() => setShowDeleteBox(false)}
+          >
+            NO
+          </StyledButtonQuit>
+        </StyledDeleteBox>
+      )}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <PetNav />
     </>
   );
@@ -94,7 +134,8 @@ const StyledNeedsWrapper = styled.section`
   margin-top: 2rem;
 `;
 const StyledButton = styled.button`
-  border: 3px solid ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
+  border: 3px solid
+    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
@@ -111,4 +152,21 @@ const ButtonWrapper = styled.section`
   gap: 1rem;
   margin-top: 2rem;
   background-color: transparent;
+`;
+const StyledDeleteBox = styled.div`
+  z-index: 1;
+  background-color: #fff;
+  border: 2px solid #ff3021;
+  padding: 1rem;
+  margin-top: 0;
+  text-align: center;
+`;
+const StyledButtonQuit = styled.button`
+  border: 3px solid #aaa;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 600;
+  margin-bottom: 5%;
+  margin-left: 1em;
 `;
