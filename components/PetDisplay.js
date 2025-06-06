@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 const defaultAppearance = {
   colors: ["#5885DA"],
-  height: 100,
-  width: 100,
-  shape: 10,
-  borderColor: "#000",
+  borderColor: "#ea738d",
   borderStrength: 0,
   borderStyle: "solid",
+  height: 50,
+  shape: 5,
+  width: 50,
 };
 
 export default function PetDisplay({ appearance, dimensions, hasBorder }) {
@@ -37,6 +37,7 @@ const PetContainer = styled.figure`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  margin: 0;
 `;
 
 const idle = keyframes`  
@@ -51,8 +52,8 @@ const idle = keyframes`
   }`;
 
 const Pet = styled.div`
-  width: ${(props) => props.$appearance.width / 2.5 + "%"};
-  height: ${(props) => props.$appearance.height / 2.5 + "%"};
+  width: ${(props) => props.$appearance.width + "%"};
+  height: ${(props) => props.$appearance.height + "%"};
   background: linear-gradient(
     180deg,
     ${(props) =>
@@ -76,7 +77,7 @@ const Pet = styled.div`
   border-radius: ${(props) =>
     (props.$dimensions / 100) * props.$appearance.shape + "px"};
   border: ${(props) => `
-    ${props.$appearance.borderStrength}px 
+    ${(props.$dimensions / 250) * props.$appearance.borderStrength}px 
     ${props.$appearance.borderStyle} 
     ${props.$appearance.borderColor}`};
   animation: ${idle} 2.5s infinite;

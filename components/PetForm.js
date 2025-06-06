@@ -1,16 +1,53 @@
 import { useState } from "react";
 import styled from "styled-components";
+import PetDisplay from "./PetDisplay";
 
 export default function PetForm({ onSubmit, onClose }) {
   const [colorAmount, setColorAmount] = useState(1);
+  const [previewData, setPreviewData] = useState({
+    borderColor: "#ea738d",
+    borderStrength: 0,
+    borderStyle: "solid",
+    colors: ["#ea738d"],
+    height: 50,
+    shape: 5,
+    width: 50,
+  });
+
+  function handleUpdatePreview(event) {
+    event.preventDefault();
+    const form = event.currentTarget.form;
+    const formData = new FormData(form);
+    const petData = Object.fromEntries(formData);
+    setPreviewData({
+      colors: [
+        petData.firstColor,
+        petData.secondColor,
+        petData.thirdColor,
+      ].filter(Boolean),
+      height: parseInt(petData.height),
+      width: parseInt(petData.width),
+      shape: parseInt(petData.shape),
+      borderColor: petData.borderColor,
+      borderStrength: parseInt(petData.borderStrength),
+      borderStyle: petData.borderStyle,
+    });
+  }
 
   return (
     <StyledForm onSubmit={onSubmit}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
       <input id="name" name="name" required></input>
-      <PreviewPlaceholder />
-      <CenteredButton type="button">Update Preview</CenteredButton>
+      <PreviewContainer>
+        <PetDisplay dimensions="246" appearance={previewData} />
+      </PreviewContainer>
+      <CenteredButton
+        type="button"
+        onClick={(event) => handleUpdatePreview(event)}
+      >
+        Update Preview
+      </CenteredButton>
       <StyledHeader2>Appearance</StyledHeader2>
       <SingleLine>
         <div>
@@ -46,7 +83,11 @@ export default function PetForm({ onSubmit, onClose }) {
         </div>
       </SingleLine>
       <SingleLine>
-        <input type="color" name="firstColor" defaultValue="#EA738D" />
+        <input
+          type="color"
+          name="firstColor"
+          defaultValue={previewData.colors[0]}
+        />
         {colorAmount > 1 && (
           <input type="color" name="secondColor" defaultValue="#EA738D" />
         )}
@@ -59,18 +100,18 @@ export default function PetForm({ onSubmit, onClose }) {
         id="width"
         name="width"
         type="range"
-        min="50"
-        max="200"
-        defaultValue="125"
+        min="20"
+        max="80"
+        defaultValue={previewData.width}
       />
       <label htmlFor="height">Height:</label>
       <input
         id="height"
         name="height"
         type="range"
-        min="50"
-        max="200"
-        defaultValue="125"
+        min="20"
+        max="80"
+        defaultValue={previewData.height}
       />
       <label htmlFor="shape">Shape:</label>
       <input
@@ -79,14 +120,14 @@ export default function PetForm({ onSubmit, onClose }) {
         type="range"
         min="0"
         max="50"
-        defaultValue="25"
+        defaultValue={previewData.shape}
       />
       <label htmlFor="borderColor">Border Color:</label>
       <BorderColorInput
         id="borderColor"
         name="borderColor"
         type="color"
-        defaultValue="#EA738D"
+        defaultValue={previewData.borderColor}
       />
       <label htmlFor="borderStrength">Border Strength:</label>
       <input
@@ -95,7 +136,7 @@ export default function PetForm({ onSubmit, onClose }) {
         type="range"
         min="0"
         max="6"
-        defaultValue="3"
+        defaultValue={previewData.borderStrength}
       />
       <label htmlFor="borderStyle">Border Style:</label>
       <select id="borderStyle" name="borderStyle">
@@ -149,7 +190,7 @@ const StyledHeader2 = styled.h3`
   margin: 0;
 `;
 
-const PreviewPlaceholder = styled.div`
+const PreviewContainer = styled.div`
   width: 250px;
   height: 250px;
   border: 2px solid #333;
@@ -157,6 +198,8 @@ const PreviewPlaceholder = styled.div`
   grid-row: 3 / span 6;
   grid-column: 1/3;
   place-self: center;
+  display: flex;
+  justify-content: center;
 `;
 
 const CenteredButton = styled.button`
