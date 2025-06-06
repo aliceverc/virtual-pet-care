@@ -27,7 +27,6 @@ export default function PetDetails() {
           dimensions={250}
           hasBorder={true}
         />
-        <PetHappiness needs={pet.needs} />
       </StyledWrapperFirstDetails>
 
       <StyledWrapperSecondDetails>
@@ -79,7 +78,6 @@ const StyledHeadingName = styled.h2`
 const StyledWrapperFirstDetails = styled.section`
   display: flex;
   justify-content: center;
-  margin-right: 5%;
 `;
 const StyledWrapperSecondDetails = styled.section`
   margin-top: 2rem;

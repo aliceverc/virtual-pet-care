@@ -1,4 +1,6 @@
-export default function PetHappiness({ needs }) {
+import styled from 'styled-components';
+
+export default function PetHappiness({ needs, showTitle = true }) {
   const values = Object.values(needs);
   const averageNeed = values.reduce((sum, val) => sum + val, 0) / values.length;
 
@@ -8,8 +10,13 @@ export default function PetHappiness({ needs }) {
 
   return (
     <div>
-      <h3>Mood</h3>
-      <p style={{ fontSize: "2rem" }}>{mood}</p>
+      {showTitle && <h3>Mood</h3>}
+      <Emoji>{mood}</Emoji>
     </div>
   );
 }
+
+const Emoji = styled.span`
+  font-size: 2.5rem;
+  margin-left: auto;
+`;

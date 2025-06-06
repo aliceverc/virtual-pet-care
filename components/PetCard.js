@@ -1,22 +1,21 @@
 import styled from "styled-components";
 import Link from "next/link";
+import PetDisplay from "./PetDisplay";
+import PetHappiness from "./PetHappiness";
 
 export default function PetCard({ pet }) {
-  const { details, appearance } = pet;
+  const { details } = pet;
   const name = details.name;
   return (
     <StyledLink href={`/pets/${pet._id}/interaction` }>  
       <StyledCard>
-        <CardDisplay
-          style={{
-            backgroundColor: appearance.colors[0],
-            width: appearance.width,
-            height: appearance.height,
-            border: `${appearance.borderStrength}px ${appearance.borderStyle} ${appearance.borderColor}`,
-          }}
-        />
-        <Name>{name}</Name>
-        <div>❤️</div>
+          <Name>{name}</Name>
+          <PetDisplay 
+            appearance={pet.appearance}
+            hasBorder={false}
+            dimensions={250}
+          />
+        <PetHappiness needs={pet.needs} showTitle={false} />
       </StyledCard>
     </StyledLink>
   );
@@ -25,19 +24,18 @@ const StyledCard = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.8em;
   border: 2px solid #5885da;
   border-radius: 8px;
   background: white;
+  padding-bottom: 2.5rem;
 `;
-const CardDisplay = styled.div`
-  border-radius: 50%;
-  margin-bottom: 0.5em;
-`;
+
 const Name = styled.p`
-  font-weight: 600;
-  margin: 0.5em 0;
+  font-weight: bold;
+  margin: 1rem 0;
+  font-size: 1.5rem;
 `;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;

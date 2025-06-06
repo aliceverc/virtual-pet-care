@@ -37,6 +37,7 @@ const PetContainer = styled.figure`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  margin: 0;
 `;
 
 const idle = keyframes`  
