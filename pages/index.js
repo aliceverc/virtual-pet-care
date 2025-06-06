@@ -51,7 +51,6 @@ export default function HomePage() {
       body: JSON.stringify(formattedPetData),
     });
     if (response.ok) mutate();
-    console.log(formattedPetData);
     handleCloseForm();
   }
 

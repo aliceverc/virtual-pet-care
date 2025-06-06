@@ -32,7 +32,6 @@ export default function PetForm({ onSubmit, onClose }) {
       borderStrength: parseInt(petData.borderStrength),
       borderStyle: petData.borderStyle,
     });
-    console.log(previewData);
   }
 
   return (
