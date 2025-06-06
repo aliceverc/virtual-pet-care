@@ -14,8 +14,20 @@ export default async function handler(request, response) {
       }
       return response.status(200).json(pet);
     } catch (error) {
-      return response.status(500).json({ message: "Error Loading Pets", error });
+      return response
+        .status(500)
+        .json({ message: "Error Loading Pets", error });
     }
+  }
+
+  if (request.method === "DELETE") {
+    const deletedPet = await Pet.findByIdAndDelete(id);
+    if (!deletedPet) {
+      return response.status(404).json({ message: "Pet no found" });
+    }
+    return response
+      .status(200)
+      .json({ message: "You're Pet is successfully deleted" });
   }
 
   response.status(405).json({ message: "Method not allowed" });
