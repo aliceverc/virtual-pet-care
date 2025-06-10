@@ -10,7 +10,11 @@ import { useState } from "react";
 export default function PetDetails() {
   const router = useRouter();
   const { id } = router.query;
-  const { data: pet, error, isLoading } = useSWR(id ? `/api/pets/${id}` : null);
+  const {
+    data: pet,
+    error,
+    isLoading,
+  } = useSWR(id ? `/api/pets/${id}/details` : null);
   const [showDeleteBox, setShowDeleteBox] = useState(false);
 
   if (!id) return <p>Warte auf ID...</p>;
@@ -19,7 +23,7 @@ export default function PetDetails() {
   if (!pet) return <p>No pet found.</p>;
 
   async function handleConfirm() {
-    const response = await fetch(`/api/pets/${pet._id}`, {
+    const response = await fetch(`/api/pets/${pet._id}/details`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -54,18 +58,6 @@ export default function PetDetails() {
           <strong>Description:</strong> {pet.details.description}
         </DetailText>
       </StyledWrapperSecondDetails>
-
-      <StyledNeedsWrapper>
-        <NeedsBar need="hunger" value={pet.needs.hunger} />
-        <NeedsBar need="energy" value={pet.needs.energy} />
-        <NeedsBar need="entertainment" value={pet.needs.entertainment} />
-      </StyledNeedsWrapper>
-
-      <InteractionButtons>
-        <button>Eat</button>
-        <button>Sleep</button>
-        <button>Play</button>
-      </InteractionButtons>
 
       <ButtonWrapper>
         <StyledButton variant="modify">Edit Pet</StyledButton>

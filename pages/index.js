@@ -35,9 +35,9 @@ export default function HomePage() {
         description: petData.description,
       },
       needs: {
-        hunger: 100,
-        energy: 100,
-        entertainment: 100,
+        lastFed: Date.now(),
+        lastSlept: Date.now(),
+        lastPlayed: Date.now(),
       },
     };
 

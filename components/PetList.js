@@ -1,9 +1,17 @@
 import useSWR from "swr";
 import PetCard from "./PetCard";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 export default function PetList() {
-  const { data: pets, error, isLoading } = useSWR("/api/pets");
+  const { data: pets, error, isLoading, mutate } = useSWR("/api/pets");
+
+  useEffect(() => {
+    const refreshInterval2 = setInterval(() => mutate(), 60000);
+    return () => {
+      clearInterval(refreshInterval2);
+    };
+  });
 
   if (error) return <p>Error loading your pets.</p>;
   if (isLoading) return <p>Loading...</p>;
@@ -13,7 +21,7 @@ export default function PetList() {
     <StyledListWrapper>
       {pets.map((pet) => (
         <StyledCardWrapper key={pet._id}>
-          <PetCard pet={pet}/>
+          <PetCard pet={pet} />
         </StyledCardWrapper>
       ))}
     </StyledListWrapper>
@@ -32,7 +40,6 @@ const StyledCardWrapper = styled.div`
   width: 120px;
   margin: 0 0.5rem 1rem 0;
 
-  
   @media (max-width: 600px) {
     width: 100%;
     margin: 0 0 1rem 0;

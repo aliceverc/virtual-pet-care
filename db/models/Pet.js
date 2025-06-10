@@ -20,9 +20,9 @@ const petSchema = new Schema({
     description: String,
   },
   needs: {
-    hunger: Number,
-    energy: Number,
-    entertainment: Number,
+    lastFed: Number,
+    lastSlept: Number,
+    lastPlayed: Number,
   },
 });
 

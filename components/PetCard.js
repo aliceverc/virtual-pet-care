@@ -4,18 +4,16 @@ import PetDisplay from "./PetDisplay";
 import PetHappiness from "./PetHappiness";
 
 export default function PetCard({ pet }) {
-  const { details } = pet;
-  const name = details.name;
   return (
-    <StyledLink href={`/pets/${pet._id}/interaction` }>  
+    <StyledLink href={`/pets/${pet._id}/interaction`}>
       <StyledCard>
-          <Name>{name}</Name>
-          <PetDisplay 
-            appearance={pet.appearance}
-            hasBorder={false}
-            dimensions={250}
-          />
-        <PetHappiness needs={pet.needs} showTitle={false} />
+        <Name>{pet.name}</Name>
+        <PetDisplay
+          appearance={pet.appearance}
+          hasBorder={false}
+          dimensions={250}
+        />
+        <PetHappiness mood={pet.mood} showTitle={false} />
       </StyledCard>
     </StyledLink>
   );
