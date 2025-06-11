@@ -12,6 +12,7 @@ export default async function handler(request, response) {
       if (!pet) {
         return response.status(404).json({ message: "Pet not found" });
       }
+
       const interactionPet = {
         name: pet.details.name,
         appearance: pet.appearance,
@@ -33,6 +34,37 @@ export default async function handler(request, response) {
       return response
         .status(500)
         .json({ message: "Error Loading Pets", error });
+    }
+  }
+
+  if (request.method === "PATCH") {
+    try {
+      const pet = await Pet.findById(id);
+      if (!pet) {
+        return response.status(404).json({ message: "Pet not found" });
+      }
+
+      const { timestampKey, needKey } = request.body;
+      const now = new Date();
+
+      if (timestampKey) {
+        pet.needs[timestampKey] = now;
+      }
+
+      if (needKey && typeof pet.needs[needKey] === "number") {
+        pet.needs[needKey] = Math.min(pet.needs[needKey] + 10, 100);
+      }
+
+      await pet.save();
+
+      return response
+        .status(200)
+        .json({ message: "Interaction updated successfully", pet });
+    } catch (error) {
+      console.error(error);
+      return response
+        .status(500)
+        .json({ message: "Failed to update pet interaction" });
     }
   }
 
