@@ -27,7 +27,7 @@ export default function PetInteractionButton({ interaction, petId, onInteracted 
       timestampKey: "lastPlayed",
     },
   };
-
+ 
   const current = config[interaction];
 
   async function handleClick() {
