@@ -38,7 +38,7 @@ export default function PetForm({ onSubmit, onClose }) {
     <StyledForm onSubmit={onSubmit}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
-      <input id="name" name="name" required></input>
+      <input id="name" name="name" maxlength="20" required></input>
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
