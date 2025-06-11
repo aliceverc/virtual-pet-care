@@ -15,14 +15,14 @@ export default function PetInteractionButton({ interaction, petId, onInteracted 
     play: {
       label: "Sleep 💤",
       color: "#6fcf97",
-      sound: "/sounds/nomnom.mp3",
+      sound: "/sounds/snoring.mp3",
       needKey: "energy",
       timestampKey: "lastSlept",
     },
     sleep: {
       label: "Play 🥎",
       color: "#56ccf2",
-      sound: "/sounds/nomnom.mp3",
+      sound: "/sounds/laugh.mp3",
       needKey: "entertainment",
       timestampKey: "lastPlayed",
     },
