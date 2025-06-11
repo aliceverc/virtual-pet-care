@@ -6,6 +6,7 @@ import PetHappiness from "@/components/PetHappiness";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
+import PetInteractionButton from "@/components/PetInteractionButtons";
 
 export default function InteractionPage() {
   const router = useRouter();
@@ -20,10 +21,8 @@ export default function InteractionPage() {
 
   useEffect(() => {
     const refreshInterval = setInterval(() => mutate(), 60000);
-    return () => {
-      clearInterval(refreshInterval);
-    };
-  });
+    return () => clearInterval(refreshInterval);
+  }, [mutate]);
 
   if (!id) return <p>Warte auf ID...</p>;
   if (isLoading) return <p>Loading...</p>;
@@ -48,9 +47,9 @@ export default function InteractionPage() {
           <NeedsBar need="fun" value={pet.entertainment} />
         </NeedsBarsContainer>
         <StyledButtonContainer>
-          <StyledButton>Interact</StyledButton>
-          <StyledButton>Interact</StyledButton>
-          <StyledButton>Interact</StyledButton>
+          <PetInteractionButton petId={id} interaction="feed" onInteracted={mutate} />
+          <PetInteractionButton petId={id} interaction="play" onInteracted={mutate} />
+          <PetInteractionButton petId={id} interaction="sleep" onInteracted={mutate} />
         </StyledButtonContainer>
       </StyledMain>
       <PetNav />
@@ -76,20 +75,10 @@ const StyledHeader = styled.h2`
 const StyledButtonContainer = styled.section`
   margin-top: 10px;
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-evenly;
   width: 100%;
 `;
 
-const StyledButton = styled.button`
-  font-family: inherit;
-  font-size: 1rem;
-  background-color: white;
-  padding: 5px 20px;
-  border-radius: 2px;
-  border: 2px solid #333;
-`;
-
 const NeedsBarsContainer = styled(StyledButtonContainer)`
-  margin-top: 100px;
+  margin-top: 50px;
 `;
