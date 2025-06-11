@@ -23,7 +23,7 @@ export default async function handler(request, response) {
   if (request.method === "DELETE") {
     const deletedPet = await Pet.findByIdAndDelete(id);
     if (!deletedPet) {
-      return response.status(404).json({ message: "Pet no found" });
+      return response.status(404).json({ message: "Pet not found" });
     }
     return response
       .status(200)

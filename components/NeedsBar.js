@@ -4,7 +4,7 @@ export default function NeedsBar({ need, value }) {
   const colors = {
     hunger: "#ff6f61",
     energy: "#6fcf97",
-    entertainment: "#56ccf2",
+    fun: "#56ccf2",
   };
 
   return (
@@ -19,6 +19,9 @@ export default function NeedsBar({ need, value }) {
 
 const Wrapper = styled.div`
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Label = styled.label`
@@ -29,7 +32,7 @@ const Label = styled.label`
 
 const BarBackground = styled.div`
   background-color: #eee;
-  width: 100%;
+  width: 80px;
   height: 20px;
   border-radius: 10px;
   overflow: hidden;

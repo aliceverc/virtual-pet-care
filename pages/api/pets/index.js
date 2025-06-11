@@ -7,7 +7,19 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     try {
       const pets = await Pet.find().lean();
-      response.status(200).json(pets);
+      const listPet = pets.map((pet) => ({
+        name: pet.details.name,
+        appearance: pet.appearance,
+        mood:
+          (100 -
+            Math.trunc((Date.now() - pet.needs.lastFed) / 60000) +
+            (100 - Math.trunc((Date.now() - pet.needs.lastSlept) / 60000)) +
+            100 -
+            Math.trunc((Date.now() - pet.needs.lastPlayed) / 60000)) /
+          3,
+        _id: pet._id,
+      }));
+      response.status(200).json(listPet);
     } catch (error) {
       response.status(500).json({ message: "Error fetching pets", error });
     }
