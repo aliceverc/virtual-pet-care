@@ -41,5 +41,5 @@ const BarBackground = styled.div`
 const BarFill = styled.div`
   height: 100%;
   background-color: ${(props) => props.color || "#999"};
-  width: ${(props) => props.value}%;
+  width: ${(props) => (props.value <= 0 ? 0 : props.value)}%;
 `;
