@@ -30,5 +30,12 @@ export default async function handler(request, response) {
       .json({ message: "You're Pet is successfully deleted" });
   }
 
+  if (request.method === "PUT") {
+    const petData = request.body;
+    await Pet.findByIdAndUpdate(id, petData);
+    response.status(200).json({ status: "Pet successfully updated" });
+    return;
+  }
+
   response.status(405).json({ message: "Method not allowed" });
 }

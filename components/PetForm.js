@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
-export default function PetForm({ onSubmit, onClose }) {
+export default function PetForm({ onSubmit, onClose, currentData }) {
   const [colorAmount, setColorAmount] = useState(1);
   const [previewData, setPreviewData] = useState({
     borderColor: "#ea738d",
@@ -34,11 +34,18 @@ export default function PetForm({ onSubmit, onClose }) {
     });
   }
 
+  console.log(currentData);
+
   return (
     <StyledForm onSubmit={onSubmit}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
-      <input id="name" name="name" required></input>
+      <input
+        id="name"
+        name="name"
+        defaultValue={currentData ? currentData.details.name : ""}
+        required
+      ></input>
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
@@ -56,7 +63,13 @@ export default function PetForm({ onSubmit, onClose }) {
             name="colorsAmount"
             id="singleColor"
             onChange={() => setColorAmount(1)}
-            defaultChecked
+            defaultChecked={
+              currentData
+                ? currentData.appearance.colors.length == 1
+                  ? true
+                  : false
+                : true
+            }
             value="1"
           />
           <label htmlFor="singleColor">Single Color</label>
@@ -67,6 +80,13 @@ export default function PetForm({ onSubmit, onClose }) {
             name="colorsAmount"
             id="duoColor"
             onChange={() => setColorAmount(2)}
+            defaultChecked={
+              currentData
+                ? currentData.appearance.colors.length == 2
+                  ? true
+                  : false
+                : false
+            }
             value="2"
           />
           <label htmlFor="duoColor">Duo Color</label>
@@ -77,6 +97,13 @@ export default function PetForm({ onSubmit, onClose }) {
             name="colorsAmount"
             id="tripleColor"
             onChange={() => setColorAmount(3)}
+            defaultChecked={
+              currentData
+                ? currentData.appearance.colors.length == 3
+                  ? true
+                  : false
+                : false
+            }
             value="3"
           />
           <label htmlFor="tripleColor">Triple Color</label>
@@ -86,14 +113,31 @@ export default function PetForm({ onSubmit, onClose }) {
         <input
           type="color"
           name="firstColor"
-          defaultValue={previewData.colors[0]}
+          defaultValue={
+            currentData
+              ? currentData.appearance.colors[0]
+              : previewData.colors[0]
+          }
         />
         {colorAmount > 1 && (
-          <input type="color" name="secondColor" defaultValue="#EA738D" />
+          <input
+            type="color"
+            name="secondColor"
+            defaultValue={
+              currentData ? currentData.appearance.colors[1] : "#EA738D"
+            }
+          />
         )}
         {colorAmount > 2 && (
-          <input type="color" name="thirdColor" defaultValue="#EA738D" />
-        )}
+          <input
+            type="color"
+            name="thirdColor"
+            defaultValue={
+              currentData ? currentData.appearance.colors[2] : "#EA738D"
+            }
+          />
+        )}{" "}
+        {/* HIER WEITER */}
       </SingleLine>
       <label htmlFor="width">Width:</label>
       <input
@@ -102,7 +146,9 @@ export default function PetForm({ onSubmit, onClose }) {
         type="range"
         min="20"
         max="80"
-        defaultValue={previewData.width}
+        defaultValue={
+          currentData ? currentData.appearance.width : previewData.width
+        }
       />
       <label htmlFor="height">Height:</label>
       <input

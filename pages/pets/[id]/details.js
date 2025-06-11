@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import PetDisplay from "@/components/PetDisplay";
-import PetHappiness from "@/components/PetHappiness";
-import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
+import PetForm from "@/components/PetForm";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -14,13 +13,55 @@ export default function PetDetails() {
     data: pet,
     error,
     isLoading,
+    mutate,
   } = useSWR(id ? `/api/pets/${id}/details` : null);
   const [showDeleteBox, setShowDeleteBox] = useState(false);
+  const [showPetForm, setShowPetForm] = useState(false);
 
   if (!id) return <p>Warte auf ID...</p>;
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load pet data</p>;
   if (!pet) return <p>No pet found.</p>;
+
+  async function handleEditPet(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const petData = Object.fromEntries(formData);
+    const formattedPetData = {
+      //id: uid(),
+      appearance: {
+        colors: [
+          petData.firstColor,
+          petData.secondColor,
+          petData.thirdColor,
+        ].filter(Boolean),
+        height: parseInt(petData.height),
+        width: parseInt(petData.width),
+        shape: parseInt(petData.shape),
+        borderColor: petData.borderColor,
+        borderStrength: parseInt(petData.borderStrength),
+        borderStyle: petData.borderStyle,
+      },
+      details: {
+        name: petData.name,
+        //age: 0,
+        character: petData.character,
+        description: petData.description,
+      },
+      /*needs: {
+            lastFed: Date.now(),
+            lastSlept: Date.now(),
+            lastPlayed: Date.now(),
+          },*/
+    };
+    const response = await fetch(`/api/pets/${id}/details`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formattedPetData),
+    });
+    if (response.ok) mutate();
+    setShowPetForm(false);
+  }
 
   async function handleConfirm() {
     const response = await fetch(`/api/pets/${pet._id}/details`, {
@@ -60,8 +101,24 @@ export default function PetDetails() {
       </StyledWrapperSecondDetails>
 
       <ButtonWrapper>
-        <StyledButton variant="modify">Edit Pet</StyledButton>
-        <StyledButton variant="delete" onClick={() => setShowDeleteBox(true)}>
+        <StyledButton
+          variant="modify"
+          onClick={() =>
+            showPetForm
+              ? setShowPetForm(false)
+              : (setShowPetForm(true), setShowDeleteBox(false))
+          }
+        >
+          Edit Pet
+        </StyledButton>
+        <StyledButton
+          variant="delete"
+          onClick={() =>
+            showDeleteBox
+              ? setShowDeleteBox(false)
+              : (setShowDeleteBox(true), setShowPetForm(false))
+          }
+        >
           Release Pet
         </StyledButton>
       </ButtonWrapper>
@@ -78,6 +135,13 @@ export default function PetDetails() {
             NO
           </StyledButtonQuit>
         </StyledDeleteBox>
+      )}
+      {showPetForm && (
+        <PetForm
+          onSubmit={handleEditPet}
+          onClose={() => setShowPetForm(false)}
+          currentData={pet}
+        />
       )}
       <br />
       <br />
