@@ -15,7 +15,10 @@ const petSchema = new Schema({
   },
   details: {
     name: String,
-    age: Number,
+    birthTime: {
+      type: Date,
+      required: true,
+    },
     character: String,
     description: String,
   },
