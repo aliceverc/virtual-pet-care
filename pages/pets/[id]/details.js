@@ -72,7 +72,7 @@ export default function PetDetails() {
             YES
           </StyledButton>
           <StyledButtonQuit
-            variante="no"
+            variant="no"
             onClick={() => setShowDeleteBox(false)}
           >
             NO
@@ -117,32 +117,29 @@ const StyledWrapperSecondDetails = styled.section`
   border: 1px solid #ccc;
   border-radius: 8px;
 `;
-const StyledNeedsWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 2rem;
-`;
 const StyledButton = styled.button`
   border: 3px solid
     ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
+  color: ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ variant }) => (variant === "delete" ? "#fddfdd" : "#e1ecf9")}
+  }
 `;
-const InteractionButtons = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
+
 const ButtonWrapper = styled.section`
   display: flex;
+  justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
   background-color: transparent;
 `;
+
 const StyledDeleteBox = styled.div`
   z-index: 1;
   background-color: #fff;
@@ -151,12 +148,19 @@ const StyledDeleteBox = styled.div`
   margin-top: 0;
   text-align: center;
 `;
+
 const StyledButtonQuit = styled.button`
-  border: 3px solid #aaa;
+  border: 3px solid #5885da;
+  color: #5885da;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
   margin-left: 1em;
+  color:#5885da;
+  cursor: pointer;
+  &:hover {
+    background-color: #e1ecf9;
+  }
 `;
