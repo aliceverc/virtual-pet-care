@@ -139,20 +139,20 @@ export default function PetForm({ onSubmit, onClose }) {
         defaultValue={previewData.borderStrength}
       />
       <label htmlFor="borderStyle">Border Style:</label>
-      <select id="borderStyle" name="borderStyle">
+      <StyledSelect id="borderStyle" name="borderStyle">
         <option value="solid">Solid</option>
         <option value="dashed">Dashed</option>
         <option value="dotted">Dotted</option>
         <option value="double">Double</option>
-      </select>
+      </StyledSelect>
       <StyledHeader2>Details</StyledHeader2>
       <label htmlFor="character">Character:</label>
-      <select id="character" name="character">
+      <StyledSelect id="character" name="character">
         <option value="balanced">Balanced</option>
         <option value="playful">Playful</option>
         <option value="relaxed">Relaxed</option>
         <option value="gourmet">Gourmet</option>
-      </select>
+      </StyledSelect>
       <label htmlFor="description">Description:</label>
       <StyledTextArea
         id="description"
@@ -161,8 +161,8 @@ export default function PetForm({ onSubmit, onClose }) {
         maxLength="255"
       ></StyledTextArea>
       <SingleLine>
-        <button onClick={onClose}>Cancel</button>
-        <button type="submit">Add Pet</button>
+        <Button variant="gray" onClick={onClose}>Cancel</Button>
+        <Button variant="blue" type="submit">Add Pet</Button>
       </SingleLine>
     </StyledForm>
   );
@@ -205,6 +205,16 @@ const PreviewContainer = styled.div`
 const CenteredButton = styled.button`
   grid-column: 1/3;
   place-self: center;
+  padding: 5px 20px;
+  font-size: 16px;
+  border: 2px solid #5885da;
+  color: #5885da;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  &:hover {
+    background-color: #e1ecf9;
+  }
 `;
 
 const SingleLine = styled.section`
@@ -213,6 +223,11 @@ const SingleLine = styled.section`
   justify-content: space-around;
   width: 100%;
 `;
+
+const StyledSelect = styled.select`
+  padding: 8px 5px;
+  background: white;
+`
 
 const BorderColorInput = styled.input`
   place-self: end;
@@ -224,3 +239,23 @@ const StyledTextArea = styled.textarea`
   grid-column: 1/3;
   grid-row: span 3;
 `;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 2px solid;
+  border-radius: 6px;
+  cursor: pointer;
+  color:#dfdfdf ;
+  background: white;
+  color: ${(props) => (props.variant === "blue" ? "#4a90e2" : "#595959")};
+  border-color: ${(props) =>
+    props.variant === "blue" ? "#4a90e2" : "#aaa"};
+
+  &:hover {
+    background-color: ${(props) =>
+      props.variant === "blue" ? "#e1ecf9" : "#dfdfdf"};
+  }
+`;
+
