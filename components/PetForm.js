@@ -181,7 +181,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
       </StyledSelect>
       <StyledHeader2>Details</StyledHeader2>
       <label htmlFor="character">Character:</label>
-      <select
+      <select>
         id="character"
         name="character"
         defaultValue={currentData?.details.character}
