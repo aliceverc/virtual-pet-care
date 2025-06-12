@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { uid } from "uid";
 import { useState } from "react";
 import PetList from "@/components/PetList";
+import Header from "@/components/header";
 
 export default function HomePage() {
   const [isFormActive, setIsFormActive] = useState(false);
@@ -56,7 +57,7 @@ export default function HomePage() {
 
   return (
     <Container>
-      <Logo>LOGO</Logo>
+      <Header/>
 
       <GreetingSection>
         <TextContent>

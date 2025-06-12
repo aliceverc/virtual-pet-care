@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
 import PetInteractionButton from "@/components/PetInteractionButtons";
+import Logo from "@/components/Logo";
 
 export default function InteractionPage() {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function InteractionPage() {
 
   return (
     <>
+      <Logo />
       <StyledMain>
         <StyledHeader>
           {pet.name}
@@ -82,3 +84,4 @@ const StyledButtonContainer = styled.section`
 const NeedsBarsContainer = styled(StyledButtonContainer)`
   margin-top: 50px;
 `;
+

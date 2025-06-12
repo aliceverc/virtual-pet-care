@@ -6,6 +6,7 @@ import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
 import styled from "styled-components";
 import { useState } from "react";
+import Logo from "@/components/Logo";
 
 export default function PetDetails() {
   const router = useRouter();
@@ -35,6 +36,7 @@ export default function PetDetails() {
 
   return (
     <>
+      <Logo />
       <StyledHeading>Details</StyledHeading>
       <StyledHeadingName>{pet.details.name}</StyledHeadingName>
 
@@ -48,8 +50,7 @@ export default function PetDetails() {
 
       <StyledWrapperSecondDetails>
         <DetailText>
-          <strong>Age:</strong> {pet.details.age}{" "}
-          {pet.details.age === 1 ? "year" : "years"}
+          <strong>Age:</strong> {pet.details.age} {pet.details.age === 1 ? "year" : "years"}
         </DetailText>
         <DetailText>
           <strong>Character:</strong> {pet.details.character}
@@ -71,10 +72,7 @@ export default function PetDetails() {
           <StyledButton variant="delete" onClick={handleConfirm}>
             YES
           </StyledButton>
-          <StyledButtonQuit
-            variante="no"
-            onClick={() => setShowDeleteBox(false)}
-          >
+          <StyledButtonQuit variante="no" onClick={() => setShowDeleteBox(false)}>
             NO
           </StyledButtonQuit>
         </StyledDeleteBox>
@@ -117,12 +115,6 @@ const StyledWrapperSecondDetails = styled.section`
   border: 1px solid #ccc;
   border-radius: 8px;
 `;
-const StyledNeedsWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 2rem;
-`;
 const StyledButton = styled.button`
   border: 3px solid
     ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
@@ -131,11 +123,6 @@ const StyledButton = styled.button`
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
-`;
-const InteractionButtons = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
 `;
 const ButtonWrapper = styled.section`
   display: flex;
