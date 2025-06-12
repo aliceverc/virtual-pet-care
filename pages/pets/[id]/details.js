@@ -28,7 +28,6 @@ export default function PetDetails() {
     const formData = new FormData(event.target);
     const petData = Object.fromEntries(formData);
     const formattedPetData = {
-      //id: uid(),
       appearance: {
         colors: [
           petData.firstColor,
@@ -44,15 +43,10 @@ export default function PetDetails() {
       },
       details: {
         name: petData.name,
-        //age: 0,
+        birthTime: pet.details.birthTime,
         character: petData.character,
         description: petData.description,
       },
-      /*needs: {
-            lastFed: Date.now(),
-            lastSlept: Date.now(),
-            lastPlayed: Date.now(),
-          },*/
     };
     const response = await fetch(`/api/pets/${id}/details`, {
       method: "PUT",
@@ -76,82 +70,87 @@ export default function PetDetails() {
 
   return (
     <>
-      <StyledHeading>Details</StyledHeading>
-      <StyledHeadingName>{pet.details.name}</StyledHeadingName>
+      <Container>
+        <StyledHeading>Details</StyledHeading>
+        <StyledHeadingName>{pet.details.name}</StyledHeadingName>
 
-      <StyledWrapperFirstDetails>
-        <PetDisplay
-          appearance={pet.appearance}
-          dimensions={250}
-          hasBorder={true}
-        />
-      </StyledWrapperFirstDetails>
+        <StyledWrapperFirstDetails>
+          <PetDisplay
+            appearance={pet.appearance}
+            dimensions={250}
+            hasBorder={true}
+          />
+        </StyledWrapperFirstDetails>
 
-      <StyledWrapperSecondDetails>
-        <DetailText>
-          <strong>Age:</strong> {pet.details.age}{" "}
-          {pet.details.age === 1 ? "year" : "years"}
-        </DetailText>
-        <DetailText>
-          <strong>Character:</strong> {pet.details.character}
-        </DetailText>
-        <DetailText>
-          <strong>Description:</strong> {pet.details.description}
-        </DetailText>
-      </StyledWrapperSecondDetails>
+        <StyledWrapperSecondDetails>
+          <DetailText>
+            <strong>Age:</strong> {pet.details.age}{" "}
+            {pet.details.age === 1 ? "year" : "years"}
+          </DetailText>
+          <DetailText>
+            <strong>Character:</strong> {pet.details.character}
+          </DetailText>
+          <DetailText>
+            <strong>Description:</strong> {pet.details.description}
+          </DetailText>
+        </StyledWrapperSecondDetails>
 
-      <ButtonWrapper>
-        <StyledButton
-          variant="modify"
-          onClick={() =>
-            showPetForm
-              ? setShowPetForm(false)
-              : (setShowPetForm(true), setShowDeleteBox(false))
-          }
-        >
-          Edit Pet
-        </StyledButton>
-        <StyledButton
-          variant="delete"
-          onClick={() =>
-            showDeleteBox
-              ? setShowDeleteBox(false)
-              : (setShowDeleteBox(true), setShowPetForm(false))
-          }
-        >
-          Release Pet
-        </StyledButton>
-      </ButtonWrapper>
-      {showDeleteBox && (
-        <StyledDeleteBox>
-          <p>Do you really want to release your pet?</p>
-          <StyledButton variant="delete" onClick={handleConfirm}>
-            YES
-          </StyledButton>
-          <StyledButtonQuit
-            variante="no"
-            onClick={() => setShowDeleteBox(false)}
+        <ButtonWrapper>
+          <StyledButton
+            variant="modify"
+            onClick={() =>
+              showPetForm
+                ? setShowPetForm(false)
+                : (setShowPetForm(true), setShowDeleteBox(false))
+            }
           >
-            NO
-          </StyledButtonQuit>
-        </StyledDeleteBox>
-      )}
-      {showPetForm && (
-        <PetForm
-          onSubmit={handleEditPet}
-          onClose={() => setShowPetForm(false)}
-          currentData={pet}
-        />
-      )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+            Edit Pet
+          </StyledButton>
+          <StyledButton
+            variant="delete"
+            onClick={() =>
+              showDeleteBox
+                ? setShowDeleteBox(false)
+                : (setShowDeleteBox(true), setShowPetForm(false))
+            }
+          >
+            Release Pet
+          </StyledButton>
+        </ButtonWrapper>
+        {showDeleteBox && (
+          <StyledDeleteBox>
+            <p>Do you really want to release your pet?</p>
+            <StyledButton variant="delete" onClick={handleConfirm}>
+              YES
+            </StyledButton>
+            <StyledButtonQuit
+              variante="no"
+              onClick={() => setShowDeleteBox(false)}
+            >
+              NO
+            </StyledButtonQuit>
+          </StyledDeleteBox>
+        )}
+        {showPetForm && (
+          <PetForm
+            onSubmit={handleEditPet}
+            onClose={() => setShowPetForm(false)}
+            currentData={pet}
+          />
+        )}
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </Container>
       <PetNav />
     </>
   );
 }
+const Container = styled.section`
+  padding: 24px;
+`;
 
 const DetailText = styled.p`
   margin: 0.5rem 0;
