@@ -3,23 +3,22 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 
 export default function PetNav() {
-
   const router = useRouter();
-  const {id} = router.query
+  const { id } = router.query;
 
   if (!id) return null;
 
   return (
     <StyledNav>
-      <StyledLink href={`/pets/${id}/interaction`} >
-      <StyledButton $active={router.asPath.includes("/interaction")}>
-        Interaction
-      </StyledButton>
+      <StyledLink href={`/pets/${id}/interaction`}>
+        <StyledButton $active={router.asPath.includes("/interaction")}>
+          Interaction
+        </StyledButton>
       </StyledLink>
-      <StyledLink href={`/pets/${id}/details`} >
-      <StyledButton $active={router.asPath.includes("/details")}>
-        Details
-      </StyledButton>
+      <StyledLink href={`/pets/${id}/details`}>
+        <StyledButton $active={router.asPath.includes("/details")}>
+          Details
+        </StyledButton>
       </StyledLink>
     </StyledNav>
   );
@@ -28,10 +27,12 @@ export default function PetNav() {
 const StyledNav = styled.nav`
   position: fixed;
   width: 100%;
+  max-width: 600px;
+  margin: auto 0;
   bottom: 0;
   border-top: 3px solid #5885da;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 `;
 
 const StyledLink = styled(Link)`
@@ -49,7 +50,9 @@ const StyledButton = styled.button`
   border: 3px solid #aaa;
   color: black;
 
-  ${(props) => props.$active && `
+  ${(props) =>
+    props.$active &&
+    `
     border: none;
     background-color: #5885aa;
     color: white;
