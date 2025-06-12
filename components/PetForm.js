@@ -14,7 +14,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
           borderStrength: 0,
           borderStyle: "solid",
           colors: ["#ea738d"],
-          height: c50,
+          height: 50,
           shape: 5,
           width: 50,
         }
@@ -48,7 +48,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         id="name"
         name="name"
         defaultValue={currentData?.details.name || ""}
-         maxlength="20"
+        maxLength="20"
         required
       ></input>
       <PreviewContainer>

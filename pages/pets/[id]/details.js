@@ -43,7 +43,7 @@ export default function PetDetails() {
       },
       details: {
         name: petData.name,
-        birthTime: pet.details.birthTime,
+        birthTime: pet.birthTime,
         character: petData.character,
         description: petData.description,
       },
@@ -97,7 +97,7 @@ export default function PetDetails() {
 
         <ButtonWrapper>
           <StyledButton
-            variant="modify"
+            $variant="modify"
             onClick={() =>
               showPetForm
                 ? setShowPetForm(false)
@@ -107,7 +107,7 @@ export default function PetDetails() {
             Edit Pet
           </StyledButton>
           <StyledButton
-            variant="delete"
+            $variant="delete"
             onClick={() =>
               showDeleteBox
                 ? setShowDeleteBox(false)
@@ -120,11 +120,11 @@ export default function PetDetails() {
         {showDeleteBox && (
           <StyledDeleteBox>
             <p>Do you really want to release your pet?</p>
-            <StyledButton variant="delete" onClick={handleConfirm}>
+            <StyledButton $variant="delete" onClick={handleConfirm}>
               YES
             </StyledButton>
             <StyledButtonQuit
-              variante="no"
+              $variant="no"
               onClick={() => setShowDeleteBox(false)}
             >
               NO
@@ -188,7 +188,7 @@ const StyledNeedsWrapper = styled.section`
 `;
 const StyledButton = styled.button`
   border: 3px solid
-    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
+    ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
