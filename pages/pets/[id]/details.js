@@ -79,11 +79,6 @@ export default function PetDetails() {
           </StyledButtonQuit>
         </StyledDeleteBox>
       )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <PetNav />
     </>
   );
