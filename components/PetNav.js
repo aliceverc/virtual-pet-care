@@ -32,7 +32,8 @@ const StyledNav = styled.nav`
   bottom: 0;
   border-top: 3px solid #5885da;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  background-color: white;
 `;
 
 const StyledLink = styled(Link)`
@@ -49,6 +50,7 @@ const StyledButton = styled.button`
   border-radius: 3px;
   border: 3px solid #aaa;
   color: black;
+  cursor: pointer;
 
   ${(props) =>
     props.$active &&
