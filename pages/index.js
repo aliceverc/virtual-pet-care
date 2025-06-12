@@ -30,7 +30,7 @@ export default function HomePage() {
       },
       details: {
         name: petData.name,
-        age: 0,
+        birthTime: new Date().toISOString(),
         character: petData.character,
         description: petData.description,
       },

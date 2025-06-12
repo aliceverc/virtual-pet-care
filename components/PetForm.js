@@ -48,6 +48,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         id="name"
         name="name"
         defaultValue={currentData?.details.name || ""}
+         maxlength="20"
         required
       ></input>
       <PreviewContainer>
