@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import PetDisplay from "@/components/PetDisplay";
 import PetHappiness from "@/components/PetHappiness";
-import NeedsBar from "@/components/NeedsBar";
 import PetNav from "@/components/PetNav";
 import styled from "styled-components";
 import { useState } from "react";
@@ -36,9 +35,13 @@ export default function PetDetails() {
 
   return (
     <>
-      <Logo />
+      <StyledHeader>
+        <Logo />
+        <PetName>{pet.details.name}</PetName>
+        <PetHappiness mood={pet.mood} showTitle={false} />
+      </StyledHeader>
+
       <StyledHeading>Details</StyledHeading>
-      <StyledHeadingName>{pet.details.name}</StyledHeadingName>
 
       <StyledWrapperFirstDetails>
         <PetDisplay
@@ -66,6 +69,7 @@ export default function PetDetails() {
           Release Pet
         </StyledButton>
       </ButtonWrapper>
+
       {showDeleteBox && (
         <StyledDeleteBox>
           <p>Do you really want to release your pet?</p>
@@ -77,6 +81,7 @@ export default function PetDetails() {
           </StyledButtonQuit>
         </StyledDeleteBox>
       )}
+
       <br />
       <br />
       <br />
@@ -87,34 +92,52 @@ export default function PetDetails() {
   );
 }
 
-const DetailText = styled.p`
-  margin: 0.5rem 0;
-  line-height: 1.4;
-  font-size: 0.95rem;
-  color: #333;
+const StyledHeader = styled.header`
+  position: relative;
+  padding: 15px 20px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
+
+const PetName = styled.h2`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 1.5rem;
+`;
+
 const StyledHeading = styled.h1`
   text-align: center;
   font-size: 1.75rem;
   width: 100px;
-  margin: 0 auto 1em;
+  margin: 1em auto;
   padding-bottom: 0.4rem;
   border-bottom: 3px solid #5885da;
 `;
-const StyledHeadingName = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-`;
+
 const StyledWrapperFirstDetails = styled.section`
   display: flex;
   justify-content: center;
 `;
+
 const StyledWrapperSecondDetails = styled.section`
   margin-top: 2rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
 `;
+
+const DetailText = styled.p`
+  margin: 0.5rem 0;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  color: #333;
+`;
+
 const StyledButton = styled.button`
   border: 3px solid
     ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
@@ -124,12 +147,13 @@ const StyledButton = styled.button`
   font-weight: 600;
   margin-bottom: 5%;
 `;
+
 const ButtonWrapper = styled.section`
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
-  background-color: transparent;
 `;
+
 const StyledDeleteBox = styled.div`
   z-index: 1;
   background-color: #fff;
@@ -138,6 +162,7 @@ const StyledDeleteBox = styled.div`
   margin-top: 0;
   text-align: center;
 `;
+
 const StyledButtonQuit = styled.button`
   border: 3px solid #aaa;
   background-color: #fff;

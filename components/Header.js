@@ -1,11 +1,18 @@
 import styled from "styled-components";
-import Logo from "./Logo";
+import Image from "next/image";
 
 export default function Header() {
   return (
     <HeaderWrapper>
         <LogoWrapper>
-            <Logo />
+            <Image
+                src="/logo2.jpg"
+                alt="Logo"
+                width={100}
+                height={100}
+                style={{ height: 'auto' }}
+              />
+              <TextArea> Virtual Pet Care </TextArea>
         </LogoWrapper>
     </HeaderWrapper>
   );
@@ -20,8 +27,9 @@ const HeaderWrapper = styled.header`
 
 const LogoWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  gap: 10px;
 
   img {
     width: 100px;
@@ -32,3 +40,7 @@ const LogoWrapper = styled.div`
     }
   }
 `;
+
+const TextArea = styled.p`
+font-family: 'Press Start 2P', monospace;
+`
