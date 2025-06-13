@@ -24,15 +24,14 @@ export default async function handler(request, response) {
           ...pet.details.toObject(),
           age: calculatedAge,
         },
+        birthTime: pet.details.birthTime,
       };
 
       delete detailsPet.details.birthTime;
 
       return response.status(200).json(detailsPet);
     } catch (error) {
-      return response
-        .status(500)
-        .json({ message: "Error loading pet", error });
+      return response.status(500).json({ message: "Error loading pet", error });
     }
   }
 
