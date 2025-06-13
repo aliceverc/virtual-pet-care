@@ -191,7 +191,12 @@ const StyledButton = styled.button`
   margin-bottom: 5%;
   cursor: pointer;
   &:hover {
-    background-color: ${({ variant }) => (variant === "delete" ? "#fddfdd" : "#e1ecf9")}
+    background-color: ${({ $variant }) =>
+      $variant === "delete"
+        ? "#fddfdd"
+        : $variant === "modify"
+        ? "#e1ecf9"
+        : "#fff"};
   }
 `;
 
@@ -221,7 +226,7 @@ const StyledButtonQuit = styled.button`
   font-weight: 600;
   margin-bottom: 5%;
   margin-left: 1em;
-  color:#5885da;
+  color: #5885da;
   cursor: pointer;
   &:hover {
     background-color: #e1ecf9;
