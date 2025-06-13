@@ -244,6 +244,16 @@ const PreviewContainer = styled.div`
 const CenteredButton = styled.button`
   grid-column: 1/3;
   place-self: center;
+  padding: 5px 20px;
+  font-size: 16px;
+  border: 2px solid #5885da;
+  color: #5885da;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  &:hover {
+    background-color: #e1ecf9;
+  }
 `;
 
 const SingleLine = styled.section`
@@ -252,6 +262,11 @@ const SingleLine = styled.section`
   justify-content: space-around;
   width: 100%;
 `;
+
+const StyledSelect = styled.select`
+  padding: 8px 5px;
+  background: white;
+`
 
 const BorderColorInput = styled.input`
   place-self: end;
@@ -263,3 +278,30 @@ const StyledTextArea = styled.textarea`
   grid-column: 1/3;
   grid-row: span 3;
 `;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 2px solid;
+  border-radius: 6px;
+  cursor: pointer;
+  color:#dfdfdf ;
+  background: white;
+color: #595959;
+border-color: #aaa;
+
+&:hover {
+  background-color: #dfdfdf;
+}
+
+${(props) => (props.variant === "blue" && css`
+	color: #4a90e2;
+	border-color: #4a90e2;
+	
+	&:hover {
+	  background-color: #e1ecf9;
+	}
+`)}
+`;
+
