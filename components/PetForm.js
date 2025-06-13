@@ -14,7 +14,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
           borderStrength: 0,
           borderStyle: "solid",
           colors: ["#ea738d"],
-          height: c50,
+          height: 50,
           shape: 5,
           width: 50,
         }
@@ -178,10 +178,10 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <option value="dashed">Dashed</option>
         <option value="dotted">Dotted</option>
         <option value="double">Double</option>
-      </StyledSelect>
+      </select>
       <StyledHeader2>Details</StyledHeader2>
       <label htmlFor="character">Character:</label>
-      <select>
+      <select
         id="character"
         name="character"
         defaultValue={currentData?.details.character}
@@ -190,7 +190,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <option value="playful">Playful</option>
         <option value="relaxed">Relaxed</option>
         <option value="gourmet">Gourmet</option>
-      </StyledSelect>
+      </select>
       <label htmlFor="description">Description:</label>
       <StyledTextArea
         id="description"
