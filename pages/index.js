@@ -74,11 +74,11 @@ export default function HomePage() {
       </GreetingSection>
 
       {isFormActive ? (
-        <Button variant="pink" onClick={() => setIsFormActive(false)}>
+        <Button $variant="pink" onClick={() => setIsFormActive(false)}>
           Close Form
         </Button>
       ) : (
-        <Button variant="blue" onClick={() => setIsFormActive(true)}>
+        <Button $variant="blue" onClick={() => setIsFormActive(true)}>
           New Pet
         </Button>
       )}
@@ -141,13 +141,13 @@ const Button = styled.button`
   border-radius: 6px;
   cursor: pointer;
   background: white;
-  color: ${(props) => (props.variant === "blue" ? "#4a90e2" : "#e91e63")};
+  color: ${(props) => (props.$variant === "blue" ? "#4a90e2" : "#e91e63")};
   border-color: ${(props) =>
-    props.variant === "blue" ? "#4a90e2" : "#e91e63"};
+    props.$variant === "blue" ? "#4a90e2" : "#e91e63"};
 
   &:hover {
     background-color: ${(props) =>
-      props.variant === "blue" ? "#e1ecf9" : "#fce4ec"};
+      props.$variant === "blue" ? "#e1ecf9" : "#fce4ec"};
   }
 `;
 
