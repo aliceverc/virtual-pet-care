@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { useRef } from "react";
 
-export default function PetInteractionButton({ interaction, petId, onInteracted }) {
+export default function PetInteractionButton({
+  interaction,
+  petId,
+  onInteracted,
+}) {
   const soundRef = useRef(null);
 
   const config = {
@@ -27,7 +31,7 @@ export default function PetInteractionButton({ interaction, petId, onInteracted 
       timestampKey: "lastPlayed",
     },
   };
-  
+
   const current = config[interaction];
 
   async function handleClick() {
@@ -58,7 +62,7 @@ export default function PetInteractionButton({ interaction, petId, onInteracted 
 
   return (
     <>
-      <ButtonStyled onClick={handleClick} bg={current.color}>
+      <ButtonStyled onClick={handleClick} $bg={current.color}>
         {current.label}
       </ButtonStyled>
       <audio ref={soundRef} src={current.sound} />
@@ -68,7 +72,7 @@ export default function PetInteractionButton({ interaction, petId, onInteracted 
 
 const ButtonStyled = styled.button`
   background-color: white;
-  border: 2px solid ${(props) => props.bg};
+  border: 2px solid ${(props) => props.$bg};
   color: black;
   font-size: 14px;
   padding: 5px 10px;
@@ -81,8 +85,8 @@ const ButtonStyled = styled.button`
   transition: background-color 0.2s, color 0.2s;
 
   &:active {
-    background-color: ${(props) => props.bg};
+    background-color: ${(props) => props.$bg};
     color: white;
-    transform: scale(0.80);
+    transform: scale(0.8);
   }
 `;

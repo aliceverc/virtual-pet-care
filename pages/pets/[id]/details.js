@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import PetDisplay from "@/components/PetDisplay";
-import PetHappiness from "@/components/PetHappiness";
 import PetNav from "@/components/PetNav";
+import PetForm from "@/components/PetForm";
 import styled from "styled-components";
 import { useState } from "react";
 import Logo from "@/components/Logo";
@@ -14,13 +14,49 @@ export default function PetDetails() {
     data: pet,
     error,
     isLoading,
+    mutate,
   } = useSWR(id ? `/api/pets/${id}/details` : null);
   const [showDeleteBox, setShowDeleteBox] = useState(false);
+  const [showPetForm, setShowPetForm] = useState(false);
 
   if (!id) return <p>Warte auf ID...</p>;
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load pet data</p>;
   if (!pet) return <p>No pet found.</p>;
+
+  async function handleEditPet(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const petData = Object.fromEntries(formData);
+    const formattedPetData = {
+      appearance: {
+        colors: [
+          petData.firstColor,
+          petData.secondColor,
+          petData.thirdColor,
+        ].filter(Boolean),
+        height: parseInt(petData.height),
+        width: parseInt(petData.width),
+        shape: parseInt(petData.shape),
+        borderColor: petData.borderColor,
+        borderStrength: parseInt(petData.borderStrength),
+        borderStyle: petData.borderStyle,
+      },
+      details: {
+        name: petData.name,
+        birthTime: pet.birthTime,
+        character: petData.character,
+        description: petData.description,
+      },
+    };
+    const response = await fetch(`/api/pets/${id}/details`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formattedPetData),
+    });
+    if (response.ok) mutate();
+    setShowPetForm(false);
+  }
 
   async function handleConfirm() {
     const response = await fetch(`/api/pets/${pet._id}/details`, {
@@ -35,62 +71,90 @@ export default function PetDetails() {
 
   return (
     <>
+      <Container>
       <StyledHeader>
         <Logo />
         <PetName>{pet.details.name}</PetName>
-        <PetHappiness mood={pet.mood} showTitle={false} />
       </StyledHeader>
 
       <StyledHeading>Details</StyledHeading>
+        <StyledWrapperFirstDetails>
+          <PetDisplay
+            appearance={pet.appearance}
+            dimensions={250}
+            hasBorder={true}
+          />
+        </StyledWrapperFirstDetails>
 
-      <StyledWrapperFirstDetails>
-        <PetDisplay
-          appearance={pet.appearance}
-          dimensions={250}
-          hasBorder={true}
-        />
-      </StyledWrapperFirstDetails>
+        <StyledWrapperSecondDetails>
+          <DetailText>
+            <strong>Age:</strong> {pet.details.age}{" "}
+            {pet.details.age === 1 ? "year" : "years"}
+          </DetailText>
+          <DetailText>
+            <strong>Character:</strong> {pet.details.character}
+          </DetailText>
+          <DetailText>
+            <strong>Description:</strong> {pet.details.description}
+          </DetailText>
+        </StyledWrapperSecondDetails>
 
-      <StyledWrapperSecondDetails>
-        <DetailText>
-          <strong>Age:</strong> {pet.details.age} {pet.details.age === 1 ? "year" : "years"}
-        </DetailText>
-        <DetailText>
-          <strong>Character:</strong> {pet.details.character}
-        </DetailText>
-        <DetailText>
-          <strong>Description:</strong> {pet.details.description}
-        </DetailText>
-      </StyledWrapperSecondDetails>
-
-      <ButtonWrapper>
-        <StyledButton variant="modify">Edit Pet</StyledButton>
-        <StyledButton variant="delete" onClick={() => setShowDeleteBox(true)}>
-          Release Pet
-        </StyledButton>
-      </ButtonWrapper>
-
-      {showDeleteBox && (
-        <StyledDeleteBox>
-          <p>Do you really want to release your pet?</p>
-          <StyledButton variant="delete" onClick={handleConfirm}>
-            YES
+        <ButtonWrapper>
+          <StyledButton
+            $variant="modify"
+            onClick={() =>
+              showPetForm
+                ? setShowPetForm(false)
+                : (setShowPetForm(true), setShowDeleteBox(false))
+            }
+          >
+            Edit Pet
           </StyledButton>
-          <StyledButtonQuit variante="no" onClick={() => setShowDeleteBox(false)}>
-            NO
-          </StyledButtonQuit>
-        </StyledDeleteBox>
-      )}
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+          <StyledButton
+            $variant="delete"
+            onClick={() =>
+              showDeleteBox
+                ? setShowDeleteBox(false)
+                : (setShowDeleteBox(true), setShowPetForm(false))
+            }
+          >
+            Release Pet
+          </StyledButton>
+        </ButtonWrapper>
+        {showDeleteBox && (
+          <StyledDeleteBox>
+            <p>Do you really want to release your pet?</p>
+            <StyledButton $variant="delete" onClick={handleConfirm}>
+              YES
+            </StyledButton>
+            <StyledButtonQuit
+              $variant="no"
+              onClick={() => setShowDeleteBox(false)}
+            >
+              NO
+            </StyledButtonQuit>
+          </StyledDeleteBox>
+        )}
+        {showPetForm && (
+          <PetForm
+            onSubmit={handleEditPet}
+            onClose={() => setShowPetForm(false)}
+            currentData={pet}
+          />
+        )}
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </Container>
       <PetNav />
     </>
   );
 }
+const Container = styled.section`
+  padding: 24px;
+`;
 
 const StyledHeader = styled.header`
   position: relative;
@@ -140,7 +204,7 @@ const DetailText = styled.p`
 
 const StyledButton = styled.button`
   border: 3px solid
-    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
+    ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
