@@ -288,13 +288,20 @@ const Button = styled.button`
   cursor: pointer;
   color:#dfdfdf ;
   background: white;
-  color: ${(props) => (props.variant === "blue" ? "#4a90e2" : "#595959")};
-  border-color: ${(props) =>
-    props.variant === "blue" ? "#4a90e2" : "#aaa"};
+color: #595959;
+border-color: #aaa;
 
-  &:hover {
-    background-color: ${(props) =>
-      props.variant === "blue" ? "#e1ecf9" : "#dfdfdf"};
-  }
+&:hover {
+  background-color: #dfdfdf;
+}
+
+${(props) => (props.variant === "blue" && css`
+	color: #4a90e2;
+	border-color: #4a90e2;
+	
+	&:hover {
+	  background-color: #e1ecf9;
+	}
+`)}
 `;
 
