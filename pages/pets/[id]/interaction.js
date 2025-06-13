@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
 import PetInteractionButton from "@/components/PetInteractionButtons";
+import Logo from "@/components/Logo";
 
 export default function InteractionPage() {
   const router = useRouter();
@@ -33,9 +34,11 @@ export default function InteractionPage() {
     <>
       <StyledMain>
         <StyledHeader>
-          {pet.name}
+          <Logo />
+          <PetName>{pet.name}</PetName>
           <PetHappiness mood={pet.mood} showTitle={false} />
         </StyledHeader>
+            
         <PetDisplay
           appearance={pet.appearance}
           dimensions={250}
@@ -62,14 +65,22 @@ const StyledMain = styled.main`
   place-items: center;
 `;
 
-const StyledHeader = styled.h2`
-  padding: 15px;
-  width: 200px;
-  text-align: center;
-  border-bottom: 3px solid #5885da;
+const StyledHeader = styled.header`
+  position: relative;
+  padding: 15px 20px;
+  width: 100%;
+  max-width: 600px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+`;
+
+const PetName = styled.h2`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 1.5rem;
 `;
 
 const StyledButtonContainer = styled.section`

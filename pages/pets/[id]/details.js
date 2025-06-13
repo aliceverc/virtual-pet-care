@@ -5,6 +5,7 @@ import PetNav from "@/components/PetNav";
 import PetForm from "@/components/PetForm";
 import styled from "styled-components";
 import { useState } from "react";
+import Logo from "@/components/Logo";
 
 export default function PetDetails() {
   const router = useRouter();
@@ -71,9 +72,12 @@ export default function PetDetails() {
   return (
     <>
       <Container>
-        <StyledHeading>Details</StyledHeading>
-        <StyledHeadingName>{pet.details.name}</StyledHeadingName>
+      <StyledHeader>
+        <Logo />
+        <PetName>{pet.details.name}</PetName>
+      </StyledHeader>
 
+      <StyledHeading>Details</StyledHeading>
         <StyledWrapperFirstDetails>
           <PetDisplay
             appearance={pet.appearance}
@@ -152,40 +156,52 @@ const Container = styled.section`
   padding: 24px;
 `;
 
-const DetailText = styled.p`
-  margin: 0.5rem 0;
-  line-height: 1.4;
-  font-size: 0.95rem;
-  color: #333;
+const StyledHeader = styled.header`
+  position: relative;
+  padding: 15px 20px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
+
+const PetName = styled.h2`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 1.5rem;
+`;
+
 const StyledHeading = styled.h1`
   text-align: center;
   font-size: 1.75rem;
   width: 100px;
-  margin: 0 auto 1em;
+  margin: 1em auto;
   padding-bottom: 0.4rem;
   border-bottom: 3px solid #5885da;
 `;
-const StyledHeadingName = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-`;
+
 const StyledWrapperFirstDetails = styled.section`
   display: flex;
   justify-content: center;
 `;
+
 const StyledWrapperSecondDetails = styled.section`
   margin-top: 2rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
 `;
-const StyledNeedsWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 2rem;
+
+const DetailText = styled.p`
+  margin: 0.5rem 0;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  color: #333;
 `;
+
 const StyledButton = styled.button`
   border: 3px solid
     ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
@@ -195,17 +211,13 @@ const StyledButton = styled.button`
   font-weight: 600;
   margin-bottom: 5%;
 `;
-const InteractionButtons = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
+
 const ButtonWrapper = styled.section`
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
-  background-color: transparent;
 `;
+
 const StyledDeleteBox = styled.div`
   z-index: 1;
   background-color: #fff;
@@ -214,6 +226,7 @@ const StyledDeleteBox = styled.div`
   margin-top: 0;
   text-align: center;
 `;
+
 const StyledButtonQuit = styled.button`
   border: 3px solid #aaa;
   background-color: #fff;
