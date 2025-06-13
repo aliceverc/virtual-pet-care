@@ -2,17 +2,23 @@ import { useState } from "react";
 import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
-export default function PetForm({ onSubmit, onClose }) {
-  const [colorAmount, setColorAmount] = useState(1);
-  const [previewData, setPreviewData] = useState({
-    borderColor: "#ea738d",
-    borderStrength: 0,
-    borderStyle: "solid",
-    colors: ["#ea738d"],
-    height: 50,
-    shape: 5,
-    width: 50,
-  });
+export default function PetForm({ onSubmit, onClose, currentData }) {
+  const [colorAmount, setColorAmount] = useState(
+    currentData ? currentData.appearance.colors.length : 1
+  );
+  const [previewData, setPreviewData] = useState(
+    currentData
+      ? currentData.appearance
+      : {
+          borderColor: "#ea738d",
+          borderStrength: 0,
+          borderStyle: "solid",
+          colors: ["#ea738d"],
+          height: 50,
+          shape: 5,
+          width: 50,
+        }
+  );
 
   function handleUpdatePreview(event) {
     event.preventDefault();
@@ -38,7 +44,13 @@ export default function PetForm({ onSubmit, onClose }) {
     <StyledForm onSubmit={onSubmit}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
-      <StyledInput id="name" name="name" required></StyledInput>
+      <StyledInput
+        id="name"
+        name="name"
+        defaultValue={currentData?.details.name || ""}
+        maxLength="20"
+        required
+      ></StyledInput>
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
@@ -50,38 +62,54 @@ export default function PetForm({ onSubmit, onClose }) {
       </CenteredButton>
       <StyledHeader2>Appearance</StyledHeader2>
       <SingleLine>
-        <RadioWrapper>
+        <div>
           <Radio
             name="colorsAmount"
             id="singleColor"
-            defaultChecked
+            onChange={() => setColorAmount(1)}
+            defaultChecked={
+              currentData ? currentData.appearance.colors.length === 1 : true
+            }
             value="1"
           />
-          <RadioFill />
-          <RadioLabel htmlFor="singleColor">Single Color</RadioLabel>
-        </RadioWrapper>
-        <RadioWrapper>
-          <Radio name="colorsAmount" id="duoColor" value="2" />
-          <RadioFill />
-          <RadioLabel htmlFor="duoColor">Duo Color</RadioLabel>
-        </RadioWrapper>
-        <RadioWrapper>
-          <Radio name="colorsAmount" id="tripleColor" value="3" />
-          <RadioFill />
-          <RadioLabel htmlFor="tripleColor">Triple Color</RadioLabel>
-        </RadioWrapper>
+          <label htmlFor="singleColor">Single Color</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="colorsAmount"
+            id="duoColor"
+            onChange={() => setColorAmount(2)}
+            defaultChecked={currentData?.appearance.colors.length === 2}
+            value="2"
+          />
+          <label htmlFor="duoColor">Duo Color</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="colorsAmount"
+            id="tripleColor"
+            onChange={() => setColorAmount(3)}
+            defaultChecked={currentData?.appearance.colors.length === 3}
+            value="3"
+          />
+          <label htmlFor="tripleColor">Triple Color</label>
+        </div>
       </SingleLine>
       <SingleLine>
         <ColorInput
           type="color"
           name="firstColor"
-          defaultValue={previewData.colors[0]}
+          defaultValue={
+            currentData?.appearance.colors[0] || previewData.colors[0]
+          }
         />
         {colorAmount > 1 && (
-          <ColorInput type="color" name="secondColor" defaultValue="#EA738D" />
+          <ColorInput type="color" name="secondColor" defaultValue={currentData?.appearance.colors[1] || "#EA738D"} />
         )}
         {colorAmount > 2 && (
-          <ColorInput type="color" name="thirdColor" defaultValue="#EA738D" />
+          <ColorInput type="color" name="thirdColor" defaultValue={currentData?.appearance.colors[2] || "#EA738D"} />
         )}
       </SingleLine>
       <label htmlFor="width">Width:</label>
@@ -91,7 +119,7 @@ export default function PetForm({ onSubmit, onClose }) {
         type="range"
         min="20"
         max="80"
-        defaultValue={previewData.width}
+        defaultValue={currentData?.appearance.width || previewData.width}
       />
       <label htmlFor="height">Height:</label>
       <input
@@ -100,7 +128,7 @@ export default function PetForm({ onSubmit, onClose }) {
         type="range"
         min="20"
         max="80"
-        defaultValue={previewData.height}
+        defaultValue={currentData?.appearance.height || previewData.height}
       />
       <label htmlFor="shape">Shape:</label>
       <input
@@ -109,14 +137,16 @@ export default function PetForm({ onSubmit, onClose }) {
         type="range"
         min="0"
         max="50"
-        defaultValue={previewData.shape}
+        defaultValue={currentData?.appearance.shape || previewData.shape}
       />
       <label htmlFor="borderColor">Border Color:</label>
       <BorderColorInput
         id="borderColor"
         name="borderColor"
         type="color"
-        defaultValue={previewData.borderColor}
+        defaultValue={
+          currentData?.appearance.borderColor || previewData.borderColor
+        }
       />
       <label htmlFor="borderStrength">Border Strength:</label>
       <input
@@ -125,10 +155,12 @@ export default function PetForm({ onSubmit, onClose }) {
         type="range"
         min="0"
         max="6"
-        defaultValue={previewData.borderStrength}
+        defaultValue={
+          currentData?.appearance.borderStrength || previewData.borderStrength
+        }
       />
       <label htmlFor="borderStyle">Border Style:</label>
-      <StyledSelect id="borderStyle" name="borderStyle">
+      <StyledSelect id="borderStyle" name="borderStyle" defaultValue={currentData?.appearance.borderStyle}>
         <option value="solid">Solid</option>
         <option value="dashed">Dashed</option>
         <option value="dotted">Dotted</option>
@@ -136,7 +168,7 @@ export default function PetForm({ onSubmit, onClose }) {
       </StyledSelect>
       <StyledHeader2>Details</StyledHeader2>
       <label htmlFor="character">Character:</label>
-      <StyledSelect id="character" name="character">
+      <StyledSelect id="character" name="character" defaultValue={currentData?.details.character}>
         <option value="balanced">Balanced</option>
         <option value="playful">Playful</option>
         <option value="relaxed">Relaxed</option>
@@ -148,10 +180,11 @@ export default function PetForm({ onSubmit, onClose }) {
         name="description"
         rows="4"
         maxLength="255"
+        defaultValue={currentData?.details.description}
       ></StyledTextArea>
       <SingleLine>
         <ButtonCancel onClick={onClose}>Cancel</ButtonCancel>
-        <Button type="submit">Add Pet</Button>
+        <Button type="submit" >{currentData ? "Update Pet" : "Add Pet"}</Button>
       </SingleLine>
     </StyledForm>
   );
