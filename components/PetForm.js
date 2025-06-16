@@ -1,11 +1,9 @@
 import { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
 export default function PetForm({ onSubmit, onClose, currentData }) {
-  const [colorAmount, setColorAmount] = useState(
-    currentData ? currentData.appearance.colors.length : 1
-  );
   const [previewData, setPreviewData] = useState(
     currentData
       ? currentData.appearance
@@ -19,17 +17,20 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
           width: 50,
         }
   );
+  const [colorAmount, setColorAmount] = useState(
+    currentData ? currentData.appearance.colors.length : 1
+  );
 
   function handleUpdatePreview(event) {
-    event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const petData = Object.fromEntries(formData);
+    setColorAmount(petData.colorsAmount);
     setPreviewData({
       colors: [
         petData.firstColor,
-        petData.secondColor,
-        petData.thirdColor,
+        petData.colorsAmount > 1 && petData.secondColor,
+        petData.colorsAmount > 2 && petData.thirdColor,
       ].filter(Boolean),
       height: parseInt(petData.height),
       width: parseInt(petData.width),
@@ -61,10 +62,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             type="radio"
             name="colorsAmount"
             id="singleColor"
-            onChange={() => setColorAmount(1)}
-            defaultChecked={
-              currentData ? currentData.appearance.colors.length === 1 : true
-            }
+            defaultChecked={previewData.colors.length === 1}
             value="1"
           />
           <label htmlFor="singleColor">Single Color</label>
@@ -74,8 +72,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             type="radio"
             name="colorsAmount"
             id="duoColor"
-            onChange={() => setColorAmount(2)}
-            defaultChecked={currentData?.appearance.colors.length === 2}
+            defaultChecked={previewData.colors.length === 2}
             value="2"
           />
           <label htmlFor="duoColor">Duo Color</label>
@@ -85,8 +82,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             type="radio"
             name="colorsAmount"
             id="tripleColor"
-            onChange={() => setColorAmount(3)}
-            defaultChecked={currentData?.appearance.colors.length === 3}
+            defaultChecked={previewData.colors.length === 3}
             value="3"
           />
           <label htmlFor="tripleColor">Triple Color</label>
@@ -96,9 +92,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <input
           type="color"
           name="firstColor"
-          defaultValue={
-            currentData?.appearance.colors[0] || previewData.colors[0]
-          }
+          defaultValue={previewData.colors[0]}
         />
         {colorAmount > 1 && (
           <input
