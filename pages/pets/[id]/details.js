@@ -5,6 +5,7 @@ import PetNav from "@/components/PetNav";
 import PetForm from "@/components/PetForm";
 import styled from "styled-components";
 import { useState } from "react";
+import PetHeader from "@/components/PetHeader";
 
 export default function PetDetails() {
   const router = useRouter();
@@ -70,10 +71,9 @@ export default function PetDetails() {
 
   return (
     <>
-      <Container>
-        <StyledHeading>Details</StyledHeading>
-        <StyledHeadingName>{pet.details.name}</StyledHeadingName>
+      <PetHeader name={pet.details.name} />
 
+      <Container>
         <StyledWrapperFirstDetails>
           <PetDisplay
             appearance={pet.appearance}
@@ -148,8 +148,21 @@ export default function PetDetails() {
     </>
   );
 }
+
 const Container = styled.section`
-  padding: 24px;
+  padding:  0 24px 0 ;
+`;
+
+const StyledWrapperFirstDetails = styled.section`
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledWrapperSecondDetails = styled.section`
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 `;
 
 const DetailText = styled.p`
@@ -170,16 +183,7 @@ const StyledHeadingName = styled.h2`
   text-align: center;
   font-size: 1.25rem;
 `;
-const StyledWrapperFirstDetails = styled.section`
-  display: flex;
-  justify-content: center;
-`;
-const StyledWrapperSecondDetails = styled.section`
-  margin-top: 2rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-`;
+
 const StyledButton = styled.button`
   border: 3px solid
     ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
@@ -205,7 +209,6 @@ const ButtonWrapper = styled.section`
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
-  background-color: transparent;
 `;
 
 const StyledDeleteBox = styled.div`
@@ -218,17 +221,17 @@ const StyledDeleteBox = styled.div`
 `;
 
 const StyledButtonQuit = styled.button`
-  border: 3px solid #5885da;
-  color: #5885da;
+  border: 3px solid #aaa;
+  color: #aaa;
   background-color: #fff;
   border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
   margin-left: 1em;
-  color: #5885da;
+  color: #aaa;
   cursor: pointer;
   &:hover {
-    background-color: #e1ecf9;
+    background-color: #f1f0f0;
   }
 `;

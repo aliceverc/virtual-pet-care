@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { uid } from "uid";
 import { useState } from "react";
 import PetList from "@/components/PetList";
+import Header from "@/components/Header";
 
 export default function HomePage() {
   const [isFormActive, setIsFormActive] = useState(false);
@@ -56,7 +57,7 @@ export default function HomePage() {
 
   return (
     <Container>
-      <Logo>LOGO</Logo>
+      <Header/>
 
       <GreetingSection>
         <TextContent>
@@ -115,6 +116,7 @@ const GreetingSection = styled.div`
 const TextContent = styled.div`
   flex: 1;
   min-width: 250px;
+  font-family: 'Press Start 2P', monospace;
 `;
 
 const Greeting = styled.h2`

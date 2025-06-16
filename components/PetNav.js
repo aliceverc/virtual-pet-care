@@ -27,6 +27,8 @@ export default function PetNav() {
 const StyledNav = styled.nav`
   position: fixed;
   width: 100%;
+  max-width: 600px;
+  margin: auto 0;
   bottom: 0;
   border-top: 3px solid #5885da;
   display: flex;

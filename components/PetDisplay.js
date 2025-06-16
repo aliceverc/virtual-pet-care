@@ -58,7 +58,10 @@ const Pet = styled.div`
     180deg,
     ${(props) =>
         props.$appearance.colors.length == 1 &&
-        props.$appearance.colors[0] + " 0%"}
+        props.$appearance.colors[0] +
+          " 0%, " +
+          props.$appearance.colors[0] +
+          " 100%"}
       ${(props) =>
         props.$appearance.colors.length == 2 &&
         props.$appearance.colors[0] +

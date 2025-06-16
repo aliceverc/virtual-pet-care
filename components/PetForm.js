@@ -367,6 +367,14 @@ const RadioGroup = styled.div`
   align-items: center;
   gap: 1rem; /* spacing between radio and label */
   margin-right: 0.2rem; /* spacing between groups */
+  font-size: 16px;
+  color: #5885da;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  &:hover {
+    background-color: #e1ecf9;
+  }
 `;
 
 const SingleLine = styled.section`
@@ -405,28 +413,25 @@ const ButtonCancel = styled.button`
   }
 `;
 
-const Button = styled.button`
-  padding: 10px 20px;
-  margin-bottom: 15px;
-  font-size: 1em;
-  font-weight: 600;
-  border: 2px solid;
-  border-radius: 6px;
-  cursor: pointer;
-  background: white;
-  color: ${(props) => (props.variant === "blue" ? "#e91e63" : "#4a90e2")};
-  border-color: ${(props) =>
-    props.variant === "blue" ? "#e91e63" : "#4a90e2"};
-
-  &:hover {
-    background-color: ${(props) =>
-      props.variant === "blue" ? "#fce4ec" : "#e1ecf9"};
-  }
-`;
-
 const StyledTextArea = styled.textarea`
   width: 100%;
   border-radius: 5px;
   grid-column: 1/3;
   grid-row: span 3;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid #4a90e2;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  color: #4a90e2;
+
+  &:hover {
+    background-color: #e1ecf9;
+  }
 `;
