@@ -28,12 +28,13 @@ const StyledNav = styled.nav`
   position: fixed;
   width: 100%;
   max-width: 600px;
-  margin: auto 0;
   bottom: 0;
-  border-top: 3px solid #5885da;
   display: flex;
   justify-content: space-evenly;
-  background-color: white;
+  gap: 20px;
+  padding: 20px;
+  background-color: #e0e5ec;
+  box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 #a3b1c6;
 `;
 
 const StyledLink = styled(Link)`
@@ -41,24 +42,22 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledButton = styled.button`
-  margin: 15px;
   font-family: inherit;
-  font-size: 1rem;
-  background-color: white;
-  padding: 5px 20px;
+  font-size: 1.25rem;
+  padding: 12px 24px;
   width: 160px;
-  border-radius: 3px;
-  border: 3px solid #aaa;
-  color: black;
+  border: none;
+  border-radius: 6px;
+  background: #e0e5ec;
+  color: #333;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: ${(props) =>
+    props.$active
+      ? "inset 6px 6px 12px #a3b1c6, inset -6px -6px 12px #ffffff"
+      : "6px 6px 12px #a3b1c6, -6px -6px 12px #ffffff"};
 
-  ${(props) =>
-    props.$active &&
-    `
-    border: none;
-    background-color: #5885aa;
-    color: white;
-  `}
-
-  transition: background-color 0.2s ease, color 0.2s ease;
+  &:hover {
+    color: #000;
+  }
 `;
