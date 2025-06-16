@@ -22,7 +22,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
 
   function handleUpdatePreview(event) {
     event.preventDefault();
-    const form = event.currentTarget.form;
+    const form = event.currentTarget;
     const formData = new FormData(form);
     const petData = Object.fromEntries(formData);
     setPreviewData({
@@ -41,7 +41,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
   }
 
   return (
-    <StyledForm onSubmit={onSubmit}>
+    <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
       <input
@@ -54,12 +54,6 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
-      <CenteredButton
-        type="button"
-        onClick={(event) => handleUpdatePreview(event)}
-      >
-        Update Preview
-      </CenteredButton>
       <StyledHeader2>Appearance</StyledHeader2>
       <SingleLine>
         <div>
@@ -241,21 +235,6 @@ const PreviewContainer = styled.div`
   justify-content: center;
 `;
 
-const CenteredButton = styled.button`
-  grid-column: 1/3;
-  place-self: center;
-  padding: 5px 20px;
-  font-size: 16px;
-  border: 2px solid #5885da;
-  color: #5885da;
-  border-radius: 6px;
-  cursor: pointer;
-  background: white;
-  &:hover {
-    background-color: #e1ecf9;
-  }
-`;
-
 const SingleLine = styled.section`
   display: flex;
   grid-column: 1/3;
@@ -266,7 +245,7 @@ const SingleLine = styled.section`
 const StyledSelect = styled.select`
   padding: 8px 5px;
   background: white;
-`
+`;
 
 const BorderColorInput = styled.input`
   place-self: end;
@@ -286,22 +265,23 @@ const Button = styled.button`
   border: 2px solid;
   border-radius: 6px;
   cursor: pointer;
-  color:#dfdfdf ;
+  color: #dfdfdf;
   background: white;
-color: #595959;
-border-color: #aaa;
+  color: #595959;
+  border-color: #aaa;
 
-&:hover {
-  background-color: #dfdfdf;
-}
+  &:hover {
+    background-color: #dfdfdf;
+  }
 
-${(props) => (props.variant === "blue" && css`
-	color: #4a90e2;
-	border-color: #4a90e2;
-	
-	&:hover {
-	  background-color: #e1ecf9;
-	}
-`)}
+  ${(props) =>
+    props.variant === "blue" &&
+    css`
+      color: #4a90e2;
+      border-color: #4a90e2;
+
+      &:hover {
+        background-color: #e1ecf9;
+      }
+    `}
 `;
-
