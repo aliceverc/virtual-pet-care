@@ -9,3 +9,16 @@ body {
   min-height: 100vh;
   padding-bottom: 100px;
 }
+h2 {
+  font-family: 'Press Start 2P', monospace;
+}
+h3 {
+  font-family: 'Press Start 2P', monospace;
+}
+p {
+  font-family: Nunito, sans-serif;
+}
+button {
+  font-family: Nunito, sans-serif;
+  font-weight: 800;
+}
