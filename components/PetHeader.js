@@ -7,7 +7,9 @@ export default function PetHeader({ name, mood }) {
     <StyledHeader>
       <Logo />
       <PetName>{name}</PetName>
-        {typeof mood === "number" && <PetHappiness mood={mood} showTitle={false} />}
+      {typeof mood === "number" && (
+        <PetHappiness mood={mood} showTitle={false} />
+      )}
     </StyledHeader>
   );
 }
@@ -22,7 +24,7 @@ const StyledHeader = styled.header`
   justify-content: space-between;
 `;
 
-const PetName = styled.h2`
+const PetName = styled.h1`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

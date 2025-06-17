@@ -69,6 +69,10 @@ export default function PetDetails() {
     router.push("/");
   }
 
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     <>
       <PetHeader name={pet.details.name} />
@@ -85,13 +89,13 @@ export default function PetDetails() {
         <StyledWrapperSecondDetails>
           <DetailText>
             <strong>Age:</strong> {pet.details.age}{" "}
-            {pet.details.age === 1 ? "year" : "years"}
+            {pet.details.age === 1 ? "Year" : "Years"}
           </DetailText>
           <DetailText>
-            <strong>Character:</strong> {pet.details.character}
+            <strong>Character:</strong> {capitalize(pet.details.character)}
           </DetailText>
           <DetailText>
-            <strong>Description:</strong> {pet.details.description}
+            <strong>Description:</strong> {capitalize(pet.details.description)}
           </DetailText>
         </StyledWrapperSecondDetails>
 
