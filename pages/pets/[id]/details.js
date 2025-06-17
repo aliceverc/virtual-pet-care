@@ -108,7 +108,7 @@ export default function PetDetails() {
                 : (setShowPetForm(true), setShowDeleteBox(false))
             }
           >
-            <a href="#petForm">Edit Pet</a>
+            <a href="#petForm">{showPetForm ? "Cancel" : "Edit Pet"}</a>
           </StyledButton>
           <StyledButton
             $variant="delete"
@@ -118,7 +118,7 @@ export default function PetDetails() {
                 : (setShowDeleteBox(true), setShowPetForm(false))
             }
           >
-            <a href="#deleteBox">Release Pet</a>
+            <a href="#deleteBox">{showDeleteBox ? "Cancel" : "Release Pet"}</a>
           </StyledButton>
         </ButtonWrapper>
         {showDeleteBox && (
