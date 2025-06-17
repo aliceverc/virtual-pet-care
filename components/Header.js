@@ -6,7 +6,7 @@ export default function Header() {
     <HeaderWrapper>
         <LogoWrapper>
             <Image
-                src="/logo2.jpg"
+                src="/logo2.png"
                 alt="Logo"
                 width={100}
                 height={100}
