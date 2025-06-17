@@ -77,7 +77,7 @@ export default function HomePage() {
         </Button>
       ) : (
         <Button $variant="blue" onClick={() => setIsFormActive(true)}>
-          New Pet
+          <a href="#petForm"> New Pet</a>
         </Button>
       )}
 

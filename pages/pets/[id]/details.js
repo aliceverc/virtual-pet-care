@@ -108,7 +108,7 @@ export default function PetDetails() {
                 : (setShowPetForm(true), setShowDeleteBox(false))
             }
           >
-            Edit Pet
+            <a href="#petForm">Edit Pet</a>
           </StyledButton>
           <StyledButton
             $variant="delete"
@@ -118,11 +118,11 @@ export default function PetDetails() {
                 : (setShowDeleteBox(true), setShowPetForm(false))
             }
           >
-            Release Pet
+            <a href="#deleteBox">Release Pet</a>
           </StyledButton>
         </ButtonWrapper>
         {showDeleteBox && (
-          <StyledDeleteBox>
+          <StyledDeleteBox id="deleteBox">
             <p>Do you really want to release your Pet?</p>
             <StyledButton $variant="delete" onClick={handleConfirm}>
               Yes
@@ -142,11 +142,6 @@ export default function PetDetails() {
             currentData={pet}
           />
         )}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </Container>
       <PetNav />
     </>
@@ -163,7 +158,7 @@ const StyledWrapperFirstDetails = styled.section`
 `;
 
 const StyledWrapperSecondDetails = styled.section`
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -175,18 +170,6 @@ const DetailText = styled.p`
   font-size: 0.95rem;
   color: #333;
 `;
-const StyledHeading = styled.h1`
-  text-align: center;
-  font-size: 1.75rem;
-  width: 100px;
-  margin: 0 auto 1em;
-  padding-bottom: 0.4rem;
-  border-bottom: 3px solid #5885da;
-`;
-const StyledHeadingName = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
-`;
 
 const StyledButton = styled.button`
   border: 3px solid
@@ -197,7 +180,6 @@ const StyledButton = styled.button`
   border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
-  margin-bottom: 5%;
   cursor: pointer;
   &:hover {
     background-color: ${({ $variant }) =>
@@ -213,7 +195,7 @@ const ButtonWrapper = styled.section`
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 `;
 
 const StyledDeleteBox = styled.div`
@@ -222,7 +204,8 @@ const StyledDeleteBox = styled.div`
   background-color: #fff;
   border: 2px solid #ff3021;
   padding: 1rem;
-  margin-top: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 10px;
   text-align: center;
 `;
 
@@ -234,7 +217,6 @@ const StyledButtonQuit = styled.button`
   border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
-  margin-bottom: 5%;
   margin-left: 1em;
   color: #aaa;
   cursor: pointer;

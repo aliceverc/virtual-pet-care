@@ -42,7 +42,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
   }
 
   return (
-    <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview}>
+    <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview} id="petForm">
       <StyledHeader1>
         {currentData ? "Update your Pet:" : "Create your Pet:"}
       </StyledHeader1>
