@@ -106,7 +106,7 @@ const GreetingSection = styled.div`
 const TextContent = styled.div`
   flex: 1;
   min-width: 250px;
-  font-family: "Press Start 2P", monospace;
+  font-family: Nunito, sans-serif;
   line-height: 1.4em;
 `;
 

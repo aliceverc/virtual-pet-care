@@ -42,9 +42,9 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledButton = styled.button`
-  font-family: inherit;
-  font-size: 1.25rem;
-  padding: 12px 24px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 1.15rem;
+  padding: 12px 20px;
   width: 160px;
   border: none;
   border-radius: 6px;

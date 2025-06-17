@@ -71,6 +71,7 @@ export default function PetInteractionButton({
 }
 
 const ButtonStyled = styled.button`
+  font-family: 'Press Start 2P', monospace;
   background-color: white;
   border: 2px solid ${(props) => props.$bg};
   color: black;
@@ -79,7 +80,7 @@ const ButtonStyled = styled.button`
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
-  width: 90px;
+  width: 100px;
   justify-content: center;
   align-items: center;
   transition: background-color 0.2s, color 0.2s;
