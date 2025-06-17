@@ -68,5 +68,6 @@ const StyledButtonContainer = styled.section`
 `;
 
 const NeedsBarsContainer = styled(StyledButtonContainer)`
+  font-family: 'Press Start 2P', monospace;
   margin-top: 50px;
 `;

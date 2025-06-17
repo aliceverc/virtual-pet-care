@@ -44,13 +44,13 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
     <StyledForm onSubmit={onSubmit}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
-      <input
+      <StyledInputName
         id="name"
         name="name"
         defaultValue={currentData?.details.name || ""}
         maxLength="20"
         required
-      ></input>
+      />
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
@@ -217,6 +217,12 @@ const StyledForm = styled.form`
   margin-bottom: 20px;
   align-items: start;
   gap: 15px 0;
+  label {
+    font-family: Nunito, sans-serif;
+  }
+  p {
+    font-family: Nunito, sans-serif;
+  }
 `;
 
 const StyledHeader1 = styled.h2`
@@ -227,6 +233,10 @@ const StyledHeader1 = styled.h2`
 const StyledHeader2 = styled.h3`
   grid-column: 1/3;
   margin: 0;
+`;
+
+const StyledInputName = styled.input`
+  font-family: 'Press Start 2P', monospace;
 `;
 
 const PreviewContainer = styled.div`
@@ -273,6 +283,7 @@ const BorderColorInput = styled.input`
 `;
 
 const StyledTextArea = styled.textarea`
+  font-family: 'Press Start 2P', monospace;
   width: 100%;
   border-radius: 5px;
   grid-column: 1/3;

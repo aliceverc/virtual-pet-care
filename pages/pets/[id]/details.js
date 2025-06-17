@@ -159,6 +159,7 @@ const StyledWrapperFirstDetails = styled.section`
 `;
 
 const StyledWrapperSecondDetails = styled.section`
+  font-family: 'Press Start 2P', monospace;
   margin-top: 2rem;
   padding: 1rem;
   border: 1px solid #ccc;
