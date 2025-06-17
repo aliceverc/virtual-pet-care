@@ -19,12 +19,11 @@ export default async function handler(request, response) {
       if (!pet) {
         return response.status(404).json({ message: "Pet not found" });
       }
-
+      
       const character = pet.details.character || "balanced";
       const multipliers =
         characterNeedMultipliers[character] ||
         characterNeedMultipliers["balanced"];
-
 
       const hunger = Math.max(
         0,

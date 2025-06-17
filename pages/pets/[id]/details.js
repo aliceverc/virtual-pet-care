@@ -171,19 +171,42 @@ const DetailText = styled.p`
   font-size: 0.95rem;
   color: #333;
 `;
+const StyledHeading = styled.h1`
+  text-align: center;
+  font-size: 1.75rem;
+  width: 100px;
+  margin: 0 auto 1em;
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid #5885da;
+`;
+const StyledHeadingName = styled.h2`
+  text-align: center;
+  font-size: 1.25rem;
+`;
 
 const StyledButton = styled.button`
   border: 3px solid
     ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
+  color: ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ $variant }) =>
+      $variant === "delete"
+        ? "#fddfdd"
+        : $variant === "modify"
+        ? "#e1ecf9"
+        : "#fff"};
+  }
 `;
 
 const ButtonWrapper = styled.section`
   display: flex;
+  justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
 `;
@@ -199,10 +222,16 @@ const StyledDeleteBox = styled.div`
 
 const StyledButtonQuit = styled.button`
   border: 3px solid #aaa;
+  color: #aaa;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
   margin-left: 1em;
+  color: #aaa;
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f0f0;
+  }
 `;
