@@ -73,7 +73,7 @@ export default function HomePage() {
 
       {isFormActive ? (
         <Button $variant="pink" onClick={() => setIsFormActive(false)}>
-          Close Form
+          Cancel
         </Button>
       ) : (
         <Button $variant="blue" onClick={() => setIsFormActive(true)}>
