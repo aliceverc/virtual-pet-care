@@ -5,6 +5,7 @@ import { uid } from "uid";
 import { useState } from "react";
 import PetList from "@/components/PetList";
 import Header from "@/components/Header";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 export default function HomePage() {
   const [isFormActive, setIsFormActive] = useState(false);
@@ -58,7 +59,7 @@ export default function HomePage() {
   return (
     <Container>
       <Header />
-
+      <DeleteConfirmation />
       <GreetingSection>
         <TextContent>
           <Greeting>Welcome!</Greeting>
