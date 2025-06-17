@@ -113,7 +113,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         )}
       </SingleLine>
       <label htmlFor="width">Width:</label>
-      <StyledRange
+      <input
         id="width"
         name="width"
         type="range"
@@ -122,7 +122,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.appearance.width || previewData.width}
       />
       <label htmlFor="height">Height:</label>
-      <StyledRange
+      <input
         id="height"
         name="height"
         type="range"
@@ -131,7 +131,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.appearance.height || previewData.height}
       />
       <label htmlFor="shape">Shape:</label>
-      <StyledRange
+      <input
         id="shape"
         name="shape"
         type="range"
@@ -149,7 +149,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         }
       />
       <label htmlFor="borderStrength">Border Strength:</label>
-      <StyledRange
+      <input
         id="borderStrength"
         name="borderStrength"
         type="range"
@@ -232,28 +232,10 @@ const PreviewContainer = styled.div`
   justify-content: center;
 `;
 
-
 const StyledInput = styled.input`
   background-color: white;
   padding: 8px 5px;
   border-radius: 6px;
-`;
-
-const CenteredButton = styled.button`
-  grid-column: 1/3;
-  place-self: center;
-  font-size: 1em;
-  border: 3px solid
-    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 5px 20px;
-  font-weight: 600;
-  color: #5885da;
-  cursor: pointer;
-  &:hover {
-    background-color: #e1ecf9;
-  }
 `;
 
 const HiddenRadio = styled.input.attrs({ type: "radio" })`
@@ -263,7 +245,7 @@ const HiddenRadio = styled.input.attrs({ type: "radio" })`
 
 const StyledRadioLabel = styled.label`
   position: relative;
-  padding-left: 20px; /* adjust spacing next to smaller radio */
+  padding-left: 20px;
   cursor: pointer;
   line-height: 16px;
   display: inline-block;
@@ -303,49 +285,6 @@ const StyledRadioLabel = styled.label`
   }
 `;
 
-const StyledRange = styled.input.attrs({ type: "range" })`
-  width: 100%;
-  height: 6px;
-  background: #d3d3d3;
-  border-radius: 3px;
-  outline: none;
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #5885da;
-    border: 2px solid white;
-    box-shadow: 0 0 2px #888;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  &::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #5885da;
-    border: 2px solid white;
-    box-shadow: 0 0 2px #888;
-    cursor: pointer;
-  }
-
-  &::-webkit-slider-runnable-track {
-    height: 6px;
-    background: linear-gradient(to right, #c8dafd, #5885da);
-    border-radius: 3px;
-  }
-
-  &::-moz-range-track {
-    height: 6px;
-    background: linear-gradient(to right, #c8dafd, #5885da);
-    border-radius: 3px;
-  }
-`;
-
 const ColorInput = styled.input`
   background-color: white;
   border-radius: 5px;
@@ -354,8 +293,8 @@ const ColorInput = styled.input`
 const RadioGroup = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem; /* spacing between radio and label */
-  margin-right: 0.2rem; /* spacing between groups */
+  gap: 1rem;
+  margin-right: 0.2rem;
   font-size: 16px;
   color: #5885da;
   border-radius: 6px;
