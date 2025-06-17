@@ -44,13 +44,13 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
     <StyledForm onSubmit={onSubmit}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
-      <input
+      <StyledInput
         id="name"
         name="name"
         defaultValue={currentData?.details.name || ""}
         maxLength="20"
         required
-      ></input>
+      ></StyledInput>
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
@@ -62,9 +62,8 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
       </CenteredButton>
       <StyledHeader2>Appearance</StyledHeader2>
       <SingleLine>
-        <div>
-          <input
-            type="radio"
+        <RadioGroup>
+          <HiddenRadio
             name="colorsAmount"
             id="singleColor"
             onChange={() => setColorAmount(1)}
@@ -73,10 +72,12 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             }
             value="1"
           />
-          <label htmlFor="singleColor">Single Color</label>
-        </div>
-        <div>
-          <input
+          <StyledRadioLabel htmlFor="singleColor">
+            Single Color
+          </StyledRadioLabel>
+        </RadioGroup>
+        <RadioGroup>
+          <HiddenRadio
             type="radio"
             name="colorsAmount"
             id="duoColor"
@@ -84,10 +85,10 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             defaultChecked={currentData?.appearance.colors.length === 2}
             value="2"
           />
-          <label htmlFor="duoColor">Duo Color</label>
-        </div>
-        <div>
-          <input
+          <StyledRadioLabel htmlFor="duoColor">Duo Color</StyledRadioLabel>
+        </RadioGroup>
+        <RadioGroup>
+          <HiddenRadio
             type="radio"
             name="colorsAmount"
             id="tripleColor"
@@ -95,11 +96,13 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             defaultChecked={currentData?.appearance.colors.length === 3}
             value="3"
           />
-          <label htmlFor="tripleColor">Triple Color</label>
-        </div>
+          <StyledRadioLabel htmlFor="tripleColor">
+            Triple Color
+          </StyledRadioLabel>
+        </RadioGroup>
       </SingleLine>
       <SingleLine>
-        <input
+        <ColorInput
           type="color"
           name="firstColor"
           defaultValue={
@@ -107,22 +110,22 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
           }
         />
         {colorAmount > 1 && (
-          <input
+          <ColorInput
             type="color"
             name="secondColor"
             defaultValue={currentData?.appearance.colors[1] || "#EA738D"}
           />
         )}
         {colorAmount > 2 && (
-          <input
+          <ColorInput
             type="color"
             name="thirdColor"
             defaultValue={currentData?.appearance.colors[2] || "#EA738D"}
           />
-        )}{" "}
+        )}
       </SingleLine>
       <label htmlFor="width">Width:</label>
-      <input
+      <StyledRange
         id="width"
         name="width"
         type="range"
@@ -131,7 +134,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.appearance.width || previewData.width}
       />
       <label htmlFor="height">Height:</label>
-      <input
+      <StyledRange
         id="height"
         name="height"
         type="range"
@@ -140,7 +143,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.appearance.height || previewData.height}
       />
       <label htmlFor="shape">Shape:</label>
-      <input
+      <StyledRange
         id="shape"
         name="shape"
         type="range"
@@ -158,7 +161,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         }
       />
       <label htmlFor="borderStrength">Border Strength:</label>
-      <input
+      <StyledRange
         id="borderStrength"
         name="borderStrength"
         type="range"
@@ -169,7 +172,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         }
       />
       <label htmlFor="borderStyle">Border Style:</label>
-      <select
+      <StyledSelect
         id="borderStyle"
         name="borderStyle"
         defaultValue={currentData?.appearance.borderStyle}
@@ -178,10 +181,10 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <option value="dashed">Dashed</option>
         <option value="dotted">Dotted</option>
         <option value="double">Double</option>
-      </select>
+      </StyledSelect>
       <StyledHeader2>Details</StyledHeader2>
       <label htmlFor="character">Character:</label>
-      <select
+      <StyledSelect
         id="character"
         name="character"
         defaultValue={currentData?.details.character}
@@ -190,7 +193,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <option value="playful">Playful</option>
         <option value="relaxed">Relaxed</option>
         <option value="gourmet">Gourmet</option>
-      </select>
+      </StyledSelect>
       <label htmlFor="description">Description:</label>
       <StyledTextArea
         id="description"
@@ -200,8 +203,8 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.details.description}
       ></StyledTextArea>
       <SingleLine>
-        <button onClick={onClose}>Cancel</button>
-        <button type="submit">{currentData ? "Update Pet" : "Add Pet"}</button>
+        <ButtonCancel onClick={onClose}>Cancel</ButtonCancel>
+        <Button type="submit">{currentData ? "Update Pet" : "Add Pet"}</Button>
       </SingleLine>
     </StyledForm>
   );
@@ -215,8 +218,8 @@ const StyledForm = styled.form`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin-bottom: 20px;
-  align-items: start;
-  gap: 15px 0;
+  align-items: center;
+  gap: 20px 0;
 `;
 
 const StyledHeader1 = styled.h2`
@@ -241,12 +244,130 @@ const PreviewContainer = styled.div`
   justify-content: center;
 `;
 
+const StyledInput = styled.input`
+  background-color: white;
+  padding: 8px 5px;
+  border-radius: 6px;
+`;
+
 const CenteredButton = styled.button`
   grid-column: 1/3;
   place-self: center;
+  font-size: 1em;
+  border: 3px solid
+    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
+  background-color: #fff;
+  border-radius: 5px;
   padding: 5px 20px;
+  font-weight: 600;
+  color: #5885da;
+  cursor: pointer;
+  &:hover {
+    background-color: #e1ecf9;
+  }
+`;
+
+const HiddenRadio = styled.input.attrs({ type: "radio" })`
+  position: absolute;
+  left: -9999px;
+`;
+
+const StyledRadioLabel = styled.label`
+  position: relative;
+  padding-left: 20px; /* adjust spacing next to smaller radio */
+  cursor: pointer;
+  line-height: 16px;
+  display: inline-block;
+  color: #333;
+  font-weight: 500;
+  font-size: 15px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  &::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #5885da;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  ${HiddenRadio}:checked + &::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const StyledRange = styled.input.attrs({ type: "range" })`
+  width: 100%;
+  height: 6px;
+  background: #d3d3d3;
+  border-radius: 3px;
+  outline: none;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #5885da;
+    border: 2px solid white;
+    box-shadow: 0 0 2px #888;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #5885da;
+    border: 2px solid white;
+    box-shadow: 0 0 2px #888;
+    cursor: pointer;
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: 6px;
+    background: linear-gradient(to right, #c8dafd, #5885da);
+    border-radius: 3px;
+  }
+
+  &::-moz-range-track {
+    height: 6px;
+    background: linear-gradient(to right, #c8dafd, #5885da);
+    border-radius: 3px;
+  }
+`;
+
+const ColorInput = styled.input`
+  background-color: white;
+  border-radius: 5px;
+`;
+
+const RadioGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* spacing between radio and label */
+  margin-right: 0.2rem; /* spacing between groups */
   font-size: 16px;
-  border: 2px solid #5885da;
   color: #5885da;
   border-radius: 6px;
   cursor: pointer;
@@ -264,12 +385,32 @@ const SingleLine = styled.section`
 `;
 
 const StyledSelect = styled.select`
+  background-color: white;
   padding: 8px 5px;
-  background: white;
-`
+  border-radius: 6px;
+`;
 
 const BorderColorInput = styled.input`
-  place-self: end;
+  place-self: flex-start;
+  background-color: white;
+  border-radius: 5px;
+`;
+
+const ButtonCancel = styled.button`
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  font-size: 1em;
+  font-weight: 600;
+  border: 2px solid #aaa;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  font-weight: 600;
+  font-size: 16px;
+  color: #aaa;
+  &:hover {
+    background-color: #f1f0f0;
+  }
 `;
 
 const StyledTextArea = styled.textarea`
@@ -283,25 +424,14 @@ const Button = styled.button`
   padding: 10px 20px;
   margin-bottom: 15px;
   font-size: 16px;
-  border: 2px solid;
+  font-weight: 600;
+  border: 2px solid #4a90e2;
   border-radius: 6px;
   cursor: pointer;
-  color:#dfdfdf ;
   background: white;
-color: #595959;
-border-color: #aaa;
+  color: #4a90e2;
 
-&:hover {
-  background-color: #dfdfdf;
-}
-
-${(props) => (props.variant === "blue" && css`
-	color: #4a90e2;
-	border-color: #4a90e2;
-	
-	&:hover {
-	  background-color: #e1ecf9;
-	}
-`)}
+  &:hover {
+    background-color: #e1ecf9;
+  }
 `;
-
