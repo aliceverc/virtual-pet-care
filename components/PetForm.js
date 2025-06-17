@@ -43,15 +43,17 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
 
   return (
     <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview}>
-      <StyledHeader1>Create your Pet:</StyledHeader1>
+      <StyledHeader1>
+        {currentData ? "Update your Pet:" : "Create your Pet:"}
+      </StyledHeader1>
       <label htmlFor="name">Name: </label>
-      <StyledInput
+      <StyledName
         id="name"
         name="name"
         defaultValue={currentData?.details.name || ""}
         maxLength="20"
         required
-      ></StyledInput>
+      />
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
@@ -206,6 +208,15 @@ const StyledForm = styled.form`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin-bottom: 20px;
+  align-items: start;
+  gap: 15px 0;
+  font-family: Nunito, sans-serif;
+  select {
+    font-family: Nunito, sans-serif;
+  }
+  input {
+    font-family: Nunito, sans-serif;
+  }
   align-items: center;
   gap: 20px 0;
 `;
@@ -218,6 +229,12 @@ const StyledHeader1 = styled.h2`
 const StyledHeader2 = styled.h3`
   grid-column: 1/3;
   margin: 0;
+`;
+
+const StyledName = styled.input`
+  background-color: white;
+  padding: 8px 5px;
+  border-radius: 6px;
 `;
 
 const PreviewContainer = styled.div`
@@ -342,6 +359,7 @@ const ButtonCancel = styled.button`
 `;
 
 const StyledTextArea = styled.textarea`
+  font-family: "Press Start 2P", monospace;
   width: 100%;
   border-radius: 5px;
   grid-column: 1/3;
