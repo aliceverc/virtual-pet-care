@@ -57,18 +57,15 @@ export default function HomePage() {
 
   return (
     <Container>
-      <Header/>
+      <Header />
 
       <GreetingSection>
         <TextContent>
           <Greeting>Welcome!</Greeting>
           <p>
-            Schön, dass du wieder da bist!
-            <br />
-            Deine Pets warten schon auf dich
-            <br />
-            <br />
-            Was willst du heute machen?
+            Nice to have you here. <br />
+            Go ahead and create new Pets, care for them to make them happy and
+            have fun while building your own Virtual Pet Care!
           </p>
         </TextContent>
         <ImagePlaceholder>Bild</ImagePlaceholder>
@@ -97,13 +94,6 @@ const Container = styled.section`
   padding: 24px;
 `;
 
-const Logo = styled.h1`
-  text-align: center;
-  font-size: 36px;
-  color: #4a90e2;
-  margin-bottom: 20px;
-`;
-
 const GreetingSection = styled.div`
   display: flex;
   justify-content: space-between;
@@ -116,7 +106,8 @@ const GreetingSection = styled.div`
 const TextContent = styled.div`
   flex: 1;
   min-width: 250px;
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
+  line-height: 1.4em;
 `;
 
 const Greeting = styled.h2`

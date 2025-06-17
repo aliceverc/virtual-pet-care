@@ -43,7 +43,9 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
 
   return (
     <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview}>
-      <StyledHeader1>Create your Pet:</StyledHeader1>
+      <StyledHeader1>
+        {currentData ? "Update your Pet:" : "Create your Pet:"}
+      </StyledHeader1>
       <label htmlFor="name">Name: </label>
       <StyledInput
         id="name"
