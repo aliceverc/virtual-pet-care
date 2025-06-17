@@ -119,15 +119,15 @@ export default function PetDetails() {
         </ButtonWrapper>
         {showDeleteBox && (
           <StyledDeleteBox>
-            <p>Do you really want to release your pet?</p>
+            <p>Do you really want to release your Pet?</p>
             <StyledButton $variant="delete" onClick={handleConfirm}>
-              YES
+              Yes
             </StyledButton>
             <StyledButtonQuit
               $variant="no"
               onClick={() => setShowDeleteBox(false)}
             >
-              NO
+              No
             </StyledButtonQuit>
           </StyledDeleteBox>
         )}
@@ -150,7 +150,7 @@ export default function PetDetails() {
 }
 
 const Container = styled.section`
-  padding:  0 24px 0 ;
+  padding: 0 24px 0;
 `;
 
 const StyledWrapperFirstDetails = styled.section`
@@ -189,6 +189,7 @@ const StyledButton = styled.button`
     ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
   color: ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
+  font-size: 16px;
   border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
@@ -212,6 +213,7 @@ const ButtonWrapper = styled.section`
 `;
 
 const StyledDeleteBox = styled.div`
+  font-family: Nunito, sans-serif;
   z-index: 1;
   background-color: #fff;
   border: 2px solid #ff3021;
@@ -221,6 +223,7 @@ const StyledDeleteBox = styled.div`
 `;
 
 const StyledButtonQuit = styled.button`
+  font-size: 16px;
   border: 3px solid #aaa;
   color: #aaa;
   background-color: #fff;
