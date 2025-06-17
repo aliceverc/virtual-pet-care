@@ -1,11 +1,9 @@
 import { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
 export default function PetForm({ onSubmit, onClose, currentData }) {
-  const [colorAmount, setColorAmount] = useState(
-    currentData ? currentData.appearance.colors.length : 1
-  );
   const [previewData, setPreviewData] = useState(
     currentData
       ? currentData.appearance
@@ -19,17 +17,20 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
           width: 50,
         }
   );
+  const [colorAmount, setColorAmount] = useState(
+    currentData ? currentData.appearance.colors.length : 1
+  );
 
   function handleUpdatePreview(event) {
-    event.preventDefault();
-    const form = event.currentTarget.form;
+    const form = event.currentTarget;
     const formData = new FormData(form);
     const petData = Object.fromEntries(formData);
+    setColorAmount(petData.colorsAmount);
     setPreviewData({
       colors: [
         petData.firstColor,
-        petData.secondColor,
-        petData.thirdColor,
+        petData.colorsAmount > 1 && petData.secondColor,
+        petData.colorsAmount > 2 && petData.thirdColor,
       ].filter(Boolean),
       height: parseInt(petData.height),
       width: parseInt(petData.width),
@@ -41,10 +42,10 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
   }
 
   return (
-    <StyledForm onSubmit={onSubmit}>
+    <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
-      <StyledInputName
+      <StyledName
         id="name"
         name="name"
         defaultValue={currentData?.details.name || ""}
@@ -54,72 +55,62 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
-      <CenteredButton
-        type="button"
-        onClick={(event) => handleUpdatePreview(event)}
-      >
-        Update Preview
-      </CenteredButton>
       <StyledHeader2>Appearance</StyledHeader2>
       <SingleLine>
-        <div>
-          <input
-            type="radio"
+        <RadioGroup>
+          <HiddenRadio
             name="colorsAmount"
             id="singleColor"
-            onChange={() => setColorAmount(1)}
-            defaultChecked={
-              currentData ? currentData.appearance.colors.length === 1 : true
-            }
+            defaultChecked={previewData.colors.length === 1}
             value="1"
           />
-          <label htmlFor="singleColor">Single Color</label>
-        </div>
-        <div>
-          <input
+          <StyledRadioLabel htmlFor="singleColor">
+            Single Color
+          </StyledRadioLabel>
+        </RadioGroup>
+        <RadioGroup>
+          <HiddenRadio
             type="radio"
             name="colorsAmount"
             id="duoColor"
-            onChange={() => setColorAmount(2)}
-            defaultChecked={currentData?.appearance.colors.length === 2}
+            defaultChecked={previewData.colors.length === 2}
             value="2"
           />
-          <label htmlFor="duoColor">Duo Color</label>
-        </div>
-        <div>
-          <input
+          <StyledRadioLabel htmlFor="duoColor">Duo Color</StyledRadioLabel>
+        </RadioGroup>
+        <RadioGroup>
+          <HiddenRadio
             type="radio"
             name="colorsAmount"
             id="tripleColor"
-            onChange={() => setColorAmount(3)}
-            defaultChecked={currentData?.appearance.colors.length === 3}
+            defaultChecked={previewData.colors.length === 3}
             value="3"
           />
-          <label htmlFor="tripleColor">Triple Color</label>
-        </div>
+          <StyledRadioLabel htmlFor="tripleColor">
+            Triple Color
+          </StyledRadioLabel>
+        </RadioGroup>
       </SingleLine>
       <SingleLine>
-        <input
+        <ColorInput
           type="color"
           name="firstColor"
-          defaultValue={
-            currentData?.appearance.colors[0] || previewData.colors[0]
-          }
+          defaultValue={previewData.colors[0]}
         />
         {colorAmount > 1 && (
-          <input
+          <ColorInput
             type="color"
             name="secondColor"
             defaultValue={currentData?.appearance.colors[1] || "#EA738D"}
           />
         )}
         {colorAmount > 2 && (
-          <input
+          <ColorInput
             type="color"
             name="thirdColor"
             defaultValue={currentData?.appearance.colors[2] || "#EA738D"}
           />
-        )}{" "}
+        )}
       </SingleLine>
       <label htmlFor="width">Width:</label>
       <input
@@ -169,7 +160,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         }
       />
       <label htmlFor="borderStyle">Border Style:</label>
-      <select
+      <StyledSelect
         id="borderStyle"
         name="borderStyle"
         defaultValue={currentData?.appearance.borderStyle}
@@ -178,10 +169,10 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <option value="dashed">Dashed</option>
         <option value="dotted">Dotted</option>
         <option value="double">Double</option>
-      </select>
+      </StyledSelect>
       <StyledHeader2>Details</StyledHeader2>
       <label htmlFor="character">Character:</label>
-      <select
+      <StyledSelect
         id="character"
         name="character"
         defaultValue={currentData?.details.character}
@@ -190,7 +181,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <option value="playful">Playful</option>
         <option value="relaxed">Relaxed</option>
         <option value="gourmet">Gourmet</option>
-      </select>
+      </StyledSelect>
       <label htmlFor="description">Description:</label>
       <StyledTextArea
         id="description"
@@ -200,8 +191,8 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.details.description}
       ></StyledTextArea>
       <SingleLine>
-        <button onClick={onClose}>Cancel</button>
-        <button type="submit">{currentData ? "Update Pet" : "Add Pet"}</button>
+        <ButtonCancel onClick={onClose}>Cancel</ButtonCancel>
+        <Button type="submit">{currentData ? "Update Pet" : "Add Pet"}</Button>
       </SingleLine>
     </StyledForm>
   );
@@ -217,12 +208,15 @@ const StyledForm = styled.form`
   margin-bottom: 20px;
   align-items: start;
   gap: 15px 0;
-  label {
+  font-family: Nunito, sans-serif;
+  select {
     font-family: Nunito, sans-serif;
   }
-  p {
+  input {
     font-family: Nunito, sans-serif;
   }
+  align-items: center;
+  gap: 20px 0;
 `;
 
 const StyledHeader1 = styled.h2`
@@ -235,8 +229,10 @@ const StyledHeader2 = styled.h3`
   margin: 0;
 `;
 
-const StyledInputName = styled.input`
-  font-family: 'Press Start 2P', monospace;
+const StyledName = styled.input`
+  background-color: white;
+  padding: 8px 5px;
+  border-radius: 6px;
 `;
 
 const PreviewContainer = styled.div`
@@ -251,12 +247,70 @@ const PreviewContainer = styled.div`
   justify-content: center;
 `;
 
-const CenteredButton = styled.button`
-  grid-column: 1/3;
-  place-self: center;
-  padding: 5px 20px;
+const StyledInput = styled.input`
+  background-color: white;
+  padding: 8px 5px;
+  border-radius: 6px;
+`;
+
+const HiddenRadio = styled.input.attrs({ type: "radio" })`
+  position: absolute;
+  left: -9999px;
+`;
+
+const StyledRadioLabel = styled.label`
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+  line-height: 16px;
+  display: inline-block;
+  color: #333;
+  font-weight: 500;
+  font-size: 15px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  &::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #5885da;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  ${HiddenRadio}:checked + &::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const ColorInput = styled.input`
+  background-color: white;
+  border-radius: 5px;
+`;
+
+const RadioGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 0.2rem;
   font-size: 16px;
-  border: 2px solid #5885da;
   color: #5885da;
   border-radius: 6px;
   cursor: pointer;
@@ -274,16 +328,36 @@ const SingleLine = styled.section`
 `;
 
 const StyledSelect = styled.select`
+  background-color: white;
   padding: 8px 5px;
-  background: white;
-`
+  border-radius: 6px;
+`;
 
 const BorderColorInput = styled.input`
-  place-self: end;
+  place-self: flex-start;
+  background-color: white;
+  border-radius: 5px;
+`;
+
+const ButtonCancel = styled.button`
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  font-size: 1em;
+  font-weight: 600;
+  border: 2px solid #aaa;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  font-weight: 600;
+  font-size: 16px;
+  color: #aaa;
+  &:hover {
+    background-color: #f1f0f0;
+  }
 `;
 
 const StyledTextArea = styled.textarea`
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
   width: 100%;
   border-radius: 5px;
   grid-column: 1/3;
@@ -294,25 +368,14 @@ const Button = styled.button`
   padding: 10px 20px;
   margin-bottom: 15px;
   font-size: 16px;
-  border: 2px solid;
+  font-weight: 600;
+  border: 2px solid #4a90e2;
   border-radius: 6px;
   cursor: pointer;
-  color:#dfdfdf ;
   background: white;
-color: #595959;
-border-color: #aaa;
+  color: #4a90e2;
 
-&:hover {
-  background-color: #dfdfdf;
-}
-
-${(props) => (props.variant === "blue" && css`
-	color: #4a90e2;
-	border-color: #4a90e2;
-	
-	&:hover {
-	  background-color: #e1ecf9;
-	}
-`)}
+  &:hover {
+    background-color: #e1ecf9;
+  }
 `;
-

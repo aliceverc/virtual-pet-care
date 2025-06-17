@@ -119,15 +119,15 @@ export default function PetDetails() {
         </ButtonWrapper>
         {showDeleteBox && (
           <StyledDeleteBox>
-            <p>Do you really want to release your pet?</p>
+            <p>Do you really want to release your Pet?</p>
             <StyledButton $variant="delete" onClick={handleConfirm}>
-              YES
+              Yes
             </StyledButton>
             <StyledButtonQuit
               $variant="no"
               onClick={() => setShowDeleteBox(false)}
             >
-              NO
+              No
             </StyledButtonQuit>
           </StyledDeleteBox>
         )}
@@ -150,7 +150,7 @@ export default function PetDetails() {
 }
 
 const Container = styled.section`
-  padding:  0 24px 0 ;
+  padding: 0 24px 0;
 `;
 
 const StyledWrapperFirstDetails = styled.section`
@@ -159,7 +159,6 @@ const StyledWrapperFirstDetails = styled.section`
 `;
 
 const StyledWrapperSecondDetails = styled.section`
-  font-family: 'Press Start 2P', monospace;
   margin-top: 2rem;
   padding: 1rem;
   border: 1px solid #ccc;
@@ -172,24 +171,49 @@ const DetailText = styled.p`
   font-size: 0.95rem;
   color: #333;
 `;
+const StyledHeading = styled.h1`
+  text-align: center;
+  font-size: 1.75rem;
+  width: 100px;
+  margin: 0 auto 1em;
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid #5885da;
+`;
+const StyledHeadingName = styled.h2`
+  text-align: center;
+  font-size: 1.25rem;
+`;
 
 const StyledButton = styled.button`
   border: 3px solid
     ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
+  color: ${({ $variant }) => ($variant === "delete" ? "#ff3021" : "#5885da")};
   background-color: #fff;
-  border-radius: 5px;
+  font-size: 16px;
+  border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ $variant }) =>
+      $variant === "delete"
+        ? "#fddfdd"
+        : $variant === "modify"
+        ? "#e1ecf9"
+        : "#fff"};
+  }
 `;
 
 const ButtonWrapper = styled.section`
   display: flex;
+  justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
 `;
 
 const StyledDeleteBox = styled.div`
+  font-family: Nunito, sans-serif;
   z-index: 1;
   background-color: #fff;
   border: 2px solid #ff3021;
@@ -199,11 +223,18 @@ const StyledDeleteBox = styled.div`
 `;
 
 const StyledButtonQuit = styled.button`
+  font-size: 16px;
   border: 3px solid #aaa;
+  color: #aaa;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
   margin-bottom: 5%;
   margin-left: 1em;
+  color: #aaa;
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f0f0;
+  }
 `;

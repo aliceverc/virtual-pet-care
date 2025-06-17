@@ -29,7 +29,6 @@ const StyledCard = styled.section`
 `;
 
 const Name = styled.p`
-  font-family: 'Press Start 2P', monospace;
   font-weight: bold;
   margin: 1rem 0;
   font-size: 1.5rem;

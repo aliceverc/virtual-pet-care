@@ -80,7 +80,7 @@ const ButtonStyled = styled.button`
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
-  width: 90px;
+  width: 100px;
   justify-content: center;
   align-items: center;
   transition: background-color 0.2s, color 0.2s;

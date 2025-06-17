@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { keyframes } from "styled-components";
 import styled from "styled-components";
 
@@ -12,16 +13,20 @@ const defaultAppearance = {
 };
 
 export default function PetDisplay({ appearance, dimensions, hasBorder }) {
+  const [idleTiming] = useState(2 + Math.random());
+  const [blinkTiming] = useState(2 + Math.random());
+
   return (
     <PetContainer $hasBorder={hasBorder} $dimensions={dimensions}>
       <Pet
         $appearance={appearance ? appearance : defaultAppearance}
         $dimensions={dimensions}
+        $idleTiming={idleTiming}
       >
-        <Eye $dimensions={dimensions}>
+        <Eye $dimensions={dimensions} $blinkTiming={blinkTiming}>
           <Pupil />
         </Eye>
-        <Eye $dimensions={dimensions}>
+        <Eye $dimensions={dimensions} $blinkTiming={blinkTiming}>
           <Pupil />
         </Eye>
       </Pet>
@@ -83,11 +88,25 @@ const Pet = styled.div`
     ${(props.$dimensions / 250) * props.$appearance.borderStrength}px 
     ${props.$appearance.borderStyle} 
     ${props.$appearance.borderColor}`};
-  animation: ${idle} 2.5s infinite;
+  animation: ${idle} ${(props) => props.$idleTiming}s infinite;
   transform-origin: bottom center;
   display: flex;
   justify-content: space-evenly;
 `;
+
+const blinking = keyframes`
+  0% {
+    transform: scaleY(1);
+  }
+  90% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }`;
 
 const Eye = styled.div`
   margin-top: 10%;
@@ -97,6 +116,7 @@ const Eye = styled.div`
   background-color: #eee;
   display: grid;
   place-items: center;
+  animation: ${blinking} ${(props) => props.$blinkTiming * 2}s infinite;
 `;
 
 const Pupil = styled.div`
