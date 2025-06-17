@@ -95,7 +95,7 @@ export default function PetDetails() {
             <strong>Character:</strong> {capitalize(pet.details.character)}
           </DetailText>
           <DetailText>
-            <strong>Description:</strong> {pet.details.description}
+            <strong>Description:</strong> {capitalize(pet.details.description)}
           </DetailText>
         </StyledWrapperSecondDetails>
 
