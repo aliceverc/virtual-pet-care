@@ -43,14 +43,20 @@ const StyledLink = styled(Link)`
 const StyledButton = styled.button`
   margin: 15px;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1em;
+  font-weight: 600;
   background-color: white;
-  padding: 5px 20px;
+  padding: 10px 20px;
   width: 160px;
-  border-radius: 3px;
+  border-radius: 6px;
   border: 3px solid #aaa;
-  color: black;
+  color: #aaa;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: #f1f0f0;
+  }
 
   ${(props) =>
     props.$active &&
@@ -58,7 +64,9 @@ const StyledButton = styled.button`
     border: none;
     background-color: #5885aa;
     color: white;
-  `}
 
-  transition: background-color 0.2s ease, color 0.2s ease;
+    &:hover {
+      background-color: #5885aa;
+    }
+  `}
 `;
