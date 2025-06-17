@@ -1,11 +1,9 @@
 import { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
 export default function PetForm({ onSubmit, onClose, currentData }) {
-  const [colorAmount, setColorAmount] = useState(
-    currentData ? currentData.appearance.colors.length : 1
-  );
   const [previewData, setPreviewData] = useState(
     currentData
       ? currentData.appearance
@@ -19,17 +17,20 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
           width: 50,
         }
   );
+  const [colorAmount, setColorAmount] = useState(
+    currentData ? currentData.appearance.colors.length : 1
+  );
 
   function handleUpdatePreview(event) {
-    event.preventDefault();
-    const form = event.currentTarget.form;
+    const form = event.currentTarget;
     const formData = new FormData(form);
     const petData = Object.fromEntries(formData);
+    setColorAmount(petData.colorsAmount);
     setPreviewData({
       colors: [
         petData.firstColor,
-        petData.secondColor,
-        petData.thirdColor,
+        petData.colorsAmount > 1 && petData.secondColor,
+        petData.colorsAmount > 2 && petData.thirdColor,
       ].filter(Boolean),
       height: parseInt(petData.height),
       width: parseInt(petData.width),
@@ -41,7 +42,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
   }
 
   return (
-    <StyledForm onSubmit={onSubmit}>
+    <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview}>
       <StyledHeader1>Create your Pet:</StyledHeader1>
       <label htmlFor="name">Name: </label>
       <StyledInput
@@ -54,22 +55,13 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
       <PreviewContainer>
         <PetDisplay dimensions="246" appearance={previewData} />
       </PreviewContainer>
-      <CenteredButton
-        type="button"
-        onClick={(event) => handleUpdatePreview(event)}
-      >
-        Update Preview
-      </CenteredButton>
       <StyledHeader2>Appearance</StyledHeader2>
       <SingleLine>
         <RadioGroup>
           <HiddenRadio
             name="colorsAmount"
             id="singleColor"
-            onChange={() => setColorAmount(1)}
-            defaultChecked={
-              currentData ? currentData.appearance.colors.length === 1 : true
-            }
+            defaultChecked={previewData.colors.length === 1}
             value="1"
           />
           <StyledRadioLabel htmlFor="singleColor">
@@ -81,8 +73,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             type="radio"
             name="colorsAmount"
             id="duoColor"
-            onChange={() => setColorAmount(2)}
-            defaultChecked={currentData?.appearance.colors.length === 2}
+            defaultChecked={previewData.colors.length === 2}
             value="2"
           />
           <StyledRadioLabel htmlFor="duoColor">Duo Color</StyledRadioLabel>
@@ -92,8 +83,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
             type="radio"
             name="colorsAmount"
             id="tripleColor"
-            onChange={() => setColorAmount(3)}
-            defaultChecked={currentData?.appearance.colors.length === 3}
+            defaultChecked={previewData.colors.length === 3}
             value="3"
           />
           <StyledRadioLabel htmlFor="tripleColor">
@@ -105,9 +95,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         <ColorInput
           type="color"
           name="firstColor"
-          defaultValue={
-            currentData?.appearance.colors[0] || previewData.colors[0]
-          }
+          defaultValue={previewData.colors[0]}
         />
         {colorAmount > 1 && (
           <ColorInput
@@ -125,7 +113,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         )}
       </SingleLine>
       <label htmlFor="width">Width:</label>
-      <StyledRange
+      <input
         id="width"
         name="width"
         type="range"
@@ -134,7 +122,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.appearance.width || previewData.width}
       />
       <label htmlFor="height">Height:</label>
-      <StyledRange
+      <input
         id="height"
         name="height"
         type="range"
@@ -143,7 +131,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         defaultValue={currentData?.appearance.height || previewData.height}
       />
       <label htmlFor="shape">Shape:</label>
-      <StyledRange
+      <input
         id="shape"
         name="shape"
         type="range"
@@ -161,7 +149,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         }
       />
       <label htmlFor="borderStrength">Border Strength:</label>
-      <StyledRange
+      <input
         id="borderStrength"
         name="borderStrength"
         type="range"
@@ -250,23 +238,6 @@ const StyledInput = styled.input`
   border-radius: 6px;
 `;
 
-const CenteredButton = styled.button`
-  grid-column: 1/3;
-  place-self: center;
-  font-size: 1em;
-  border: 3px solid
-    ${({ variant }) => (variant === "delete" ? "#ff3021" : "#5885da")};
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 5px 20px;
-  font-weight: 600;
-  color: #5885da;
-  cursor: pointer;
-  &:hover {
-    background-color: #e1ecf9;
-  }
-`;
-
 const HiddenRadio = styled.input.attrs({ type: "radio" })`
   position: absolute;
   left: -9999px;
@@ -274,7 +245,7 @@ const HiddenRadio = styled.input.attrs({ type: "radio" })`
 
 const StyledRadioLabel = styled.label`
   position: relative;
-  padding-left: 20px; /* adjust spacing next to smaller radio */
+  padding-left: 20px;
   cursor: pointer;
   line-height: 16px;
   display: inline-block;
@@ -314,49 +285,6 @@ const StyledRadioLabel = styled.label`
   }
 `;
 
-const StyledRange = styled.input.attrs({ type: "range" })`
-  width: 100%;
-  height: 6px;
-  background: #d3d3d3;
-  border-radius: 3px;
-  outline: none;
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #5885da;
-    border: 2px solid white;
-    box-shadow: 0 0 2px #888;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  &::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #5885da;
-    border: 2px solid white;
-    box-shadow: 0 0 2px #888;
-    cursor: pointer;
-  }
-
-  &::-webkit-slider-runnable-track {
-    height: 6px;
-    background: linear-gradient(to right, #c8dafd, #5885da);
-    border-radius: 3px;
-  }
-
-  &::-moz-range-track {
-    height: 6px;
-    background: linear-gradient(to right, #c8dafd, #5885da);
-    border-radius: 3px;
-  }
-`;
-
 const ColorInput = styled.input`
   background-color: white;
   border-radius: 5px;
@@ -365,8 +293,8 @@ const ColorInput = styled.input`
 const RadioGroup = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem; /* spacing between radio and label */
-  margin-right: 0.2rem; /* spacing between groups */
+  gap: 1rem;
+  margin-right: 0.2rem;
   font-size: 16px;
   color: #5885da;
   border-radius: 6px;
