@@ -15,6 +15,11 @@ export default function PetDetails({ onDeleteName }) {
       deleteBoxRef.current.scrollIntoView({ behavior: "smooth" });
     }
   });
+  useEffect(() => {
+    if (formRef?.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  });
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -159,6 +164,7 @@ export default function PetDetails({ onDeleteName }) {
 
 const Container = styled.section`
   padding: 0 24px 0;
+  margin-bottom: 80px;
 `;
 
 const StyledWrapperFirstDetails = styled.section`
