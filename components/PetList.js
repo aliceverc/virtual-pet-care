@@ -19,11 +19,13 @@ export default function PetList() {
 
   return (
     <StyledListWrapper>
-      {pets.map((pet) => (
-        <StyledCardWrapper key={pet._id}>
-          <PetCard pet={pet} />
-        </StyledCardWrapper>
-      ))}
+      {pets
+        .map((pet) => (
+          <StyledCardWrapper key={pet._id}>
+            <PetCard pet={pet} />
+          </StyledCardWrapper>
+        ))
+        .reverse()}
     </StyledListWrapper>
   );
 }
