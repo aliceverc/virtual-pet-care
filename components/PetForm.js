@@ -369,7 +369,7 @@ const ButtonCancel = styled.button`
 `;
 
 const StyledTextArea = styled.textarea`
-  font-family: "Press Start 2P", monospace;
+  font-family: Nunito, sans-serif;
   width: 100%;
   border-radius: 5px;
   grid-column: 1/3;

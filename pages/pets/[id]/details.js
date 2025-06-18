@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import PetHeader from "@/components/PetHeader";
 
-export default function PetDetails() {
+export default function PetDetails({ onDeleteName }) {
   const formRef = useRef(null);
   const deleteBoxRef = useRef(null);
   useEffect(() => {
@@ -15,7 +15,6 @@ export default function PetDetails() {
       deleteBoxRef.current.scrollIntoView({ behavior: "smooth" });
     }
   });
-
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -74,6 +73,7 @@ export default function PetDetails() {
       console.error("Delete failed");
       return;
     }
+    onDeleteName(pet.details.name);
     router.push("/");
   }
 

@@ -7,13 +7,15 @@ export default function PetCard({ pet }) {
   return (
     <StyledLink href={`/pets/${pet._id}/interaction`}>
       <StyledCard>
-        <Name>{pet.name}</Name>
+        <StyledNameHappiness>
+          <Name>{pet.name}</Name>
+          <PetHappiness mood={pet.mood} showTitle={false} />
+        </StyledNameHappiness>
         <PetDisplay
           appearance={pet.appearance}
           hasBorder={false}
           dimensions={250}
         />
-        <PetHappiness mood={pet.mood} showTitle={false} />
       </StyledCard>
     </StyledLink>
   );
@@ -26,6 +28,13 @@ const StyledCard = styled.section`
   border-radius: 8px;
   background: white;
   padding-bottom: 2.5rem;
+`;
+
+const StyledNameHappiness = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
 const Name = styled.p`
