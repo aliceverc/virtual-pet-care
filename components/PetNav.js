@@ -26,15 +26,24 @@ export default function PetNav() {
 
 const StyledNav = styled.nav`
   position: fixed;
+  bottom: 0;
   width: 100%;
   max-width: 600px;
-  bottom: 0;
+  justify-content: center;
   display: flex;
-  justify-content: space-evenly;
-  gap: 20px;
-  padding: 20px;
-  background-color: #e0e5ec;
-  box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 #a3b1c6;
+  gap: 12px;
+  padding: 5px;
+  border-radius: 20px 20px 0 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+
+  @media (max-width: 600px) {
+      left: 0;  
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -42,23 +51,31 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledButton = styled.button`
-  font-family: "Press Start 2P", monospace;
-  font-size: 1.15rem;
   padding: 12px 20px;
-  width: 160px;
-  border: none;
-  border-radius: 6px;
-  background: #e0e5ec;
-  color: #333;
+  margin: 8px;
+  min-width: 125px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: inherit;
+  border: 1px solid rgba(128, 127, 127, 0.1);
+  background: transparent;
   cursor: pointer;
+  box-shadow:
+    6px 6px 12px rgba(0, 0, 0, 0.12),
+    -6px -6px 12px rgba(176, 172, 172, 0.12);
   transition: all 0.2s ease-in-out;
-  box-shadow: ${(props) =>
-    props.$active
-      ? "inset 6px 6px 12px #a3b1c6, inset -6px -6px 12px #ffffff"
-      : "6px 6px 12px #a3b1c6, -6px -6px 12px #ffffff"};
+  transform: scale(1)
 
-  &:hover {
-    color: #000;
-  }
+  ${(props) =>
+    props.$active &&
+    `
+    transform: scale(0.96);
+    background:rgba(193, 193, 193, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: black;
+    box-shadow:
+      inset 4px 4px 8px rgba(0, 0, 0, 0.1),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.6);
+  `}
 `;
-

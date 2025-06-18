@@ -4,16 +4,16 @@ import Image from "next/image";
 export default function Header() {
   return (
     <HeaderWrapper>
-      <LogoWrapper>
-        <Image
-          src="/logo2.jpg"
-          alt="Logo"
-          width={100}
-          height={100}
-          style={{ height: "auto" }}
-        />
-        <TextArea> Virtual Pet Care </TextArea>
-      </LogoWrapper>
+        <LogoWrapper>
+            <Image
+                src="/logo2.png"
+                alt="Logo"
+                width={100}
+                height={100}
+                style={{ height: 'auto' }}
+              />
+              <TextArea> Virtual Pet Care </TextArea>
+        </LogoWrapper>
     </HeaderWrapper>
   );
 }
