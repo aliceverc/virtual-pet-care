@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import PetHeader from "@/components/PetHeader";
 
-export default function PetDetails() {
+export default function PetDetails({ onDeleteName }) {
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -66,6 +66,7 @@ export default function PetDetails() {
       console.error("Delete failed");
       return;
     }
+    onDeleteName(pet.details.name);
     router.push("/");
   }
 
@@ -174,18 +175,6 @@ const DetailText = styled.p`
   line-height: 1.4;
   font-size: 0.95rem;
   color: #333;
-`;
-const StyledHeading = styled.h1`
-  text-align: center;
-  font-size: 1.75rem;
-  width: 100px;
-  margin: 0 auto 1em;
-  padding-bottom: 0.4rem;
-  border-bottom: 3px solid #5885da;
-`;
-const StyledHeadingName = styled.h2`
-  text-align: center;
-  font-size: 1.25rem;
 `;
 
 const StyledButton = styled.button`
