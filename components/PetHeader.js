@@ -25,9 +25,9 @@ const StyledHeader = styled.header`
 `;
 
 const PetName = styled.h1`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
+  position: relative;
+  margin: 0 auto;
   font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
 `;
