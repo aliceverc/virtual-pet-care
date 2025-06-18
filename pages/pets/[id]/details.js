@@ -199,14 +199,14 @@ const StyledButton = styled.button`
   font-weight: 600;
   margin-bottom: 5%;
   cursor: pointer;
-  &:hover {
+  transition: background-color 0.1s, color 0.1s, transform 0.1s;
+
+  &:active {
     background-color: ${({ $variant }) =>
-      $variant === "delete"
-        ? "#fddfdd"
-        : $variant === "modify"
-        ? "#e1ecf9"
-        : "#fff"};
-  }
+      $variant === "delete" ? "#ff3021" : "#5885da"};
+    color: white;
+    transform: scale(0.95);
+}
 `;
 
 const ButtonWrapper = styled.section`
@@ -236,9 +236,12 @@ const StyledButtonQuit = styled.button`
   font-weight: 600;
   margin-bottom: 5%;
   margin-left: 1em;
-  color: #aaa;
   cursor: pointer;
-  &:hover {
-    background-color: #f1f0f0;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+
+  &:active {
+    background-color: #aaa;
+    color: #fff;
+    transform: scale(0.95);
   }
 `;

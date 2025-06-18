@@ -83,7 +83,7 @@ const ButtonStyled = styled.button`
   width: 100px;
   justify-content: center;
   align-items: center;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
 
   &:active {
     background-color: ${(props) => props.$bg};

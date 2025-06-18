@@ -353,8 +353,12 @@ const ButtonCancel = styled.button`
   font-weight: 600;
   font-size: 16px;
   color: #aaa;
-  &:hover {
-    background-color: #f1f0f0;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+
+  &:active {
+    background-color: #aaa;
+    color: #fff;
+    transform: scale(0.95);
   }
 `;
 
@@ -376,8 +380,11 @@ const Button = styled.button`
   cursor: pointer;
   background: white;
   color: #4a90e2;
+  transition: background-color 0.1s, color 0.1s, transform 0.1s;
 
-  &:hover {
-    background-color: #e1ecf9;
+  &:active {
+    background-color: #4a90e2;
+    color: white;
+    transform: scale(0.95);
   }
 `;
