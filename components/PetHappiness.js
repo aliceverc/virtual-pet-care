@@ -6,10 +6,10 @@ export default function PetHappiness({ mood, showTitle = true }) {
   else if (mood < 30) emoji = "😢";
 
   return (
-    <div>
+    <>
       {showTitle && <h3>Mood</h3>}
       <Emoji>{emoji}</Emoji>
-    </div>
+    </>
   );
 }
 
