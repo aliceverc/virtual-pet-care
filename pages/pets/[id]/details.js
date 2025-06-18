@@ -14,12 +14,11 @@ export default function PetDetails({ onDeleteName }) {
     if (deleteBoxRef?.current) {
       deleteBoxRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  });
-  useEffect(() => {
     if (formRef?.current) {
       formRef.current.scrollIntoView({ behavior: "smooth" });
     }
   });
+
   const router = useRouter();
   const { id } = router.query;
   const {
