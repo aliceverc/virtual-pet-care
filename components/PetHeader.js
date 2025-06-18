@@ -16,18 +16,16 @@ export default function PetHeader({ name, mood }) {
 
 const StyledHeader = styled.header`
   position: relative;
-  padding: 15px 20px;
+  padding: 15px 0;
   width: 100%;
   max-width: 600px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
 `;
 
 const PetName = styled.h1`
-  position: relative;
-  margin: 0 auto;
+  margin: 0;
   font-size: 1.5rem;
-  justify-content: center;
-  align-items: center;
+
 `;
