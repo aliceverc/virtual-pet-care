@@ -4,10 +4,17 @@ import PetDisplay from "@/components/PetDisplay";
 import PetNav from "@/components/PetNav";
 import PetForm from "@/components/PetForm";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PetHeader from "@/components/PetHeader";
 
 export default function PetDetails({ onDeleteName }) {
+  const formRef = useRef(null);
+  const deleteBoxRef = useRef(null);
+  useEffect(() => {
+    if (deleteBoxRef?.current) {
+      deleteBoxRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  });
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -123,7 +130,7 @@ export default function PetDetails({ onDeleteName }) {
           </StyledButton>
         </ButtonWrapper>
         {showDeleteBox && (
-          <StyledDeleteBox>
+          <StyledDeleteBox ref={deleteBoxRef}>
             <p>Do you really want to release your Pet?</p>
             <StyledButton $variant="delete" onClick={handleConfirm}>
               Yes
@@ -141,13 +148,9 @@ export default function PetDetails({ onDeleteName }) {
             onSubmit={handleEditPet}
             onClose={() => setShowPetForm(false)}
             currentData={pet}
+            formRef={formRef}
           />
         )}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </Container>
       <PetNav />
     </>
@@ -164,7 +167,7 @@ const StyledWrapperFirstDetails = styled.section`
 `;
 
 const StyledWrapperSecondDetails = styled.section`
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -186,7 +189,6 @@ const StyledButton = styled.button`
   border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
-  margin-bottom: 5%;
   cursor: pointer;
   &:hover {
     background-color: ${({ $variant }) =>
@@ -202,7 +204,7 @@ const ButtonWrapper = styled.section`
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 `;
 
 const StyledDeleteBox = styled.div`
@@ -211,7 +213,8 @@ const StyledDeleteBox = styled.div`
   background-color: #fff;
   border: 2px solid #ff3021;
   padding: 1rem;
-  margin-top: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 10px;
   text-align: center;
 `;
 
@@ -223,7 +226,6 @@ const StyledButtonQuit = styled.button`
   border-radius: 6px;
   padding: 10px 20px;
   font-weight: 600;
-  margin-bottom: 5%;
   margin-left: 1em;
   color: #aaa;
   cursor: pointer;

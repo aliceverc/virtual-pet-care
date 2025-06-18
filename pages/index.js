@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PetForm from "@/components/PetForm";
 import useSWR from "swr";
 import { uid } from "uid";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PetList from "@/components/PetList";
 import Header from "@/components/Header";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
@@ -10,6 +10,7 @@ import DeleteConfirmation from "@/components/DeleteConfirmation";
 export default function HomePage({ deleteName, onDeleteName }) {
   const [isFormActive, setIsFormActive] = useState(false);
   const { mutate } = useSWR("/api/pets");
+  const formRef = useRef(null);
 
   async function handleAddPet(event) {
     event.preventDefault();
@@ -85,7 +86,11 @@ export default function HomePage({ deleteName, onDeleteName }) {
       )}
 
       {isFormActive && (
-        <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
+        <PetForm
+          onSubmit={handleAddPet}
+          onClose={handleCloseForm}
+          formRef={formRef}
+        />
       )}
 
       <PetList />
