@@ -2,13 +2,14 @@ import styled from "styled-components";
 import PetForm from "@/components/PetForm";
 import useSWR from "swr";
 import { uid } from "uid";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PetList from "@/components/PetList";
 import Header from "@/components/Header";
 
 export default function HomePage() {
   const [isFormActive, setIsFormActive] = useState(false);
   const { mutate } = useSWR("/api/pets");
+  const formRef = useRef(null);
 
   async function handleAddPet(event) {
     event.preventDefault();
@@ -77,12 +78,16 @@ export default function HomePage() {
         </Button>
       ) : (
         <Button $variant="blue" onClick={() => setIsFormActive(true)}>
-          <a href="#petForm"> New Pet</a>
+          New Pet
         </Button>
       )}
 
       {isFormActive && (
-        <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
+        <PetForm
+          onSubmit={handleAddPet}
+          onClose={handleCloseForm}
+          formRef={formRef}
+        />
       )}
 
       <PetList />

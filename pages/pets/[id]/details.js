@@ -4,10 +4,18 @@ import PetDisplay from "@/components/PetDisplay";
 import PetNav from "@/components/PetNav";
 import PetForm from "@/components/PetForm";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PetHeader from "@/components/PetHeader";
 
 export default function PetDetails() {
+  const formRef = useRef(null);
+  const deleteBoxRef = useRef(null);
+  useEffect(() => {
+    if (deleteBoxRef?.current) {
+      deleteBoxRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -108,7 +116,7 @@ export default function PetDetails() {
                 : (setShowPetForm(true), setShowDeleteBox(false))
             }
           >
-            <a href="#petForm">{showPetForm ? "Cancel" : "Edit Pet"}</a>
+            {showPetForm ? "Cancel" : "Edit Pet"}
           </StyledButton>
           <StyledButton
             $variant="delete"
@@ -118,11 +126,11 @@ export default function PetDetails() {
                 : (setShowDeleteBox(true), setShowPetForm(false))
             }
           >
-            <a href="#deleteBox">{showDeleteBox ? "Cancel" : "Release Pet"}</a>
+            {showDeleteBox ? "Cancel" : "Release Pet"}
           </StyledButton>
         </ButtonWrapper>
         {showDeleteBox && (
-          <StyledDeleteBox id="deleteBox">
+          <StyledDeleteBox ref={deleteBoxRef}>
             <p>Do you really want to release your Pet?</p>
             <StyledButton $variant="delete" onClick={handleConfirm}>
               Yes
@@ -140,6 +148,7 @@ export default function PetDetails() {
             onSubmit={handleEditPet}
             onClose={() => setShowPetForm(false)}
             currentData={pet}
+            formRef={formRef}
           />
         )}
       </Container>

@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
-export default function PetForm({ onSubmit, onClose, currentData }) {
+export default function PetForm({ onSubmit, onClose, currentData, formRef }) {
+  useEffect(() => {
+    if (formRef?.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
   const [previewData, setPreviewData] = useState(
     currentData
       ? currentData.appearance
@@ -42,7 +48,11 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
   }
 
   return (
-    <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview} id="petForm">
+    <StyledForm
+      onSubmit={onSubmit}
+      onChange={handleUpdatePreview}
+      ref={formRef}
+    >
       <StyledHeader1>
         {currentData ? "Update your Pet:" : "Create your Pet:"}
       </StyledHeader1>
