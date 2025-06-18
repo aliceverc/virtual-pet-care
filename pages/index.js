@@ -5,8 +5,9 @@ import { uid } from "uid";
 import { useState } from "react";
 import PetList from "@/components/PetList";
 import Header from "@/components/Header";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
-export default function HomePage() {
+export default function HomePage({ deleteName, onDeleteName }) {
   const [isFormActive, setIsFormActive] = useState(false);
   const { mutate } = useSWR("/api/pets");
 
@@ -58,7 +59,9 @@ export default function HomePage() {
   return (
     <Container>
       <Header />
-
+      {deleteName && (
+        <DeleteConfirmation petName={deleteName} onDeleteName={onDeleteName} />
+      )}
       <GreetingSection>
         <TextContent>
           <Greeting>Welcome!</Greeting>
