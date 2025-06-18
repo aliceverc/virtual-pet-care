@@ -28,4 +28,10 @@ export default createGlobalStyle`
     opacity: 0.3;
     z-index: -1;
   }
+
+  body {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
 `;
