@@ -43,6 +43,7 @@ const PetContainer = styled.figure`
   justify-content: center;
   align-items: flex-end;
   margin: 0;
+  background-color: white;
 `;
 
 const idle = keyframes`  

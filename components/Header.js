@@ -4,16 +4,18 @@ import Image from "next/image";
 export default function Header() {
   return (
     <HeaderWrapper>
-        <LogoWrapper>
-            <Image
-                src="/logo2.png"
-                alt="Logo"
-                width={100}
-                height={100}
-                style={{ height: 'auto' }}
-              />
-              <TextArea> Virtual Pet Care </TextArea>
-        </LogoWrapper>
+      <LogoWrapper>
+        <Image
+          src="/logo2.png"
+          alt="Logo"
+          width={100}
+          height={100}
+          style={{ height: "auto" }}
+        />
+        <TextArea>
+          Virtual <span>Pet Care</span>
+        </TextArea>
+      </LogoWrapper>
     </HeaderWrapper>
   );
 }
@@ -22,7 +24,6 @@ const HeaderWrapper = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f9fa;
 `;
 
 const LogoWrapper = styled.div`
@@ -45,4 +46,13 @@ const TextArea = styled.h1`
   font-family: "Press Start 2P", monospace;
   font-size: 26px;
   font-weight: bold;
+  span {
+    display: inline;
+  }
+
+  @media (max-width: 400px) {
+    span {
+      display: block;
+    }
+  }
 `;

@@ -33,12 +33,12 @@ export default function InteractionPage() {
     <>
       <StyledMain>
         <PetHeader name={pet.name} mood={pet.mood} />
-
         <PetDisplay
           appearance={pet.appearance}
           dimensions={250}
           hasBorder="true"
         />
+        <StyledNeedsContainer>
         <NeedsBarsContainer>
           <NeedsBar need="hunger" value={pet.hunger} />
           <NeedsBar need="energy" value={pet.energy} />
@@ -61,6 +61,7 @@ export default function InteractionPage() {
             onInteracted={mutate}
           />
         </StyledButtonContainer>
+        </StyledNeedsContainer>
       </StyledMain>
       <PetNav />
     </>
@@ -79,8 +80,21 @@ const StyledButtonContainer = styled.section`
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  gap: 8px;
 `;
 
-const NeedsBarsContainer = styled(StyledButtonContainer)`
+const StyledNeedsContainer = styled.div `
+  padding: 20px 15px;
   margin-top: 50px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(1px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+`
+
+const NeedsBarsContainer = styled(StyledButtonContainer)`
+  margin-top: 0px;
 `;
+
