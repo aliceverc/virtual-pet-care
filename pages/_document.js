@@ -27,6 +27,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head />
+        <title>Virtual Pet Care</title>
+        <link rel="icon" type="image/png" href="/vpc_icon.png" />
         <link
           href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
           rel="stylesheet"
