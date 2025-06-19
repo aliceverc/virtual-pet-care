@@ -27,5 +27,4 @@ const StyledHeader = styled.header`
 const PetName = styled.h1`
   margin: 0;
   font-size: 1.5rem;
-  line-break: strict;
 `;

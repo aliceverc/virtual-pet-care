@@ -5,6 +5,7 @@ import { uid } from "uid";
 import { useState, useRef } from "react";
 import PetList from "@/components/PetList";
 import Header from "@/components/Header";
+import LottiePet from "@/components/LottiePet";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 export default function HomePage({ deleteName, onDeleteName }) {
@@ -60,19 +61,23 @@ export default function HomePage({ deleteName, onDeleteName }) {
   return (
     <Container>
       <Header />
+      <Greeting>
+        Welcome!
+      </Greeting>
       {deleteName && (
         <DeleteConfirmation petName={deleteName} onDeleteName={onDeleteName} />
       )}
       <GreetingSection>
-        <TextContent>
-          <Greeting>Welcome!</Greeting>
-          <p>
-            Nice to have you here. <br />
-            Go ahead and create new Pets, care for them to make them happy and
-            have fun while building your own Virtual Pet Care!
-          </p>
-        </TextContent>
-        <ImagePlaceholder>Bild</ImagePlaceholder>
+          <Text>
+            <p>
+              Nice to have you here. <br />
+              Go ahead and create new Pets, care for them to make them happy and
+              have fun while building your own Virtual Pet Care!
+            </p>
+          </Text>
+          <Animation>
+            <LottiePet />
+          </Animation>
       </GreetingSection>
 
       {isFormActive ? (
@@ -104,34 +109,31 @@ const Container = styled.section`
 
 const GreetingSection = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 16px;
   margin-bottom: 30px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const TextContent = styled.div`
+
+const Text = styled.div`
   flex: 1;
-  min-width: 250px;
+  max-width: 250px;
   font-family: Nunito, sans-serif;
   line-height: 1.4em;
 `;
 
+const Animation = styled.div`
+  flex-shrink: 0;
+  max-width: 125px;
+  height: auto;
+`;
+
+
 const Greeting = styled.h2`
   color: #4a90e2;
   font-size: 24px;
-`;
-
-const ImagePlaceholder = styled.div`
-  width: 128px;
-  height: 96px;
-  background-color: #ccc;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666;
+  font-family: Nunito, sans-serif;
 `;
 
 const Button = styled.button`
