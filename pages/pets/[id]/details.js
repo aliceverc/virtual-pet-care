@@ -209,7 +209,7 @@ const StyledButton = styled.button`
       $variant === "delete" ? "#ff3021" : "#5885da"};
     color: white;
     transform: scale(0.95);
-}
+  }
 `;
 
 const ButtonWrapper = styled.section`
@@ -223,7 +223,8 @@ const StyledDeleteBox = styled.div`
   font-family: Nunito, sans-serif;
   z-index: 1;
   background-color: #fff;
-  border: 2px solid #ff3021;
+  border: 3px solid #ff3021;
+  border-radius: 10px;
   padding: 1rem;
   margin-top: 1.5rem;
   margin-bottom: 10px;

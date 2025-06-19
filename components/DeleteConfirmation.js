@@ -29,7 +29,7 @@ const ConfirmationContainer = styled.section`
 `;
 
 const Confirmation = styled.section`
-  border: 3px solid #e91e63;
+  border: 3px solid #ff3021;
   background-color: white;
   padding: 30px;
   border-radius: 10px;
