@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import LottiePet from "@/components/LottiePet";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 
+
 export default function HomePage({ deleteName, onDeleteName }) {
   const [isFormActive, setIsFormActive] = useState(false);
   const { mutate } = useSWR("/api/pets");
@@ -160,10 +161,13 @@ const Button = styled.button`
   color: ${(props) => (props.$variant === "blue" ? "#4a90e2" : "#e91e63")};
   border-color: ${(props) =>
     props.$variant === "blue" ? "#4a90e2" : "#e91e63"};
+  transition: background-color 0.1s, color 0.1s, transform 0.1s;
 
-  &:hover {
+  &:active {
     background-color: ${(props) =>
-      props.$variant === "blue" ? "#e1ecf9" : "#fce4ec"};
+      props.$variant === "blue" ? "#4a90e2" : "#e91e63"};
+    color: white;
+    transform: scale(0.95);
   }
 `;
 
