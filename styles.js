@@ -6,11 +6,12 @@ export default createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
+  
 
   html, body {
     margin: 0;
     padding: 0;
-    font-family: system-ui;
+    font-family: Helvetica;
     min-height: 100vh;
   }
 

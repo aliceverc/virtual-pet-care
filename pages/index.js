@@ -8,7 +8,6 @@ import Header from "@/components/Header";
 import LottiePet from "@/components/LottiePet";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 
-
 export default function HomePage({ deleteName, onDeleteName }) {
   const [isFormActive, setIsFormActive] = useState(false);
   const { mutate } = useSWR("/api/pets");
@@ -67,23 +66,21 @@ export default function HomePage({ deleteName, onDeleteName }) {
   return (
     <Container>
       <Header />
-      <Greeting>
-        Welcome!
-      </Greeting>
+      <Greeting>Welcome!</Greeting>
       {deleteName && (
         <DeleteConfirmation petName={deleteName} onDeleteName={onDeleteName} />
       )}
       <GreetingSection>
-          <Text>
-            <p>
-              Nice to have you here. <br />
-              Go ahead and create new Pets, care for them to make them happy and
-              have fun while building your own Virtual Pet Care!
-            </p>
-          </Text>
-          <Animation>
-            <LottiePet />
-          </Animation>
+        <Text>
+          <p>
+            Nice to have you here. <br />
+            Go ahead and create new Pets, care for them to make them happy and
+            have fun while building your own Virtual Pet Care!
+          </p>
+        </Text>
+        <Animation>
+          <LottiePet />
+        </Animation>
       </GreetingSection>
 
       {isFormActive ? (
@@ -121,7 +118,6 @@ const GreetingSection = styled.div`
   justify-content: space-between;
 `;
 
-
 const Text = styled.div`
   flex: 1;
   max-width: 250px;
@@ -142,7 +138,6 @@ const Animation = styled.div`
   height: auto;
 `;
 
-
 const Greeting = styled.h2`
   color: #4a90e2;
   font-size: 24px;
@@ -151,7 +146,7 @@ const Greeting = styled.h2`
 
 const Button = styled.button`
   padding: 10px 20px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   font-size: 1em;
   font-weight: 600;
   border: 2px solid;
@@ -169,38 +164,4 @@ const Button = styled.button`
     color: white;
     transform: scale(0.95);
   }
-`;
-
-const CardGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 24px;
-`;
-
-const Card = styled.div`
-  background: white;
-  border: 2px solid #4a90e2;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-`;
-
-const Avatar = styled.div`
-  width: 80px;
-  height: 80px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin: 0 auto 12px;
-`;
-
-const PetName = styled.div`
-  font-weight: bold;
-  margin-bottom: 12px;
-`;
-
-const NeedBar = styled.div`
-  height: 8px;
-  border-radius: 4px;
-  margin: 3px 0;
-  background-color: ${(props) => props.color};
 `;

@@ -176,7 +176,7 @@ export default function PetForm({ onSubmit, onClose, currentData, formRef }) {
         <option value="dotted">Dotted</option>
         <option value="double">Double</option>
       </StyledSelect>
-      <StyledHeader2>Details</StyledHeader2>
+      <StyledHeader3>Details</StyledHeader3>
       <label htmlFor="character">Character:</label>
       <StyledSelect
         id="character"
@@ -223,16 +223,25 @@ const StyledForm = styled.form`
   }
   align-items: center;
   gap: 20px 0;
+  label {
+    font-weight: bold;
+  }
 `;
 
 const StyledHeader1 = styled.h2`
   grid-column: 1/3;
   margin: 0;
+  font-size: 1.9em;
 `;
 
 const StyledHeader2 = styled.h3`
   grid-column: 1/3;
   margin: 0;
+  font-size: 1.6em;
+`;
+
+const StyledHeader3 = styled(StyledHeader2)`
+  margin-top: 30px;
 `;
 
 const StyledName = styled.input`
@@ -253,12 +262,6 @@ const PreviewContainer = styled.div`
   justify-content: center;
 `;
 
-const StyledInput = styled.input`
-  background-color: white;
-  padding: 8px 5px;
-  border-radius: 6px;
-`;
-
 const HiddenRadio = styled.input.attrs({ type: "radio" })`
   position: absolute;
   left: -9999px;
@@ -271,7 +274,7 @@ const StyledRadioLabel = styled.label`
   line-height: 16px;
   display: inline-block;
   color: #333;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 15px;
 
   &::before {
@@ -320,10 +323,6 @@ const RadioGroup = styled.div`
   color: #5885da;
   border-radius: 6px;
   cursor: pointer;
-  background: white;
-  &:hover {
-    background-color: #e1ecf9;
-  }
 `;
 
 const SingleLine = styled.section`
@@ -340,7 +339,7 @@ const StyledSelect = styled.select`
 `;
 
 const BorderColorInput = styled.input`
-  place-self: flex-start;
+  place-self: flex-end;
   background-color: white;
   border-radius: 5px;
 `;
