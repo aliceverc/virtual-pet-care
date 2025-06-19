@@ -45,9 +45,21 @@ export default function InteractionPage() {
           <NeedsBar need="fun" value={pet.entertainment} />
         </NeedsBarsContainer>
         <StyledButtonContainer>
-          <PetInteractionButton petId={id} interaction="feed" onInteracted={mutate} />
-          <PetInteractionButton petId={id} interaction="play" onInteracted={mutate} />
-          <PetInteractionButton petId={id} interaction="sleep" onInteracted={mutate} />
+          <PetInteractionButton
+            petId={id}
+            interaction="feed"
+            onInteracted={mutate}
+          />
+          <PetInteractionButton
+            petId={id}
+            interaction="play"
+            onInteracted={mutate}
+          />
+          <PetInteractionButton
+            petId={id}
+            interaction="sleep"
+            onInteracted={mutate}
+          />
         </StyledButtonContainer>
         </StyledNeedsContainer>
       </StyledMain>
@@ -59,10 +71,11 @@ export default function InteractionPage() {
 const StyledMain = styled.main`
   display: grid;
   place-items: center;
+  margin-bottom: 80px;
 `;
 
 const StyledButtonContainer = styled.section`
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
   margin-top: 10px;
   display: flex;
   justify-content: space-evenly;
@@ -84,3 +97,4 @@ const StyledNeedsContainer = styled.div `
 const NeedsBarsContainer = styled(StyledButtonContainer)`
   margin-top: 0px;
 `;
+

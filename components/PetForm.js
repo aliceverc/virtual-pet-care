@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
-export default function PetForm({ onSubmit, onClose, currentData }) {
+export default function PetForm({ onSubmit, onClose, currentData, formRef }) {
   const [previewData, setPreviewData] = useState(
     currentData
       ? currentData.appearance
@@ -42,7 +42,11 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
   }
 
   return (
-    <StyledForm onSubmit={onSubmit} onChange={handleUpdatePreview}>
+    <StyledForm
+      onSubmit={onSubmit}
+      onChange={handleUpdatePreview}
+      ref={formRef}
+    >
       <StyledHeader1>
         {currentData ? "Update your Pet:" : "Create your Pet:"}
       </StyledHeader1>
@@ -51,7 +55,7 @@ export default function PetForm({ onSubmit, onClose, currentData }) {
         id="name"
         name="name"
         defaultValue={currentData?.details.name || ""}
-        maxLength="20"
+        maxLength="15"
         required
       />
       <PreviewContainer>

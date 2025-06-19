@@ -2,13 +2,21 @@ import styled from "styled-components";
 import PetForm from "@/components/PetForm";
 import useSWR from "swr";
 import { uid } from "uid";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import PetList from "@/components/PetList";
 import Header from "@/components/Header";
+import LottiePet from "@/components/LottiePet";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
-export default function HomePage() {
+export default function HomePage({ deleteName, onDeleteName }) {
   const [isFormActive, setIsFormActive] = useState(false);
   const { mutate } = useSWR("/api/pets");
+  const formRef = useRef(null);
+  useEffect(() => {
+    if (formRef?.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  });
 
   async function handleAddPet(event) {
     event.preventDefault();
@@ -58,17 +66,23 @@ export default function HomePage() {
   return (
     <Container>
       <Header />
-
+      <Greeting>
+        Welcome!
+      </Greeting>
+      {deleteName && (
+        <DeleteConfirmation petName={deleteName} onDeleteName={onDeleteName} />
+      )}
       <GreetingSection>
-        <TextContent>
-          <Greeting>Welcome!</Greeting>
-          <p>
-            Nice to have you here. <br />
-            Go ahead and create new Pets, care for them to make them happy and
-            have fun while building your own Virtual Pet Care!
-          </p>
-        </TextContent>
-        <ImagePlaceholder>Bild</ImagePlaceholder>
+          <Text>
+            <p>
+              Nice to have you here. <br />
+              Go ahead and create new Pets, care for them to make them happy and
+              have fun while building your own Virtual Pet Care!
+            </p>
+          </Text>
+          <Animation>
+            <LottiePet />
+          </Animation>
       </GreetingSection>
 
       {isFormActive ? (
@@ -82,7 +96,11 @@ export default function HomePage() {
       )}
 
       {isFormActive && (
-        <PetForm onSubmit={handleAddPet} onClose={handleCloseForm} />
+        <PetForm
+          onSubmit={handleAddPet}
+          onClose={handleCloseForm}
+          formRef={formRef}
+        />
       )}
 
       <PetList />
@@ -96,16 +114,16 @@ const Container = styled.section`
 
 const GreetingSection = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 16px;
   margin-bottom: 30px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const TextContent = styled.div`
+
+const Text = styled.div`
   flex: 1;
-  min-width: 250px;
+  max-width: 250px;
   font-family: Nunito, sans-serif;
   line-height: 1.4em;
   padding: 20px;
@@ -117,20 +135,17 @@ const TextContent = styled.div`
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 `;
 
+const Animation = styled.div`
+  flex-shrink: 0;
+  max-width: 125px;
+  height: auto;
+`;
+
+
 const Greeting = styled.h2`
   color: #4a90e2;
   font-size: 24px;
-`;
-
-const ImagePlaceholder = styled.div`
-  width: 128px;
-  height: 96px;
-  background-color: #ccc;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666;
+  font-family: Nunito, sans-serif;
 `;
 
 const Button = styled.button`
