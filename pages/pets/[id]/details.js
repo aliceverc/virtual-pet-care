@@ -14,7 +14,11 @@ export default function PetDetails({ onDeleteName }) {
     if (deleteBoxRef?.current) {
       deleteBoxRef.current.scrollIntoView({ behavior: "smooth" });
     }
+    if (formRef?.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   });
+
   const router = useRouter();
   const { id } = router.query;
   const {
@@ -159,6 +163,7 @@ export default function PetDetails({ onDeleteName }) {
 
 const Container = styled.section`
   padding: 0 24px 0;
+  margin-bottom: 80px;
 `;
 
 const StyledWrapperFirstDetails = styled.section`
@@ -171,6 +176,13 @@ const StyledWrapperSecondDetails = styled.section`
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
+  margin-top: 50px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(1px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 `;
 
 const DetailText = styled.p`
