@@ -11,7 +11,7 @@ export default createGlobalStyle`
   html, body {
     margin: 0;
     padding: 0;
-    font-family: Roboto;
+    font-family: 'Nunito', Roboto, Helvetica, sans-serif;
     min-height: 100vh;
   }
 
