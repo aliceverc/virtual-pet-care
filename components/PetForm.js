@@ -4,12 +4,6 @@ import styled from "styled-components";
 import PetDisplay from "./PetDisplay";
 
 export default function PetForm({ onSubmit, onClose, currentData, formRef }) {
-  useEffect(() => {
-    if (formRef?.current) {
-      formRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-
   const [previewData, setPreviewData] = useState(
     currentData
       ? currentData.appearance
