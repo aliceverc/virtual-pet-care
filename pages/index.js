@@ -66,12 +66,12 @@ export default function HomePage({ deleteName, onDeleteName }) {
   return (
     <Container>
       <Header />
-      <Greeting>Welcome!</Greeting>
       {deleteName && (
         <DeleteConfirmation petName={deleteName} onDeleteName={onDeleteName} />
       )}
       <GreetingSection>
         <Text>
+          <Greeting>Welcome!</Greeting>
           <p>
             Nice to have you here. <br />
             Go ahead and create new Pets, care for them to make them happy and
@@ -116,13 +116,6 @@ const GreetingSection = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-`;
-
-const Text = styled.div`
-  flex: 1;
-  max-width: 250px;
-  font-family: Nunito, sans-serif;
-  line-height: 1.4em;
   padding: 20px;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.1);
@@ -130,6 +123,12 @@ const Text = styled.div`
   -webkit-backdrop-filter: blur(1px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+`;
+
+const Text = styled.div`
+  flex: 1;
+  font-family: Nunito, sans-serif;
+  line-height: 1.4em;
 `;
 
 const Animation = styled.div`
