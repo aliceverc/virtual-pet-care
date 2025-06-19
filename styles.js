@@ -11,7 +11,7 @@ export default createGlobalStyle`
   html, body {
     margin: 0;
     padding: 0;
-    font-family: Helvetica;
+    font-family: Roboto;
     min-height: 100vh;
   }
 

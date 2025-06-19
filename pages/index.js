@@ -127,7 +127,6 @@ const GreetingSection = styled.div`
 
 const Text = styled.div`
   flex: 1;
-  font-family: Nunito, sans-serif;
   line-height: 1.4em;
 `;
 
@@ -140,7 +139,6 @@ const Animation = styled.div`
 const Greeting = styled.h2`
   color: #4a90e2;
   font-size: 24px;
-  font-family: Nunito, sans-serif;
 `;
 
 const Button = styled.button`

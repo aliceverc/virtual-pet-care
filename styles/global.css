@@ -10,6 +10,16 @@ body {
   padding-bottom: 86px;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: Roboto, Helvetica, sans-serif;
+}
+
 button {
   font-family: "Press Start 2P", monospace;
   font-weight: 800;
