@@ -1,19 +1,40 @@
-# New Next Project
+# Virtual Pet Care App 🐾
 
-### Local Development
+A mobile-first React / Next.js app where you can adopt, nurture and manage a collection of virtual pets.
 
-To work locally, please install the dependencies using `npm i` first.
 
-Run `npm run dev` to start a development server and open the displayed URL in a browser.
+---
 
-Use `npm run test` to run the tests.
+## Features
 
-### Scripts
+| Feature | Status |
+| :--- | :--- |
+| Pet List (card view, happiness emoji, responsive) | ✅ |
+| Add / Edit pet form (name ≤ 15 char, character tags, live preview) | ✅ |
+| Character-based default needs | ✅ |
+| Needs bars + decay over time | ✅ |
+| Interaction buttons (Feed, Sleep, Play) | ✅ |
+| Release Pet with confirmation dialog | ✅ |
+| Auto-delete when all needs = 0 | ✅ |
+| Global 375 px container + Home logo link | ✅ |
 
-You can use the following commands:
+---
 
-- `npm run dev` to start a development server
-- `npm run build` to build the project
-- `npm run start` to start a production server
-- `npm run test` to run the tests
-- `npm run lint` to run the linter
+## Tech Stack
+
+* **Next.js 14** (React 18) – SPA + API routes  
+* **MongoDB Atlas** via **Mongoose** – pets stored in `pets` collection  
+* **SWR** – data fetching & cache  
+* **styled-components** – scoped CSS  
+* Optional dev tooling: ESLint + Prettier
+
+---
+
+## Local Setup
+
+```bash
+git clone https://github.com/your-username/pocket-pets.git
+cd pocket-pets
+cp .env.example .env.local         # add your MONGODB_URI here
+npm install
+npm run dev
