@@ -15,7 +15,6 @@ A mobile-first React / Next.js app where you can adopt, nurture and manage a col
 | Needs bars + decay over time | ✅ |
 | Interaction buttons (Feed, Sleep, Play) | ✅ |
 | Release Pet with confirmation dialog | ✅ |
-| Auto-delete when all needs = 0 | ✅ |
 | Global 375 px container + Home logo link | ✅ |
 
 ---
