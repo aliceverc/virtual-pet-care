@@ -2,6 +2,7 @@
 
 A mobile-first React / Next.js app where you can adopt, nurture and manage a collection of virtual pets.
 
+<img width="1378" height="742" alt="Bildschirmfoto 2025-07-16 um 08 28 45" src="https://github.com/user-attachments/assets/d6b603b4-4b7f-4862-8a18-098ffe779512" />
 
 ---
 
