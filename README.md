@@ -26,14 +26,3 @@ A mobile-first React / Next.js app where you can adopt, nurture and manage a col
 * **SWR** – data fetching & cache  
 * **styled-components** – scoped CSS  
 * Optional dev tooling: ESLint + Prettier
-
----
-
-## Local Setup
-
-```bash
-git clone https://github.com/your-username/pocket-pets.git
-cd pocket-pets
-cp .env.example .env.local         # add your MONGODB_URI here
-npm install
-npm run dev
